@@ -1,0 +1,6 @@
+@NotionBack_HostAddress = http://localhost:5157
+
+GET {{NotionBack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
