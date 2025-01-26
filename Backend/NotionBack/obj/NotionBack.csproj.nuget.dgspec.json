@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
+    "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
   },
   "projects": {
-    "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
+    "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "projectUniqueName": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
         "projectName": "NotionBack",
-        "projectPath": "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "projectPath": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
         "packagesPath": "C:\\Users\\38063\\.nuget\\packages\\",
-        "outputPath": "d:\\NotionPV221\\Backend\\NotionBack\\obj\\",
+        "outputPath": "D:\\NotionPV221\\Backend\\NotionBack\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\38063\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -32,12 +32,29 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
@@ -62,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.112/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.405/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
