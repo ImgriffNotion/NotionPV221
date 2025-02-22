@@ -24,7 +24,6 @@ jobs:
           node-version: '20.x'
 
       - name: npm install, build, and test
-        working-directory: frontend
         run: |
           npm install
           npm run build --if-present
@@ -62,4 +61,4 @@ jobs:
           app-name: 'Frontend-notion'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AE04542189CE41C28175CC559E586923 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D7E925E8D7B84FCAA877BA9836E694AF }}
