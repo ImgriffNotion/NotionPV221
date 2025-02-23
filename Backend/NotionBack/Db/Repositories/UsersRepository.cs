@@ -4,11 +4,9 @@ using NotionBack.Db.Models;
 
 namespace NotionBack.Db.Repositories
 {
-    class UsersRepository : IModelRepository<User>
+    class UsersRepository(NotionDbContext context) : IUserRepository
     {
-        private readonly NotionDbContext _context;
-
-        public UsersRepository(NotionDbContext context) => _context = context;
+        private readonly NotionDbContext _context = context;
 
         public async Task Create(User item) => await _context.Users.AddAsync(item);
 
