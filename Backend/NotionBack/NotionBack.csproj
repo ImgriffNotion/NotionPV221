@@ -13,4 +13,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NotionBack.DAL.Contracts\NotionBack.DAL.Contracts.csproj" />
+    <ProjectReference Include="..\NotionBack.DAL\NotionBack.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

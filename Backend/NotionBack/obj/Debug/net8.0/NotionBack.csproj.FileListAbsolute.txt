@@ -166,6 +166,8 @@ D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\runtimes\win\lib\net6.0\Syste
 D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\NotionPV221\Backend\NotionBack\obj\Debug\net8.0\NotionBack.csproj.Up2Date
 D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\NotionBack.DAL.dll
 D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\NotionBack.DAL.pdb
-D:\NotionPV221\Backend\NotionBack\obj\Debug\net8.0\NotionBack.csproj.Up2Date
+D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\NotionBack.DAL.Contracts.dll
+D:\NotionPV221\Backend\NotionBack\bin\Debug\net8.0\NotionBack.DAL.Contracts.pdb

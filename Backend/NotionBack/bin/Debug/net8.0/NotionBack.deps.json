@@ -12,6 +12,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.1",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.1",
           "NotionBack.DAL": "1.0.0",
+          "NotionBack.DAL.Contracts": "1.0.0",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
         "runtime": {
@@ -1088,8 +1089,17 @@
         }
       },
       "NotionBack.DAL/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "9.0.1",
+          "NotionBack.DAL.Contracts": "1.0.0"
+        },
         "runtime": {
           "NotionBack.DAL.dll": {}
+        }
+      },
+      "NotionBack.DAL.Contracts/1.0.0": {
+        "runtime": {
+          "NotionBack.DAL.Contracts.dll": {}
         }
       }
     }
@@ -1696,6 +1706,11 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "NotionBack.DAL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotionBack.DAL.Contracts/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

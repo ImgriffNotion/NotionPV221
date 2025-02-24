@@ -5,6 +5,10 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotionBack", "NotionBack.csproj", "{4723CD42-7D40-4B0F-B705-F0780F16028A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotionBack.DAL", "..\NotionBack.DAL\NotionBack.DAL.csproj", "{6159AE13-AC69-4879-B4FB-D96C49D712AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotionBack.DAL.Contracts", "..\NotionBack.DAL.Contracts\NotionBack.DAL.Contracts.csproj", "{C6C7CEB3-FD60-4AC8-B1C2-DBABBB162C4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{4723CD42-7D40-4B0F-B705-F0780F16028A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4723CD42-7D40-4B0F-B705-F0780F16028A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4723CD42-7D40-4B0F-B705-F0780F16028A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6159AE13-AC69-4879-B4FB-D96C49D712AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6159AE13-AC69-4879-B4FB-D96C49D712AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6159AE13-AC69-4879-B4FB-D96C49D712AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6159AE13-AC69-4879-B4FB-D96C49D712AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6C7CEB3-FD60-4AC8-B1C2-DBABBB162C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6C7CEB3-FD60-4AC8-B1C2-DBABBB162C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6C7CEB3-FD60-4AC8-B1C2-DBABBB162C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6C7CEB3-FD60-4AC8-B1C2-DBABBB162C4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
