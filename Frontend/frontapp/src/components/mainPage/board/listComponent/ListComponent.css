@@ -1,0 +1,119 @@
+.listComponentBox {
+    height: fit-content;
+    align-items: center;
+    background: #1E1E1E;
+    border-radius: 6px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    margin: 10px;
+    margin-top: 20px;
+    min-width: 13vw;
+    padding: 15px 10px;
+}
+
+.nameListComponent {
+    align-items: center;
+    background: transparent;
+    border: 1px solid #434BF3;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #D9D9D9;
+    display: flex;
+    flex: none;
+    flex-direction: row;
+    flex-grow: 0;
+    font-family: 'Jost';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    gap: 7px;
+    height: 33px;
+    line-height: 20px;
+    order: 0;
+    outline: none;
+    padding: 0px 13px;
+    user-select: none;
+    width: 95%;
+}
+
+.nameListComponent::placeholder {
+    color: #505050;
+}
+
+.nameListComponentCreated {
+    align-items: center;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #D9D9D9;
+    display: flex;
+    flex: none;
+    flex-direction: row;
+    flex-grow: 0;
+    font-family: 'Jost';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    gap: 7px;
+    height: 33px;
+    line-height: 20px;
+    order: 0;
+    outline: none;
+    padding: 0px 13px;
+    user-select: none;
+    width: 95%;
+}
+
+.listComponentBox>button {
+    align-items: center;
+    background: transparent;
+    border: 1px solid #BCBCBC;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #D9D9D9;
+    display: flex;
+    flex: none;
+    flex-direction: row;
+    flex-grow: 0;
+    gap: 7px;
+    height: 33px;
+    order: 1;
+    padding: 0px 13px 0px 15px;
+    width: 95%;
+}
+
+.listComponentBox>button>img {
+    height: 18px;
+    width: 18px;
+}
+
+.cardBox {
+    align-items: center;
+    background: none;
+    background: #2E2E2E;
+    border: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #BCBCBC;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Jost';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    gap: 15px;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 10px 7px 10px 10px;
+    resize: none;
+    width: 100%;
+}
+
+.cardBox:focus {
+    border: 2px solid #434BF3;
+    outline: none;
+}
