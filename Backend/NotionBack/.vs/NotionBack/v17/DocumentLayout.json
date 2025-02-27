@@ -1,7 +1,23 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\NotionPV221\\Backend\\NotionBack\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\middleware\\authmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:middleware\\authmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6159AE13-AC69-4879-B4FB-D96C49D712AB}|..\\NotionBack.DAL\\NotionBack.DAL.csproj|d:\\notionpv221\\backend\\notionback.dal\\notionbackdalserviceextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,6 +46,62 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthMiddleware.cs",
+              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Middleware\\AuthMiddleware.cs",
+              "RelativeDocumentMoniker": "Middleware\\AuthMiddleware.cs",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Middleware\\AuthMiddleware.cs",
+              "RelativeToolTip": "Middleware\\AuthMiddleware.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T13:18:44.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\AuthController.cs*",
+              "RelativeToolTip": "Controllers\\AuthController.cs*",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T12:42:54.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NotionBackDALServiceExtentions.cs",
+              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBackDALServiceExtentions.cs",
+              "RelativeDocumentMoniker": "..\\NotionBack.DAL\\NotionBackDALServiceExtentions.cs",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBackDALServiceExtentions.cs",
+              "RelativeToolTip": "..\\NotionBack.DAL\\NotionBackDALServiceExtentions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T20:51:51.828Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T20:52:16.519Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -1,0 +1,16 @@
+D:\NotionPV221\Backend\NotionBack.DAL\bin\Debug\net8.0\NotionBack.DAL.deps.json
+D:\NotionPV221\Backend\NotionBack.DAL\bin\Debug\net8.0\NotionBack.DAL.dll
+D:\NotionPV221\Backend\NotionBack.DAL\bin\Debug\net8.0\NotionBack.DAL.pdb
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.AssemblyInfoInputs.cache
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.AssemblyInfo.cs
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.csproj.CoreCompileInputs.cache
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.sourcelink.json
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.dll
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\refint\NotionBack.DAL.dll
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.pdb
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\ref\NotionBack.DAL.dll
+D:\NotionPV221\Backend\NotionBack.DAL\bin\Debug\net8.0\NotionBack.DAL.Contracts.dll
+D:\NotionPV221\Backend\NotionBack.DAL\bin\Debug\net8.0\NotionBack.DAL.Contracts.pdb
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBack.DAL.csproj.AssemblyReference.cache
+D:\NotionPV221\Backend\NotionBack.DAL\obj\Debug\net8.0\NotionBa.E87DECDA.Up2Date

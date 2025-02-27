@@ -1,12 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using NotionBack.DAL.Contracts;
 using NotionBack.Db.Interfaces;
 using NotionBack.Db.Models;
 
 namespace NotionBack.Db.Repositories
 {
-    class UsersRepository(NotionDbContext context) : IUserRepository
+    class UsersRepository : IUserRepository
     {
-        private readonly NotionDbContext _context = context;
+        private readonly NotionDbContext _context;
+
+        public UsersRepository(NotionDbContext context)
+        {
+            _context = context;
+        }
 
         public async Task Create(User item) => await _context.Users.AddAsync(item);
 
