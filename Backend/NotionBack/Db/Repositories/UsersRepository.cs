@@ -5,7 +5,7 @@ using NotionBack.Db.Models;
 
 namespace NotionBack.Db.Repositories
 {
-    class UsersRepository : IModelRepository<User>
+    class UsersRepository : IUserRepository
     {
         private readonly NotionDbContext _context;
 

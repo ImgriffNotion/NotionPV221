@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NotionBack.DAL.Contracts\NotionBack.DAL.Contracts.csproj" />
     <ProjectReference Include="..\NotionBack.DAL\NotionBack.DAL.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
