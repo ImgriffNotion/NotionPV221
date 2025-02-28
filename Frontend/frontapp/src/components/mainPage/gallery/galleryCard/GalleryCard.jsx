@@ -1,6 +1,6 @@
 import './GalleryCard.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '../../../reducers/modalSlice'; //импортируем OpenModal
+import { openModal } from '../../../../reducers/modalSlice'; //импортируем OpenModal
 import { useState, useEffect } from 'react';
 
 export function GalleryCard({ id, staticImage }) {

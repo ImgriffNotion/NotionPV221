@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dip\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
+    "C:\\notion\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
   },
   "projects": {
-    "D:\\Dip\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
+    "C:\\notion\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dip\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "projectUniqueName": "C:\\notion\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
         "projectName": "NotionBack",
-        "projectPath": "D:\\Dip\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "projectPath": "C:\\notion\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
         "packagesPath": "C:\\Users\\Rick\\.nuget\\packages\\",
-        "outputPath": "D:\\Dip\\NotionPV221\\Backend\\NotionBack\\obj\\",
+        "outputPath": "C:\\notion\\NotionPV221\\Backend\\NotionBack\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rick\\AppData\\Roaming\\NuGet\\NuGet.Config",
