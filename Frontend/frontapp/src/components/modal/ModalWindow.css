@@ -1,0 +1,93 @@
+.modal {
+    width: auto;
+    left: 26%;
+    right: 25%;
+    min-width: 40vw;
+    height: 70%;
+    min-height: 50vh;
+    position: absolute;
+    background: #181818;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    overflow: hidden;
+    top: 20%;
+}
+
+.modal-content {
+    padding-left: 10%;
+    flex: 1.5;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-content-main {
+    height: 70%;
+}
+
+
+.modal div {
+    margin: auto;
+    margin-left: 5%;
+
+}
+
+.modal>:nth-child(1) {
+    margin: -10% -10% 10% -10%;
+    padding-left: 10%;
+    flex: 1.5;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal>:nth-child(1)>button {
+    position: absolute;
+    top: 24%;
+    right: 4%;
+    width: 18px;
+    height: 18px;
+    opacity: 0.5;
+    transition: 0.5s ease-in-out;
+    background: transparent;
+    user-select: none;
+    outline: none;
+    border: none;
+
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+
+
+.modal>:nth-child(1)>input {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 58px;
+    /* identical to box height */
+    background: transparent;
+    user-select: none;
+    outline: none;
+    border: none;
+    color: rgba(217, 217, 217, 0.6);
+    margin-bottom: 0%;
+
+    transition: 0.5s ease-in-out;
+    opacity: 0.6;
+
+    &:focus,
+    &:hover {
+        opacity: 1;
+    }
+
+
+}

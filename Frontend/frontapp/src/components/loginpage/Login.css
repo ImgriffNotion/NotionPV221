@@ -1,0 +1,194 @@
+
+.containerLogin {
+    position: relative;
+    width: auto;
+    height: 90vh;
+    display: flex;
+    overflow-y: hidden;
+}
+
+.containerLogin>:first-child {
+    height: 100%;
+    width: 55%;
+
+}
+
+.containerLogin>:first-child>img {
+    height: auto;
+    width: 100%;
+}
+
+.containerLogin>:nth-child(2) {
+    width: 45%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+.containerLogin>:nth-child(2)>:first-child {
+
+    width: 44%;
+    height: 60vh;
+}
+
+
+.RegistrationBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.RegistrationBox div {
+    height: 100%;
+}
+
+.RegistrationBox>:first-child p {
+    text-align: center;
+
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 69px;
+    color: #E3E3E3;
+}
+
+.RegistrationBox>:first-child a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 6px;
+    gap: 20px;
+    text-decoration: none;
+    width: auto;
+    max-height: 34px;
+    color: #D9D9D9;
+    background: #181818;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+}
+
+.RegistrationBox>:first-child hr {
+    margin-top: 2vh;
+}
+
+.RegistrationBox>:nth-child(2) {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+}
+
+.RegistrationBox>:nth-child(2)>p {
+    margin-top: 0vh;
+}
+
+.RegistrationBox>:nth-child(2)>input {
+    width: 89%;
+    height: 34px;
+    margin: 0;
+    margin-top: -1vh;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding-left: 4vh;
+    color: white;
+}
+
+.RegistrationBox>:nth-child(2)>input:focus {
+    padding-left: 2%;
+    width: 97%;
+}
+
+.RegistrationBox>:nth-child(2)>input:focus::placeholder {
+    color: transparent;
+}
+
+
+.RegistrationBox>:nth-child(2)>a {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #898A8D;
+}
+
+.RegistrationBox>:nth-child(2)>input>::placeholder {
+    margin-left: 10px;
+    color: white;
+}
+
+
+.RegistrationBox>:nth-child(3) {
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.RegistrationBox>:nth-child(3)>input {
+    width: 89%;
+    height: 34px;
+    margin: 0;
+    margin-top: -1vh;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding-left: 4vh;
+    color: white;
+}
+
+.RegistrationBox>:nth-child(3)>input:focus {
+    padding-left: 2%;
+    width: 97%;
+}
+
+.RegistrationBox>:nth-child(3)>input:focus::placeholder {
+    color: transparent;
+}
+
+.RegistrationBox>:nth-child(3)>button {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 20px;
+    background: #E3E3E3;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    margin-top: 4vh;
+    cursor: pointer;
+}
+
+
+.RegistrationBox>:nth-child(3)>a {
+    width: auto;
+    margin-right: 22%;
+    margin-left: 22%;
+
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #898A8D;
+    margin-top: 2vh;
+}

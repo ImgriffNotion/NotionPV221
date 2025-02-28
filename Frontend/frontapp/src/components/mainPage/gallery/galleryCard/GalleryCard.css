@@ -1,0 +1,48 @@
+.boxForGalleryImages div {
+    min-width: 18%;
+    max-width: 200px;
+    height: 46%;
+
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin-right: 20px;
+
+    overflow-y: auto;
+    /* Отключает сжатие элементов */
+
+
+}
+
+.boxForGalleryImages>div>img {
+    width: 100%;
+    height: auto;
+    max-height: 85%;
+    margin: 0;
+    display: block;
+    transition: 0.3s ease-in;
+    opacity: 0.8;
+
+    &:hover {
+        opacity: 1;
+
+    }
+}
+
+.boxForGalleryImages>div>p {
+    margin: 0;
+    max-height: 15%;
+    word-wrap: break-word;
+    color: rgb(255, 255, 255);
+    transition: 0.3s ease-in;
+    opacity: 0.5;
+
+    &:hover,
+    &:focus {
+
+
+        opacity: 1;
+
+    }
+
+}

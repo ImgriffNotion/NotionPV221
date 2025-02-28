@@ -1,0 +1,52 @@
+.bannerUpComp {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    transition: background-image 1s ease-in-out;
+    position: relative;
+}
+
+.bannerUpComp img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: 1;
+}
+
+.bannerUserInfo {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    justify-content: right;
+    gap: 8px;
+}
+
+.bannerUserInfo>:first-child {
+
+    height: 32px;
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding-right: 2%;
+
+}
+
+.bannerUserInfo>:first-child>img {
+    height: 100%;
+    width: auto;
+    margin-right: 10%;
+
+}
+
+.bannerUserInfo>:first-child>:first-child {
+    height: 30%;
+    width: auto;
+    margin-right: 30px;
+    opacity: 1;
+}

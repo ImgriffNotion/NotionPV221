@@ -1,0 +1,91 @@
+.containerContacts {
+    width: 70vw;
+    height: 20vh;
+    color: white;
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+
+}
+
+.containerContacts>div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: bisque;
+}
+
+.containerContacts>:first-child(1)>img {
+    width: 85.5px;
+    height: 47.44px;
+    background: black;
+}
+
+.containerContacts>:nth-child(2)>ul>li {
+    list-style-type: none;
+    text-align: left;
+    padding: 2px;
+
+}
+
+.containerContacts>:nth-child(2)>ul>li>a {
+    color: bisque;
+    text-decoration: none;
+}
+
+.containerContacts>:nth-child(2)>ul>li>div {
+    color: bisque;
+    height: 20px;
+    background: transparent;
+}
+
+.containerContacts>:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.containerContacts>:nth-child(3)>div {
+   
+    width: 60%;
+    flex: 1;
+    display: flex;
+}
+
+.containerContacts>:nth-child(3)>:nth-child(1) {
+    justify-content: left;
+    align-items: center;
+
+}
+
+.containerContacts>:nth-child(3)>:nth-child(1)>a {
+    text-decoration: none;
+    /* CONTACTS support.imgriff@gmail.com */
+    font-family: 'Jost';
+    font-style: normal;
+    font-size: 20px;
+    line-height: 29px;
+    color: #C8C8C8;
+
+}
+
+.containerContacts>:nth-child(3)>:nth-child(1)>p {
+    justify-content: center;
+    align-items: center;
+    padding-left: 6%;
+}
+
+.containerContacts>:nth-child(3)>:nth-child(3){
+    display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.containerContacts>:nth-child(3)>:nth-child(3) img {
+    width: 24px;
+    height: 24px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+}
