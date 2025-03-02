@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
+    "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
   },
   "projects": {
-    "d:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
+    "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
+        "projectUniqueName": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
         "projectName": "NotionBack.DAL",
-        "projectPath": "d:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
+        "projectPath": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
         "packagesPath": "C:\\Users\\38063\\.nuget\\packages\\",
-        "outputPath": "d:\\NotionPV221\\Backend\\NotionBack.DAL\\obj\\",
+        "outputPath": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\38063\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -82,14 +82,14 @@
         }
       }
     },
-    "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
+    "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "projectUniqueName": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
         "projectName": "NotionBack",
-        "projectPath": "d:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "projectPath": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
         "packagesPath": "C:\\Users\\38063\\.nuget\\packages\\",
-        "outputPath": "d:\\NotionPV221\\Backend\\NotionBack\\obj\\",
+        "outputPath": "D:\\NotionPV221\\Backend\\NotionBack\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\38063\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -104,8 +104,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "d:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
-                "projectPath": "d:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj"
+              "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
+                "projectPath": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj"
               }
             }
           }
