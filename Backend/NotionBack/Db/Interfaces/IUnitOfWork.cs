@@ -2,7 +2,7 @@ using NotionBack.Db.Models;
 
 namespace NotionBack.Db.Interfaces
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork
     {
         IUserRepository Users { get; }
         IPageRepository Pages { get; }

@@ -36,7 +36,10 @@
       },
       "NotionBack.DAL.Contracts/1.0.0": {
         "runtime": {
-          "NotionBack.DAL.Contracts.dll": {}
+          "NotionBack.DAL.Contracts.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

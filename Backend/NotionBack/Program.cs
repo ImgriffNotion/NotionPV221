@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using NotionBack.Db.Infrastructure;
 using NotionBack.DAL;
+using NotionBack.Db.Infrastructure;
+using NotionBack.Db.Interfaces;
+using NotionBack.Db.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

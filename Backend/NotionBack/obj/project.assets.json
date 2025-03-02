@@ -5190,8 +5190,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alesh\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\38063\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -5199,23 +5198,16 @@
       "projectUniqueName": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
       "projectName": "NotionBack",
       "projectPath": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
-      "packagesPath": "C:\\Users\\alesh\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\38063\\.nuget\\packages\\",
       "outputPath": "D:\\NotionPV221\\Backend\\NotionBack\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\alesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\38063\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5282,8 +5274,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
-
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

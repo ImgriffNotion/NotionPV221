@@ -33,7 +33,7 @@ public class NotionDbContext : DbContext
             .HasMany(u => u.Pages)
             .WithOne(p => p.Owner)
             .HasForeignKey(p => p.OwnerId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.SetNull);
 
         // TypePage
         modelBuilder
@@ -42,7 +42,7 @@ public class NotionDbContext : DbContext
             .HasMany(tp => tp.Pages)
             .WithOne(p => p.Type)
             .HasForeignKey(p => p.TypeId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Page
 

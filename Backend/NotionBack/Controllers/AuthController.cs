@@ -1,18 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NotionBack.Db.Interfaces;
 
 namespace NotionBack.Controllers
 {
     [ApiController]
     [Route("api/imgriff/auth")]
-    public class AuthController : ControllerBase
+    public class AuthController(IUnitOfWork unitOfWork) : ControllerBase
     {
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         [HttpGet]
-        public async Task<IActionResult> Get() {
-            return null;
+        public async Task<IActionResult> Get()
+        {
+            await _unitOfWork.Users.GetAll();
+            var tmp = new { name = "name" };
+            return Ok(tmp);
         }
     }
 }
+
 
 /*
 
