@@ -1,15 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using NotionBack.DAL;
-using NotionBack.Db.Infrastructure;
-using NotionBack.Db.Interfaces;
-using NotionBack.Db.Repositories;
+using NotionBack.DAL.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
@@ -17,7 +15,6 @@ builder.Services.AddUnitOfWorkService();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.TMP();
 
 var app = builder.Build();
 
