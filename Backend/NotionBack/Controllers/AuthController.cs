@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NotionBack.Db.Interfaces;
+using NotionBack.DAL.Interfaces;
 
 namespace NotionBack.Controllers
 {
