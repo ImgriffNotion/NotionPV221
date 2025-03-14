@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using NotionBack.Db.Infrastructure;
-using NotionBack.DAL;
 using NotionBack.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -63,8 +61,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddControllers();
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddNotionContext(connectionString!);
-builder.Services.AddUnitOfWorkService();
+//builder.Services.AddNotionContext(connectionString!);
+//builder.Services.AddUnitOfWorkService();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

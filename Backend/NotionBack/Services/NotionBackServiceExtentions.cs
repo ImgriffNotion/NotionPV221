@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using NotionBack.DAL.Contracts;
-using NotionBack.Services.EmailAuthorizationService;
+﻿using NotionBack.Services.EmailAuthorizationService;
 using NotionBack.Services.EmailService;
 using NotionBack.Services.RandomService;
 
