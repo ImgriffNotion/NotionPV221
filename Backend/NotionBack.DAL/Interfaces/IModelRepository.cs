@@ -5,7 +5,7 @@ namespace NotionBack.DAL.Interfaces
     {
         Task<IEnumerable<T>> GetAll();
 
-        Task<T?> Get(Guid id);
+        Task<T> Get(Guid id);
 
         Task Create(T item);
 

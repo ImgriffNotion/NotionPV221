@@ -1,4 +1,3 @@
-using System;
 using NotionBack.DAL.Models.fileStructure;
 
 namespace NotionBack.DAL.Models.pageContents.pageInPageContents;
@@ -12,8 +11,8 @@ public class CalendarContent
     public int Untitled { get; set; }
     public string? Color { get; set; }
 
-    public Guid CalendarId { get; set; }
+    public Guid? CalendarId { get; set; }
     public Calendar? Calendar { get; set; }
 
-    public ICollection<CalendarFile> Files { get; set; } = [];  
+    public ICollection<CalendarFile> Files { get; set; } = [];
 }

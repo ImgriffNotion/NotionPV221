@@ -25,7 +25,7 @@ public class NotionDbContext : DbContext
     public NotionDbContext(DbContextOptions<NotionDbContext> options)
         : base(options) => Database.EnsureCreated();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+   protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
             .Entity<User>()
@@ -163,4 +163,5 @@ public class NotionDbContext : DbContext
             .WithMany(lc => lc.Files)
             .HasForeignKey(lf => lf.ListContentId);
     }
+    
 }

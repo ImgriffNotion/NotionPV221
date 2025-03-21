@@ -1,4 +1,3 @@
-using System;
 using NotionBack.DAL.Models.fileStructure;
 
 namespace NotionBack.DAL.Models.pageContents.pageInPageContents;
@@ -15,7 +14,7 @@ public class ListContent
     public string? Label { get; set; }
     public int Index { get; set; }
 
-    public Guid ListId { get; set; }
+    public Guid? ListId { get; set; }
     public List? List { get; set; }
 
     public ICollection<ListFile> Files { get; set; } = new List<ListFile>();

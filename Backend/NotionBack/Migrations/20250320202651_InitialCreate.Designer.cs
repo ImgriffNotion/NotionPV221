@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace NotionBack.Migrations
 {
     [DbContext(typeof(NotionDbContext))]
-    [Migration("20250302184023_FixFilesTable")]
-    partial class FixFilesTable
+    [Migration("20250320202651_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -521,7 +521,7 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.Page", "ParentPage")
                         .WithMany("Lists")
                         .HasForeignKey("ParentPageId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Board");

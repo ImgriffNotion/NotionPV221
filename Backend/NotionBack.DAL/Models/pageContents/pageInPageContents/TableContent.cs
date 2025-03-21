@@ -9,6 +9,6 @@ public class TableContent
     public string? Foreground { get; set; }
     public string? Background { get; set; }
 
-    public Guid TableId { get; set; }
+    public Guid? TableId { get; set; }
     public Table? Table { get; set; }
 }
