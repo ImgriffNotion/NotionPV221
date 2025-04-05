@@ -1,7 +1,6 @@
 {
   "version": 2,
   "dgSpecHash": "ycfaVO8jwlE=",
-   8f4e7cb6bbe5aeeb417966aa9910c0fb560908c5
   "success": true,
   "projectFilePath": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
   "expectedPackageFiles": [
@@ -85,5 +84,12 @@
     "C:\\Users\\alesh\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\alesh\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\NotionPV221\\Backend\\NotionBack.DAL\\obj\\project.nuget.cache : Invalid character after parsing property name. Expected ':' but got: \". Path 'dgSpecHash', line 5, position 2."
+    }
+  ]
 }
