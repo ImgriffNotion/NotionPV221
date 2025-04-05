@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NotionBack.Models.Enums;
 using NotionBack.REST;
+using NotionBack.DAL.Interfaces;
+using NotionBack.DAL.Repositories;
 
 namespace NotionBack.Controllers
 {
 
     [ApiController]
     [Route("imgriff/pages")]
-    public class PageController() : ControllerBase
+    public class PageController(IUnitOfWork unitOfWork) : ControllerBase
     {
-        //private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -28,12 +30,24 @@ namespace NotionBack.Controllers
             foreach(var value in Enum.GetValues(typeof(PageType)))
             {
                 Console.WriteLine((int)value);
-            }    
+            }
 
-            //var tmp = await this._unitOfWork.Pages.GetAll();
+            try
+            {
+                var tmp1 = await this._unitOfWork.Pages.GetAll();
+                var _response = new RestResponse<Object>(200, tmp1, meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                return Ok(_response);
+            }
 
-            var _response = new RestResponse<Object>(200, tmp, meta);
-            return Ok(_response);
+            
+
+            
+            
         }
     }
 }
