@@ -10,7 +10,7 @@
 
         public RestResponseStatus(int code)
         {
-            switch (this.code)
+            switch (code)
             {
                 case 200: this.setSuccessful(true).setPhrase("OK").setCode(code); break;
                 case 201: this.setSuccessful(true).setPhrase("Created").setCode(code); break;

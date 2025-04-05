@@ -11,6 +11,7 @@ using NotionBack.Services.RandomService;
 using NotionBack.REST;
 using System.Net.Http;
 using System.Text.Json;
+using NotionBack.Services.EmailAuthorizationService.EmailModels;
 
 namespace NotionBack.Controllers
 {
@@ -145,21 +146,32 @@ namespace NotionBack.Controllers
         [HttpGet("google-response")]
         public async Task<IActionResult> GoogleResponse()
         {
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "GoogleResponse",
+                uri = "/imgriff/auth",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
             var authResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             if (!authResult.Succeeded) return BadRequest("Google authentication failed.");
 
-            var email = authResult.Principal.FindFirstValue(ClaimTypes.Email);
-            var name = authResult.Principal.FindFirstValue(ClaimTypes.Name);
-            var picture = authResult.Principal.FindFirstValue("urn:google:picture");
 
-
+            var user = new 
+            {
+                email = authResult.Principal.FindFirstValue(ClaimTypes.Email),
+                name = authResult.Principal.FindFirstValue(ClaimTypes.Name),
+                picture = authResult.Principal.FindFirstValue("urn:google:picture")
+            };
 
             // Sign in the user
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email,email),
-                new Claim(ClaimTypes.Name, name),
-                new Claim("ProfilePicture", picture ?? "")
+                new Claim(ClaimTypes.Email,user.email),
+                new Claim(ClaimTypes.Name, user.name),
+                new Claim("ProfilePicture", user.picture ?? "")
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -167,11 +179,8 @@ namespace NotionBack.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-            Console.WriteLine(email);
-            Console.WriteLine(name);
-            Console.WriteLine(picture);
-
-            return Redirect("/");
+            var _response = new RestResponse<Object>(200, user, meta);
+            return Ok(_response);
         }
 
         [HttpGet("logout")]

@@ -13,7 +13,7 @@ namespace NotionBack.Services.EmailService
         private readonly string _smtpServer = "smtp.gmail.com";
         private readonly int _smtpPort = 587;
         private readonly string _emailFrom = "imgriff365@gmail.com";
-        private readonly string _emailPassword = "bdvi rzap wcrs pynb";
+        private readonly string _emailPassword = "xsnq tufr ukqf wdnz";
         private readonly string _htmlTemplatePath = "Services/EmailService/imgriff_emailPage.html";
         private readonly string _logoPath = "Services/EmailService/img/Frame 220 1.png";
 

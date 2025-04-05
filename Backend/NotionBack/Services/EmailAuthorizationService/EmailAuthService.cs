@@ -4,7 +4,7 @@ namespace NotionBack.Services.EmailAuthorizationService
 {
     public class EmailAuthService : IEmailAuthService
     {
-        public IEmailModel GetModelByEmail(string json)
+        public IEmailModel GetEmailModelByJson(string json)
         {
             switch (json) {
                 case "gmail.com":
@@ -18,6 +18,11 @@ namespace NotionBack.Services.EmailAuthorizationService
                 default:
                     return null;
             }
+        }
+
+        public IEmailModel GetEmailModelByResponse(Object tmpModel)
+        {
+            return null;
         }
     }
 }

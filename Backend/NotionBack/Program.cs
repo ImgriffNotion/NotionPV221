@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using NotionBack.DAL;
 using NotionBack.DAL.Infrastructure;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,6 +56,19 @@ builder.Services.AddAuthentication(options =>
     googleOptions.Scope.Add("openid");
     googleOptions.Scope.Add("email");
     googleOptions.Scope.Add("profile");
+
+    googleOptions.ClaimActions.MapJsonKey("picture", "picture");
+
+    googleOptions.Events.OnCreatingTicket = async context =>
+    {
+        var picture = context.User.GetProperty("picture").GetString();
+
+        if (!string.IsNullOrEmpty(picture))
+        {
+            context.Identity.AddClaim(new Claim("urn:google:picture", picture));
+        }
+    };
+
     googleOptions.CallbackPath = "/signin-google";
 });
 

@@ -4,6 +4,7 @@ namespace NotionBack.Services.EmailAuthorizationService
 {
     public interface IEmailAuthService
     {
-        public IEmailModel GetModelByEmail(String json); 
+        public IEmailModel GetEmailModelByJson(String json);
+        public IEmailModel GetEmailModelByResponse(Object tmpModel);
     }
 }
