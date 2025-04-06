@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using NotionBack.DAL.Models.pageContents;
 
 namespace NotionBack.DAL.Models

@@ -12,23 +12,25 @@ using NotionBack.REST;
 using System.Net.Http;
 using System.Text.Json;
 using NotionBack.Services.EmailAuthorizationService.EmailModels;
+using NotionBack.DAL.Interfaces;
 
 namespace NotionBack.Controllers
 {
     [ApiController]
     [Route("imgriff/auth")]
-    public class AuthController(IEmailService emailSender, IRandomService randomService, HttpClient client) : ControllerBase
+    public class AuthController(IEmailService emailSender, IRandomService randomService, HttpClient client, IUnitOfWork unit) : ControllerBase
     {
         private static Dictionary<string, OTPModel> OTPStore = new();
         private readonly HttpClient _httpClient = client;
 
         private readonly IEmailService emailService = emailSender;
         private readonly IRandomService _randomService = randomService;
+        private readonly IUnitOfWork db = unit; 
 
         [HttpGet("")]
         public async Task<IActionResult> Get(String email)
         {
-
+            await db.Users.GetAll();
             var meta = new RestMetaData()
             {
                 method = "GET",

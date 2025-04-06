@@ -1,34 +1,40 @@
-using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NotionBack.DAL.Interfaces;
+using File = NotionBack.DAL.Models.fileStructure.File;
 
 namespace NotionBack.DAL.Repositories;
 
-public class FileRepository(NotionDbContext context) : IFileRepository
+public class FileRepository(NotionDbContext context)
+    : IFileRepository
 {
     private readonly NotionDbContext _context = context;
+    
 
-    public Task Create(Models.fileStructure.File item)
+    public async Task Create(File item)
     {
-        throw new NotImplementedException();
+        await _context.Files.AddAsync(item);
+        //_logger.LogInformation($"Added file {item.Name}");
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        File file =
+            await _context.Files.FindAsync(id)
+            ?? throw new NullReferenceException($"File with ID: {id} not found");
+        _context.Files.Remove(file);
+        //_logger.LogInformation($"File {file.Name} with ID: {file.Id} deleted");
     }
 
-    public Task<Models.fileStructure.File?> Get(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<File> Get(Guid id) =>
+        await _context.Files.FindAsync(id)
+        ?? throw new NullReferenceException($"File with ID: {id} not found");
 
-    public Task<IEnumerable<Models.fileStructure.File>> GetAll()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<File>> GetAll() => await _context.Files.ToListAsync();
 
-    public void Update(Models.fileStructure.File item)
+    public void Update(File item)
     {
-        throw new NotImplementedException();
+        _context.Files.Entry(item).State = EntityState.Modified;
+       // _logger.LogInformation($"File with ID: {item.Id} updated");
     }
 }

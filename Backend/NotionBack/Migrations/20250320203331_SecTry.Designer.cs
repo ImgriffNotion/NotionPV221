@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace NotionBack.Migrations
 {
     [DbContext(typeof(NotionDbContext))]
-    partial class NotionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250320203331_SecTry")]
+    partial class SecTry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,7 +156,7 @@ namespace NotionBack.Migrations
                     b.Property<DateTime?>("DeleteDt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ParentPageId")
+                    b.Property<Guid>("ParentPageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -172,7 +175,7 @@ namespace NotionBack.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ParentPageId")
+                    b.Property<Guid>("ParentPageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -194,7 +197,7 @@ namespace NotionBack.Migrations
                     b.Property<DateTime?>("DeleteDt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ParentPageId")
+                    b.Property<Guid>("ParentPageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -216,7 +219,7 @@ namespace NotionBack.Migrations
                     b.Property<int>("Index")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ParentPageId")
+                    b.Property<Guid>("ParentPageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Text")
@@ -235,13 +238,13 @@ namespace NotionBack.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BoardId")
+                    b.Property<Guid>("BoardId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DeleteDt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ParentPageId")
+                    b.Property<Guid>("ParentPageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -268,7 +271,7 @@ namespace NotionBack.Migrations
                     b.Property<DateTime?>("DeleteDt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ParentPageId")
+                    b.Property<Guid>("ParentPageId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Rows")
@@ -290,7 +293,7 @@ namespace NotionBack.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CalendarId")
+                    b.Property<Guid>("CalendarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Color")
@@ -321,7 +324,7 @@ namespace NotionBack.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("GalleryId")
+                    b.Property<Guid>("GalleryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -355,7 +358,7 @@ namespace NotionBack.Migrations
                     b.Property<string>("Label")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ListId")
+                    b.Property<Guid>("ListId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Number")
@@ -398,7 +401,7 @@ namespace NotionBack.Migrations
                     b.Property<int>("Row")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TableId")
+                    b.Property<Guid>("TableId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -468,7 +471,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.Page", "ParentPage")
                         .WithMany("Boards")
                         .HasForeignKey("ParentPageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ParentPage");
                 });
@@ -478,7 +482,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.Page", "ParentPage")
                         .WithMany("Calendars")
                         .HasForeignKey("ParentPageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ParentPage");
                 });
@@ -488,7 +493,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.Page", "ParentPage")
                         .WithMany("Galleries")
                         .HasForeignKey("ParentPageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ParentPage");
                 });
@@ -498,7 +504,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.Page", "ParentPage")
                         .WithMany("JustPageContents")
                         .HasForeignKey("ParentPageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ParentPage");
                 });
@@ -508,12 +515,14 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.pageContents.Board", "Board")
                         .WithMany("Lists")
                         .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
 
                     b.HasOne("NotionBack.DAL.Models.Page", "ParentPage")
                         .WithMany("Lists")
                         .HasForeignKey("ParentPageId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
 
                     b.Navigation("Board");
 
@@ -525,7 +534,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.Page", "ParentPage")
                         .WithMany("Tables")
                         .HasForeignKey("ParentPageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ParentPage");
                 });
@@ -535,7 +545,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.pageContents.Calendar", "Calendar")
                         .WithMany("Contents")
                         .HasForeignKey("CalendarId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Calendar");
                 });
@@ -545,7 +556,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.pageContents.Gallery", "Gallery")
                         .WithMany("Contents")
                         .HasForeignKey("GalleryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Gallery");
                 });
@@ -555,7 +567,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.pageContents.List", "List")
                         .WithMany("Contents")
                         .HasForeignKey("ListId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("List");
                 });
@@ -565,7 +578,8 @@ namespace NotionBack.Migrations
                     b.HasOne("NotionBack.DAL.Models.pageContents.Table", "Table")
                         .WithMany("Contents")
                         .HasForeignKey("TableId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Table");
                 });

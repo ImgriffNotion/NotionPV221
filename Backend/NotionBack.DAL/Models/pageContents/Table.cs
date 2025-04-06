@@ -10,7 +10,7 @@ namespace NotionBack.DAL.Models.pageContents
         public int Columns { get; set; }
         public DateTime? DeleteDt { get; set; }
 
-        public Guid ParentPageId { get; set; }
+        public Guid? ParentPageId { get; set; }
         public Page? ParentPage { get; set; }
 
         public ICollection<TableContent> Contents { get; set; } = [];

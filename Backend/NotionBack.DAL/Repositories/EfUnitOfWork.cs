@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Repositories.pageContents;
 using NotionBack.DAL.Repositories.pageContents.pageInPageContents;
@@ -9,28 +10,28 @@ namespace NotionBack.DAL.Repositories
         private readonly NotionDbContext context = context;
 
         #region Repositories Definitions
-        private UsersRepository?           _usersRepository;
-        private PageRepository?            _pageRepository;
-        private TypePageRepository?        _pageTypesRepository;
-        private TableRepository?           _tableRepository;
-        private TableContentRepository?    _tableContentRepository;
-        private ListRepository?            _listRepository;
-        private ListContentRepository?     _listContentRepository;
+        private UsersRepository? _usersRepository;
+        private PageRepository? _pageRepository;
+        private TypePageRepository? _pageTypesRepository;
+        private TableRepository? _tableRepository;
+        private TableContentRepository? _tableContentRepository;
+        private ListRepository? _listRepository;
+        private ListContentRepository? _listContentRepository;
         private JustPageContentRepository? _justPageContentRepository;
-        private GalleryRepository?         _galleryRepository;
-        private GalleryContentRepository?  _galleryContentRepository;
-        private FileRepository?            _fileRepository;
-        private CalendarRepository?        _calendarRepository;
+        private GalleryRepository? _galleryRepository;
+        private GalleryContentRepository? _galleryContentRepository;
+        private FileRepository? _fileRepository;
+        private CalendarRepository? _calendarRepository;
         private CalendarContentRepository? _calendarContentRepository;
-        private BoardRepository?           _boardRepository;
+        private BoardRepository? _boardRepository;
         #endregion
 
 
         #region Repositories Initialization
-        public IUserRepository  Users  => _usersRepository ??= new UsersRepository(context);
-        public IPageRepository  Pages  => _pageRepository  ??= new PageRepository(context);
-        public IFileRepository  Files  => _fileRepository  ??= new FileRepository(context);
-        public IListRepository  Lists  => _listRepository  ??= new ListRepository(context);
+        public IUserRepository Users => _usersRepository ??= new UsersRepository(context);
+        public IPageRepository Pages => _pageRepository ??= new PageRepository(context);
+        public IFileRepository Files => _fileRepository ??= new FileRepository(context);
+        public IListRepository Lists => _listRepository ??= new ListRepository(context);
         public IBoardRepository Boards => _boardRepository ??= new BoardRepository(context);
         public ITableRepository Tables => _tableRepository ??= new TableRepository(context);
         public IJustPageContentRepository JustPageContents =>
