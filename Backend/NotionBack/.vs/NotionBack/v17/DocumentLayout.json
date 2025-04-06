@@ -3,11 +3,14 @@
   "WorkspaceRootPath": "D:\\NotionPV221\\Backend\\NotionBack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6159AE13-AC69-4879-B4FB-D96C49D712AB}|..\\NotionBack.DAL\\NotionBack.DAL.csproj|d:\\notionpv221\\backend\\notionback.dal\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6159AE13-AC69-4879-B4FB-D96C49D712AB}|..\\NotionBack.DAL\\NotionBack.DAL.csproj|d:\\notionpv221\\backend\\notionback.dal\\repositories\\pagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\controllers\\boardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:controllers\\boardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6159AE13-AC69-4879-B4FB-D96C49D712AB}|..\\NotionBack.DAL\\NotionBack.DAL.csproj|d:\\notionpv221\\backend\\notionback.dal\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,6 +65,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "PageRepository.cs",
+              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\Repositories\\PageRepository.cs",
+              "RelativeDocumentMoniker": "..\\NotionBack.DAL\\Repositories\\PageRepository.cs",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\Repositories\\PageRepository.cs",
+              "RelativeToolTip": "..\\NotionBack.DAL\\Repositories\\PageRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-06T16:43:06.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "IUnitOfWork.cs",
               "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\Interfaces\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "..\\NotionBack.DAL\\Interfaces\\IUnitOfWork.cs",
@@ -80,14 +96,14 @@
               "RelativeDocumentMoniker": "Controllers\\BoardController.cs",
               "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\BoardController.cs",
               "RelativeToolTip": "Controllers\\BoardController.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAA1wCgAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-05T12:57:36.997Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -95,12 +111,11 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-05T12:43:46.185Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T12:43:46.185Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PageController.cs",
               "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
               "RelativeDocumentMoniker": "Controllers\\PageController.cs",
@@ -108,12 +123,11 @@
               "RelativeToolTip": "Controllers\\PageController.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAAA0AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T12:43:40.092Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T12:43:40.092Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
@@ -121,8 +135,7 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T12:43:33.42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T12:43:33.42Z"
             }
           ]
         },
