@@ -39,7 +39,7 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             {
                 Id = model.Id,
                 Title = model.Title,
-                ParentPageId = model.ParentPageId,
+                ParentPageId = (Guid)model.ParentPageId,
                 DeleteDt = model.DeleteDt,
                 InternalContent = new List<GalleryContentDTO>()
             };

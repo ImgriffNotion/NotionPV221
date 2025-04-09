@@ -54,7 +54,7 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Description = model.Description,
                 Label = model.Label,
                 Index = model.Index,
-                ListId = model.ListId,
+                ListId = (Guid)model.ListId,
                 Files = new List<FileDTO>()
             };
 

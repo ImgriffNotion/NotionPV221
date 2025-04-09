@@ -34,7 +34,7 @@ namespace NotionBack.Services.ConverterService.TypeBoard
             {
                 Id = model.Id,
                 Title = model.Title,
-                ParentPageId = model.ParentPageId,
+                ParentPageId = (Guid)model.ParentPageId,
                 DeleteDt = model.DeleteDt,
                 InternalContent = new List<ListDTO>()
             };

@@ -48,7 +48,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 PlanedDate = model.PlanedDate,
                 Untitled = model.Untitled,
                 Color = model.Color,
-                CalendarId = model.CalendarId,
+                CalendarId = (Guid)model.CalendarId,
                 Files = new List<FileDTO>()
             };
 

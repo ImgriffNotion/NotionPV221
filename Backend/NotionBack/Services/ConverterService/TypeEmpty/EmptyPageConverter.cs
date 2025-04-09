@@ -24,7 +24,7 @@ namespace NotionBack.Services.ConverterService.TypeEmpty
             {
                 Id = model.Id,
                 Index = model.Index,
-                ParentPageId = model.ParentPageId,
+                ParentPageId = (Guid)model.ParentPageId,
                 Text = model.Text
             };
 

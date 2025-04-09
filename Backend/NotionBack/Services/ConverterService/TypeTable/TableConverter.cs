@@ -41,7 +41,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
                 Rows = model.Rows,
                 Columns = model.Columns,
                 DeleteDt = model.DeleteDt,
-                ParentPageId = model.ParentPageId,
+                ParentPageId = (Guid)model.ParentPageId,
                 InternalContent = new List<TableContentDTO>()
             };
 

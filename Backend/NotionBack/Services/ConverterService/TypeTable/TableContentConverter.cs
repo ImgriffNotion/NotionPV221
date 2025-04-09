@@ -31,7 +31,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
                 Data = model.Data,
                 Foreground = model.Foreground,
                 Background = model.Background,
-                TableId = model.TableId
+                TableId = (Guid)model.TableId
             };
             return tableContent;
         }
