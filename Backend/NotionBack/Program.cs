@@ -27,6 +27,8 @@ builder.Services.AddCors(options =>
                 .WithOrigins("http://127.0.0.1:5500")
                 .WithOrigins("https://localhost:7114")
                 .WithOrigins("http://localhost:5157")
+                .WithOrigins("http://10.0.1.4")
+                .WithOrigins("http://13.79.53.15/")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();
