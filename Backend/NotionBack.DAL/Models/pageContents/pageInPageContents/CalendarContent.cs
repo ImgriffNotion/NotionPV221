@@ -8,7 +8,7 @@ public class CalendarContent
     public string? Title { get; set; }
     public string? Description { get; set; }
     public DateTime? PlanedDate { get; set; }
-    public int Untitled { get; set; }
+    public string? Number { get; set; }
     public string? Color { get; set; }
 
     public Guid? CalendarId { get; set; }

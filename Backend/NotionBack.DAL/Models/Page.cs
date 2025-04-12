@@ -10,6 +10,8 @@ namespace NotionBack.DAL.Models
         public string? Banner { get; set; }
         public string? Icon { get; set; }
         public DateTime? DeleteDt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
+        public Guid? ParentId { get; set; }
         public string? Slug { get; set; }
 
         public Guid? TypeId { get; set; }

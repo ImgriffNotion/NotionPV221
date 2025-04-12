@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models.pageContents;
 
@@ -7,29 +8,34 @@ namespace NotionBack.DAL.Repositories.pageContents;
 public class GalleryRepository(NotionDbContext context) : IGalleryRepository
 {
     private readonly NotionDbContext _context = context;
-    
-    public Task Create(Gallery item)
-  {
-    throw new NotImplementedException();
-  }
 
-    public Task Delete(Guid id)
+    public async Task Create(Gallery item)
     {
-        throw new NotImplementedException();
+        await _context.Galleries.AddAsync(item);
     }
 
-    public Task<Gallery?> Get(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        Gallery gallery =
+            await _context.Galleries.FindAsync(id)
+            ?? throw new NullReferenceException($"Gallery with ID: {id} not found");
+        gallery.DeleteDt = DateTime.Now;
+        this.Update(gallery);
     }
 
-    public Task<IEnumerable<Gallery>> GetAll()
+    public async Task<Gallery> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Galleries.FindAsync(id)
+            ?? throw new NullReferenceException($"Gallery with ID: {id} not found");
+    }
+
+    public async Task<IEnumerable<Gallery>> GetAll()
+    {
+        return await _context.Galleries.ToListAsync();
     }
 
     public void Update(Gallery item)
     {
-        throw new NotImplementedException();
+        _context.Galleries.Entry(item).State = EntityState.Modified;
     }
 }

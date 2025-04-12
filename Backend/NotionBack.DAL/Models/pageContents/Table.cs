@@ -8,6 +8,7 @@ namespace NotionBack.DAL.Models.pageContents
         public string? Title { get; set; }
         public int Rows { get; set; }
         public int Columns { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
         public DateTime? DeleteDt { get; set; }
 
         public Guid? ParentPageId { get; set; }

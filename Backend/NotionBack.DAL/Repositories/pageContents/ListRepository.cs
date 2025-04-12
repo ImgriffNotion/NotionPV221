@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models.pageContents;
 
@@ -8,28 +9,33 @@ public class ListRepository(NotionDbContext context) : IListRepository
 {
     private readonly NotionDbContext _context = context;
 
-    public Task Create(List item)
+    public async Task Create(List item)
     {
-        throw new NotImplementedException();
+        await _context.Lists.AddAsync(item);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        List list =
+            await _context.Lists.FindAsync(id)
+            ?? throw new NullReferenceException($"List with ID: {id} not found");
+        list.DeleteDt = DateTime.Now;
+        this.Update(list);
     }
 
-    public Task<List?> Get(Guid id)
+    public async Task<List> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Lists.FindAsync(id)
+            ?? throw new NullReferenceException($"List with ID: {id} not found");
     }
 
-    public Task<IEnumerable<List>> GetAll()
+    public async Task<IEnumerable<List>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _context.Lists.ToListAsync();
     }
 
     public void Update(List item)
     {
-        throw new NotImplementedException();
+        _context.Lists.Entry(item).State = EntityState.Modified;
     }
 }

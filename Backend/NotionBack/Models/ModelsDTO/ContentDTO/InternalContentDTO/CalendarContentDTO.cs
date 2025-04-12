@@ -7,7 +7,7 @@
         public String? Title { get; set; }
         public String? Description { get; set; }
         public String? Color { get; set; }
-        public int Untitled {  get; set; }
+        public String? Number { get; set; }
         public DateTime? PlanedDate { get; set; }
         public List<FileDTO> Files { get; set; }
     }

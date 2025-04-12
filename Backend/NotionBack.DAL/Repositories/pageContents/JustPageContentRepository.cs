@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models.pageContents;
 
@@ -8,28 +9,32 @@ public class JustPageContentRepository(NotionDbContext context) : IJustPageConte
 {
     private readonly NotionDbContext _context = context;
 
-    public Task Create(JustPageContent item)
+    public async Task Create(JustPageContent item)
     {
-        throw new NotImplementedException();
+        await _context.JustPageContents.AddAsync(item);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        JustPageContent justPageContent =
+            await _context.JustPageContents.FindAsync(id)
+            ?? throw new NullReferenceException($"JustPageContent with ID: {id} not found");
+        _context.JustPageContents.Remove(justPageContent);
     }
 
-    public Task<JustPageContent?> Get(Guid id)
+    public async Task<JustPageContent> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.JustPageContents.FindAsync(id)
+            ?? throw new NullReferenceException($"JustPageContent with ID: {id} not found");
     }
 
-    public Task<IEnumerable<JustPageContent>> GetAll()
+    public async Task<IEnumerable<JustPageContent>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _context.JustPageContents.ToListAsync();
     }
 
     public void Update(JustPageContent item)
     {
-        throw new NotImplementedException();
+        _context.JustPageContents.Entry(item).State = EntityState.Modified;
     }
 }

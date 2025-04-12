@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models.pageContents;
 
@@ -8,28 +9,33 @@ public class BoardRepository(NotionDbContext context) : IBoardRepository
 {
     private readonly NotionDbContext _context = context;
 
-    public Task Create(Board item)
+    public async Task Create(Board item)
     {
-        throw new NotImplementedException();
+        await _context.Boards.AddAsync(item);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        Board board =
+            await _context.Boards.FindAsync(id)
+            ?? throw new NullReferenceException($"Board with ID: {id} not found");
+        board.DeleteDt = DateTime.Now;
+        this.Update(board);
     }
 
-    public Task<Board?> Get(Guid id)
+    public async Task<Board> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Boards.FindAsync(id)
+            ?? throw new NullReferenceException($"Board with ID: {id} not found");
     }
 
-    public Task<IEnumerable<Board>> GetAll()
+    public async Task<IEnumerable<Board>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _context.Boards.ToListAsync();
     }
 
     public void Update(Board item)
     {
-        throw new NotImplementedException();
+        _context.Boards.Entry(item).State = EntityState.Modified;
     }
 }

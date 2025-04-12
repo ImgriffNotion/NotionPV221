@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models.pageContents;
 
@@ -8,28 +9,33 @@ public class CalendarRepository(NotionDbContext context) : ICalendarRepository
 {
     private readonly NotionDbContext _context = context;
 
-    public Task Create(Calendar item)
+    public async Task Create(Calendar item)
     {
-        throw new NotImplementedException();
+        await _context.Calendars.AddAsync(item);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        Calendar calendar =
+            await _context.Calendars.FindAsync(id)
+            ?? throw new NullReferenceException($"Calendar with ID: {id} not found");
+        calendar.DeleteDt = DateTime.Now;
+        this.Update(calendar);
     }
 
-    public Task<Calendar?> Get(Guid id)
+    public async Task<Calendar> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Calendars.FindAsync(id)
+            ?? throw new NullReferenceException($"Calendar with ID: {id} not found");
     }
 
-    public Task<IEnumerable<Calendar>> GetAll()
+    public async Task<IEnumerable<Calendar>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _context.Calendars.ToListAsync();
     }
 
     public void Update(Calendar item)
     {
-        throw new NotImplementedException();
+        _context.Calendars.Entry(item).State = EntityState.Modified;
     }
 }
