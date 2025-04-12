@@ -10,6 +10,7 @@ namespace NotionBack.DAL.Repositories
         private readonly NotionDbContext context = context;
 
         #region Repositories Definitions
+        private TokenRepository? _tokenRepository;
         private UsersRepository? _usersRepository;
         private PageRepository? _pageRepository;
         private TypePageRepository? _pageTypesRepository;
@@ -28,6 +29,7 @@ namespace NotionBack.DAL.Repositories
 
 
         #region Repositories Initialization
+        public ITokenRepository Tokens => _tokenRepository ??= new TokenRepository(context);
         public IUserRepository Users => _usersRepository ??= new UsersRepository(context);
         public IPageRepository Pages => _pageRepository ??= new PageRepository(context);
         public IFileRepository Files => _fileRepository ??= new FileRepository(context);

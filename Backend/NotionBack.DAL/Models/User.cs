@@ -9,5 +9,6 @@ namespace NotionBack.DAL.Models
         public string? Avatar { get; set; }
 
         public ICollection<Page> Pages { get; set; } = new List<Page>();
+        public Token? Token { get; set; }
     }
 }
