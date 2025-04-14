@@ -5,9 +5,12 @@ using NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO;
 
 namespace NotionBack.Services.ConverterService.TypeCalendar
 {
-    public class CalendarContentConverter(IConvertService<FileDTO, DAL.Models.fileStructure.File> convertService) : IConvertService<CalendarContentDTO, CalendarContent>
+    public class CalendarContentConverter(
+        IConvertService<FileDTO, DAL.Models.fileStructure.File> convertService
+    ) : IConvertService<CalendarContentDTO, CalendarContent>
     {
-        private readonly IConvertService<FileDTO, DAL.Models.fileStructure.File> _convertService = convertService;
+        private readonly IConvertService<FileDTO, DAL.Models.fileStructure.File> _convertService =
+            convertService;
 
         public CalendarContent FromDTO(CalendarContentDTO model)
         {
@@ -17,10 +20,10 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 Title = model.Title,
                 Description = model.Description,
                 PlanedDate = model.PlanedDate,
-                Untitled = model.Untitled,
+                Number = model.Number,
                 Color = model.Color,
                 CalendarId = model.CalendarId,
-                Files = new List<CalendarFile>()
+                Files = new List<CalendarFile>(),
             };
 
             if (model.Files.Count != 0 && model.Files != null)
@@ -30,7 +33,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                     var listFile = new CalendarFile()
                     {
                         CalendarContent = calendarContent,
-                        File = _convertService.FromDTO(file)
+                        File = _convertService.FromDTO(file),
                     };
                 }
             }
@@ -46,10 +49,10 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 Title = model.Title,
                 Description = model.Description,
                 PlanedDate = model.PlanedDate,
-                Untitled = model.Untitled,
+                Number = model.Number,
                 Color = model.Color,
                 CalendarId = (Guid)model.CalendarId,
-                Files = new List<FileDTO>()
+                Files = new List<FileDTO>(),
             };
 
             if (model.Files.Count != 0 && model.Files != null)

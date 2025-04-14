@@ -15,14 +15,12 @@ namespace NotionBack.Services.ConverterService.TypeList
             {
                 Id = model.Id,
                 Title = model.Title,
-                Text = model.Text,
                 Number = model.Number,
                 Date = model.Date,
-                Status = model.Status,
                 Description = model.Description,
-                Label = model.Label,
                 Index = model.Index,
                 ListId = model.ListId,
+                Color = model.Color,
                 Files = new List<DAL.Models.fileStructure.ListFile>()
             };
 
@@ -47,12 +45,10 @@ namespace NotionBack.Services.ConverterService.TypeList
             {
                 Id = model.Id,
                 Title = model.Title,
-                Text = model.Text,
                 Number = model.Number,
                 Date = model.Date,
-                Status = model.Status,
                 Description = model.Description,
-                Label = model.Label,
+                Color = model.Color,
                 Index = model.Index,
                 ListId = (Guid)model.ListId,
                 Files = new List<FileDTO>()

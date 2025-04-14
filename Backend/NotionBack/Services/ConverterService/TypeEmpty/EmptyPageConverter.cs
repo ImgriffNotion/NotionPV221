@@ -10,9 +10,8 @@ namespace NotionBack.Services.ConverterService.TypeEmpty
             var emptyContent = new JustPageContent()
             {
                 Id = model.Id,
-                Index = model.Index,
                 ParentPageId = model.ParentPageId,
-                Text = model.Text
+                Text = model.Text,
             };
 
             return emptyContent;
@@ -23,9 +22,8 @@ namespace NotionBack.Services.ConverterService.TypeEmpty
             var emptyContent = new EmptyPageContentDTO()
             {
                 Id = model.Id,
-                Index = model.Index,
                 ParentPageId = (Guid)model.ParentPageId,
-                Text = model.Text
+                Text = model.Text,
             };
 
             return emptyContent;

@@ -7,6 +7,7 @@ using File = NotionBack.DAL.Models.fileStructure.File;
 
 public class NotionDbContext : DbContext
 {
+    public DbSet<Token> Tokens { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<TypePage> TypePages { get; set; }
     public DbSet<Page> Pages { get; set; }
@@ -25,8 +26,24 @@ public class NotionDbContext : DbContext
     public NotionDbContext(DbContextOptions<NotionDbContext> options)
         : base(options) => Database.EnsureCreated();
 
-   protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //Token
+        modelBuilder
+            .Entity<Token>()
+            .ToTable("Tokens")
+            .HasOne(t => t.User)
+            .WithOne(u => u.Token)
+            .HasForeignKey<Token>(t => t.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder
+            .Entity<Token>()
+            .HasIndex(t => t.UserId)
+            .IsUnique()
+            .HasFilter($"[Exp] > GETDATE()"); // !!!Needs to be checked!!!
+
+        //User
         modelBuilder
             .Entity<User>()
             .ToTable("Users")
@@ -163,5 +180,4 @@ public class NotionDbContext : DbContext
             .WithMany(lc => lc.Files)
             .HasForeignKey(lf => lf.ListContentId);
     }
-    
 }
