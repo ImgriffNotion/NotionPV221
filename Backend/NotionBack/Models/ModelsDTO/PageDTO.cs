@@ -2,7 +2,7 @@
 
 namespace NotionBack.Models.ModelsDTO
 {
-    public class PageDTO<T>
+    public class PageDTO
     {
         public Guid Id { get; set; }
         public Guid OwnerId { get; set; }
@@ -10,8 +10,9 @@ namespace NotionBack.Models.ModelsDTO
         public String? Banner {  get; set; }
         public String? Icon { get; set; }
         public String? Slug { get; set; }
-        public String? Type { get; set; }
+        public PageTypeDTO? Type { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public DateTime? DeleteDt { get; set; }
-        public T? Content { get; set; }
+        public Object? Content { get; set; }
     }
 }

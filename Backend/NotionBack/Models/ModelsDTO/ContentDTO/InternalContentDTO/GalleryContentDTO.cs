@@ -6,5 +6,9 @@
         public Guid GalleryId { get; set; }
         public String? Title { get; set; }
         public String? Url { get; set; }
+        public String? Description { get; set; }
+        public String? Number { get; set; }
+        public String? Color { get; set; }
+        public DateTime? Date {  get; set; }
     }
 }

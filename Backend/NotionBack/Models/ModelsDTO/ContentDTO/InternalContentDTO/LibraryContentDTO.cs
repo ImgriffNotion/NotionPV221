@@ -2,6 +2,6 @@
 {
     public class LibraryContentDTO
     {
-        public PageDTO<Object> Page { get; set; }
+        public PageDTO Page { get; set; }
     }
 }

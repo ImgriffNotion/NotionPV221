@@ -1,8 +1,8 @@
 ﻿namespace NotionBack.Services.ConverterService
 {
-    public interface IConvertService<T, T2>
+    public interface IConvertService<TDto, TDomain>
     {
-        public T ToDTO(T2 model);
-        public T2 FromDTO (T model);
+        public TDto ToDTO(TDomain model);
+        public TDomain FromDTO (TDto model);
     }
 }

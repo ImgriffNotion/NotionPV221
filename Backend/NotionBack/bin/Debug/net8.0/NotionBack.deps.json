@@ -1153,10 +1153,7 @@
           "Microsoft.Extensions.DependencyInjection": "9.0.2"
         },
         "runtime": {
-          "NotionBack.DAL.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "NotionBack.DAL.dll": {}
         }
       }
     }
