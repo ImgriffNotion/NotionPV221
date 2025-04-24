@@ -6,16 +6,18 @@ namespace NotionBack.DAL.Interfaces
         IPageRepository Pages { get; }
         IFileRepository Files { get; }
         IListRepository Lists { get; }
+        ITokenRepository Tokens { get; }
         IBoardRepository Boards { get; }
         ITableRepository Tables { get; }
-        IJustPageContentRepository JustPageContents { get; }
-        ICalendarContentRepository CalendarContents { get; }
-        IGalleryContentRepository GalleryContents { get; }
-        ITableContentRepository TableContents { get; }
-        IListContentReopsitory ListContents { get; }
+        IGalleryRepository Galleries { get; }
         ITypePageRepository PageTypes { get; }
         ICalendarRepository Calendars { get; }
-        IGalleryRepository Galleries { get; }
+        IListContentReopsitory ListContents { get; }
+        ITableContentRepository TableContents { get; }
+        IGalleryContentRepository GalleryContents { get; }
+        IJustPageContentRepository JustPageContents { get; }
+        ICalendarContentRepository CalendarContents { get; }
+
         Task Save();
     }
 }

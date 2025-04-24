@@ -5,8 +5,7 @@ using NotionBack.DAL.Models;
 
 namespace NotionBack.DAL.Repositories;
 
-public class PageRepository(NotionDbContext context)
-    : IPageRepository
+public class PageRepository(NotionDbContext context) : IPageRepository
 {
     private readonly NotionDbContext _context = context;
 
@@ -18,9 +17,7 @@ public class PageRepository(NotionDbContext context)
 
     public async Task Delete(Guid id)
     {
-        Page page =
-            await _context.Pages.FindAsync(id)
-            ?? throw new NullReferenceException($"Page with ID {id} not found");
+        Page page = await this.Get(id);
         page.DeleteDt = DateTime.Now;
         this.Update(page);
         //_logger.LogInformation($"Page {page.Title} with ID: {page.Id} marked as deleted");

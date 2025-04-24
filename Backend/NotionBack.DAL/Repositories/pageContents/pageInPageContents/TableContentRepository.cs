@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models.pageContents.pageInPageContents;
 
@@ -8,28 +9,30 @@ public class TableContentRepository(NotionDbContext context) : ITableContentRepo
 {
     private readonly NotionDbContext _context = context;
 
-    public Task Create(TableContent item)
+    public async Task Create(TableContent item)
     {
-        throw new NotImplementedException();
+        await _context.TableContents.AddAsync(item);
     }
 
-    public Task Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        TableContent tableContent = await this.Get(id);
+        _context.TableContents.Remove(tableContent);
     }
 
-    public Task<TableContent?> Get(Guid id)
+    public async Task<TableContent> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.TableContents.FindAsync(id)
+            ?? throw new NullReferenceException($"TableContent with ID: {id} not found");
     }
 
-    public Task<IEnumerable<TableContent>> GetAll()
+    public async Task<IEnumerable<TableContent>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _context.TableContents.ToListAsync();
     }
 
     public void Update(TableContent item)
     {
-        throw new NotImplementedException();
+        _context.TableContents.Entry(item).State = EntityState.Modified;
     }
 }

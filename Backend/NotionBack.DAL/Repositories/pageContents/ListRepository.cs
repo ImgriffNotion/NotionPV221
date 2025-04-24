@@ -16,9 +16,7 @@ public class ListRepository(NotionDbContext context) : IListRepository
 
     public async Task Delete(Guid id)
     {
-        List list =
-            await _context.Lists.FindAsync(id)
-            ?? throw new NullReferenceException($"List with ID: {id} not found");
+        List list = await this.Get(id);
         list.DeleteDt = DateTime.Now;
         this.Update(list);
     }

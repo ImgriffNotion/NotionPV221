@@ -16,9 +16,7 @@ public class TableRepository(NotionDbContext context) : ITableRepository
 
     public async Task Delete(Guid id)
     {
-        Table table =
-            await _context.Tables.FindAsync(id)
-            ?? throw new NullReferenceException($"Table with ID: {id} not found");
+        Table table = await this.Get(id);
         table.DeleteDt = DateTime.Now;
         this.Update(table);
     }

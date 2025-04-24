@@ -16,9 +16,7 @@ public class CalendarRepository(NotionDbContext context) : ICalendarRepository
 
     public async Task Delete(Guid id)
     {
-        Calendar calendar =
-            await _context.Calendars.FindAsync(id)
-            ?? throw new NullReferenceException($"Calendar with ID: {id} not found");
+        Calendar calendar = await this.Get(id);
         calendar.DeleteDt = DateTime.Now;
         this.Update(calendar);
     }

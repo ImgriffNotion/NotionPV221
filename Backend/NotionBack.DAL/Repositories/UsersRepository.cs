@@ -4,11 +4,9 @@ using NotionBack.DAL.Models;
 
 namespace NotionBack.DAL.Repositories
 {
-    class UsersRepository(NotionDbContext context)
-        : IUserRepository
+    class UsersRepository(NotionDbContext context) : IUserRepository
     {
         private readonly NotionDbContext _context = context;
-        
 
         public async Task Create(User item)
         {
@@ -18,9 +16,7 @@ namespace NotionBack.DAL.Repositories
 
         public async Task Delete(Guid id)
         {
-            User usr =
-                await _context.Users.FindAsync(id)
-                ?? throw new NullReferenceException($"User with ID: {id} not found");
+            User usr = await this.Get(id);
             _context.Users.Remove(usr);
             //_logger.LogInformation($"User with ID: {usr.Id} deleted");
         }

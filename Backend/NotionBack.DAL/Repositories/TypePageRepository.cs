@@ -6,11 +6,9 @@ using NotionBack.DAL.Models;
 
 namespace NotionBack.DAL.Repositories;
 
-public class TypePageRepository(NotionDbContext context)
-    : ITypePageRepository
+public class TypePageRepository(NotionDbContext context) : ITypePageRepository
 {
     private readonly NotionDbContext _context = context;
-    
 
     public async Task Create(TypePage item)
     {
@@ -20,9 +18,7 @@ public class TypePageRepository(NotionDbContext context)
 
     public async Task Delete(Guid id)
     {
-        TypePage item =
-            await _context.TypePages.FindAsync(id)
-            ?? throw new NullReferenceException($"Page type with ID: {id} not found");
+        TypePage item = await this.Get(id);
         _context.TypePages.Remove(item);
         //_logger.LogInformation($"Page Type with ID: {id} deleted");
     }

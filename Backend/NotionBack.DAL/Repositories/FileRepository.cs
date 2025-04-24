@@ -19,9 +19,7 @@ public class FileRepository(NotionDbContext context)
 
     public async Task Delete(Guid id)
     {
-        File file =
-            await _context.Files.FindAsync(id)
-            ?? throw new NullReferenceException($"File with ID: {id} not found");
+        File file = await this.Get(id);
         _context.Files.Remove(file);
         //_logger.LogInformation($"File {file.Name} with ID: {file.Id} deleted");
     }
