@@ -16,9 +16,7 @@ public class BoardRepository(NotionDbContext context) : IBoardRepository
 
     public async Task Delete(Guid id)
     {
-        Board board =
-            await _context.Boards.FindAsync(id)
-            ?? throw new NullReferenceException($"Board with ID: {id} not found");
+        Board board = await this.Get(id);
         board.DeleteDt = DateTime.Now;
         this.Update(board);
     }

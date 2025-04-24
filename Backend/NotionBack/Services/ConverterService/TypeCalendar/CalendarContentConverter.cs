@@ -23,7 +23,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 Number = model.Number,
                 Color = model.Color,
                 CalendarId = model.CalendarId,
-                Files = new List<CalendarFile>(),
+                Files = new List<CalendarFile>()
             };
 
             if (model.Files.Count != 0 && model.Files != null)

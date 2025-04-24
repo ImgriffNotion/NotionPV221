@@ -27,15 +27,6 @@ namespace NotionBack.Services.ConverterService.Page
                 TypeCode = model.TypeCode
             };
 
-            foreach (var value in Enum.GetValues(typeof(PageType)))
-            {
-                if ((int)value == type.TypeCode)
-                {
-                    type.TypePage = value.ToString();
-                    break;
-                }
-            }
-
             return type;
         }
     }
