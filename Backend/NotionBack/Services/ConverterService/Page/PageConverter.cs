@@ -29,30 +29,41 @@ namespace NotionBack.Services.ConverterService.Page
             if (model.Content != null && model.Type != null)
             {
                 var converter = _contentRegistry.GetConverter(model.Type.Name);
-                if (page.Type.TypeCode == (int)PageType.Empty)
+                switch ((PageType)page.Type.TypeCode)
                 {
-                    page.JustPageContents.Add((JustPageContent)converter.FromDTO(model.Content));
-                }
-                else if (page.Type.TypeCode == (int)PageType.Board)
-                {
-                    page.Boards.Add((Board)converter.FromDTO(model.Content));
-                }
-                else if (page.Type.TypeCode == (int)PageType.List)
-                {
-                    page.Lists.Add((List)converter.FromDTO(model.Content));
-                }
-                else if (page.Type.TypeCode == (int)PageType.Calendar)
-                {
-                    page.Calendars.Add((Calendar)converter.FromDTO(model.Content));
-                }
-                else if (page.Type.TypeCode == (int)PageType.Gallery)
-                {
-                    page.Galleries.Add((Gallery)converter.FromDTO(model.Content));
-                }
-                else if (page.Type.TypeCode == (int)PageType.Table)
-                {
-                    page.Tables.Add((Table)converter.FromDTO(model.Content));
-                }
+                    case PageType.Empty:
+                        {
+                            page.JustPageContents.Add((JustPageContent)converter.FromDTO(model.Content));
+                            break;
+                        }
+                    case PageType.Board:
+                        {
+                            page.Boards.Add((Board)converter.FromDTO(model.Content));
+                            break;
+                        }
+                    case PageType.List:
+                        {
+                            page.Lists.Add((List)converter.FromDTO(model.Content));
+                            break;
+                        }
+                    case PageType.Calendar:
+                        {
+                            page.Calendars.Add((Calendar)converter.FromDTO(model.Content));
+                            break;
+                        }
+                    case PageType.Gallery:
+                        {
+                            page.Galleries.Add((Gallery)converter.FromDTO(model.Content));
+                            break;
+                        }
+                    case PageType.Table:
+                        {
+                            page.Tables.Add((Table)converter.FromDTO(model.Content));
+                            break;
+                        }
+
+                };
+
             }
             return page;
         }
@@ -73,31 +84,40 @@ namespace NotionBack.Services.ConverterService.Page
             };
 
             var converter = _contentRegistry.GetConverter(model.Type.Name);
-            if (page.Type.TypeCode == (int)PageType.Empty)
-            {
-                page.Content = model.JustPageContents.FirstOrDefault();
-            }
-            else if (page.Type.TypeCode == (int)PageType.Board)
-            {
-                page.Content = model.Boards.FirstOrDefault();
-            }
-            else if (page.Type.TypeCode == (int)PageType.List)
-            {
-                page.Content = model.Lists.FirstOrDefault();
-            }
-            else if (page.Type.TypeCode == (int)PageType.Calendar)
-            {
-                page.Content = model.Calendars.FirstOrDefault();
-            }
-            else if (page.Type.TypeCode == (int)PageType.Gallery)
-            {
-                page.Content = model.Galleries.FirstOrDefault();
-            }
-            else if (page.Type.TypeCode == (int)PageType.Table)
-            {
-                page.Content = model.Tables.FirstOrDefault();
-            }
 
+            switch ((PageType)page.Type.TypeCode)
+            {
+                case PageType.Empty:
+                    {
+                        page.Content = converter.ToDTO(model.JustPageContents.FirstOrDefault());
+                        break;
+                    }
+                case PageType.Board:
+                    {
+                        page.Content = converter.ToDTO(model.Boards.FirstOrDefault());
+                        break;
+                    }
+                case PageType.List:
+                    {
+                        page.Content = converter.ToDTO(model.Lists.FirstOrDefault());
+                        break;
+                    }
+                case PageType.Calendar:
+                    {
+                        page.Content =converter.ToDTO( model.Calendars.FirstOrDefault());
+                        break;
+                    }
+                case PageType.Gallery:
+                    {
+                        page.Content = converter.ToDTO(model.Galleries.FirstOrDefault());
+                        break;
+                    }
+                case PageType.Table:
+                    {
+                        page.Content = converter.ToDTO(model.Tables.FirstOrDefault());
+                        break;
+                    }
+            };
             return page;
         }
     }

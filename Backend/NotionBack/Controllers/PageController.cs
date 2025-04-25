@@ -2,14 +2,17 @@
 using NotionBack.Models.Enums;
 using NotionBack.REST;
 using NotionBack.DAL.Interfaces;
+using NotionBack.Services.ConverterService;
 using NotionBack.DAL.Repositories;
+using NotionBack.Models.ModelsDTO;
+using NotionBack.DAL.Models;
 
 namespace NotionBack.Controllers
 {
 
     [ApiController]
     [Route("imgriff/pages")]
-    public class PageController(IUnitOfWork unitOfWork) : ControllerBase
+    public class PageController(IUnitOfWork unitOfWork, IConvertService<PageDTO, Page> convertService) : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
