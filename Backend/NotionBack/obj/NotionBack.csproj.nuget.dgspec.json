@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
+    "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {}
   },
   "projects": {
-    "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
+    "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
         "projectName": "NotionBack.DAL",
-        "projectPath": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
-        "packagesPath": "C:\\Users\\alesh\\.nuget\\packages\\",
-        "outputPath": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\obj\\",
+        "projectPath": "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj",
+        "packagesPath": "C:\\Users\\Rick\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack.DAL\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\alesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rick\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,25 +81,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
+    "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "projectUniqueName": "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
         "projectName": "NotionBack",
-        "projectPath": "D:\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
-        "packagesPath": "C:\\Users\\alesh\\.nuget\\packages\\",
-        "outputPath": "D:\\NotionPV221\\Backend\\NotionBack\\obj\\",
+        "projectPath": "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack\\NotionBack.csproj",
+        "packagesPath": "C:\\Users\\Rick\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\alesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Rick\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -118,8 +110,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
-                "projectPath": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj"
+              "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj": {
+                "projectPath": "C:\\Users\\Rick\\Source\\Repos\\NotionPV221\\Backend\\NotionBack.DAL\\NotionBack.DAL.csproj"
               }
             }
           }
@@ -183,7 +175,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
