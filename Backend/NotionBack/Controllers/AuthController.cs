@@ -38,13 +38,13 @@ namespace NotionBack.Controllers
         private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
 
         [HttpGet("get-otp")]
-        public async Task<IActionResult> Get(String email)
+        public async Task<IActionResult> GetOtp(String email)
         {
             var meta = new RestMetaData()
             {
                 method = "GET",
-                name = "Get",
-                uri = "/imgriff/auth",
+                name = "GetOtp",
+                uri = "/imgriff/auth/get-otp",
                 locale = "UK-UA",
                 serverTime = DateTime.UtcNow
             };
@@ -103,11 +103,16 @@ namespace NotionBack.Controllers
 
                 OTPStore.Remove(body.Email);
 
-                var requestUrl = $"https://people.googleapis.com/v1/people/{body.Email}?personFields=names,emailAddresses,photos&key=AIzaSyBMEqsrKpqcK8bkBZ5GirxGuKnw7ORdcXY";
-                var _response = await _httpClient.GetStringAsync(requestUrl);
-                var userInfo = JsonSerializer.Deserialize<GoogleUserInfo>(_response);
+                var user = new UserDTO()
+                {
+                    Email = body.Email
+                };
 
-                return Ok(userInfo);
+                await _unitOfWork.Users.Create(_userConvertService.FromDTO(user));
+                await _unitOfWork.Save();
+
+                var _response = new RestResponse<Object>(200, user, meta);
+                return Ok();
             }
             catch (Exception ex)
             {
