@@ -160,7 +160,7 @@ namespace NotionBack.Controllers
             {
                 method = "GET",
                 name = "GoogleResponse",
-                uri = "/imgriff/auth",
+                uri = "/imgriff/auth/google-response",
                 locale = "UK-UA",
                 serverTime = DateTime.UtcNow
             };
@@ -189,7 +189,7 @@ namespace NotionBack.Controllers
             await _unitOfWork.Save();
 
             var _response = new RestResponse<Object>(200, user, meta);
-            return Ok(_response);
+            return Redirect("http://localhost:3000/login");
         }
 
         [HttpGet("logout")]
@@ -221,7 +221,7 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }
