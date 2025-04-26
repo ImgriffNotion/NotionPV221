@@ -13,18 +13,28 @@ using System.Net.Http;
 using System.Text.Json;
 using NotionBack.Services.EmailAuthorizationService.EmailModels;
 using NotionBack.DAL.Interfaces;
+using NotionBack.Services.ConverterService;
+using NotionBack.Models.ModelsDTO;
+using NotionBack.DAL.Models;
 
 namespace NotionBack.Controllers
 {
     [ApiController]
     [Route("imgriff/auth")]
-    public class AuthController(IEmailService emailSender, IRandomService randomService, HttpClient client) : ControllerBase
+    public class AuthController(IEmailService emailSender, 
+        IRandomService randomService, 
+        HttpClient client,
+        IUnitOfWork unitOfWork,
+        IConvertService<UserDTO, User> userConvertService) : ControllerBase
     {
         private static Dictionary<string, OTPModel> OTPStore = new();
         private readonly HttpClient _httpClient = client;
 
+
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IEmailService emailService = emailSender;
         private readonly IRandomService _randomService = randomService;
+        private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
 
         [HttpGet("")]
         public async Task<IActionResult> Get(String email)
@@ -159,25 +169,24 @@ namespace NotionBack.Controllers
             if (!authResult.Succeeded) return BadRequest("Google authentication failed.");
 
 
-            var user = new 
-            {
-                email = authResult.Principal.FindFirstValue(ClaimTypes.Email),
-                name = authResult.Principal.FindFirstValue(ClaimTypes.Name),
-                picture = authResult.Principal.FindFirstValue("urn:google:picture")
-            };
+            var user = getUserByResponse(authResult);
 
             // Sign in the user
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email,user.email),
-                new Claim(ClaimTypes.Name, user.name),
-                new Claim("ProfilePicture", user.picture ?? "")
+                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Surname, user.Lastname),
+                new Claim("ProfilePicture", user.Avatar ?? "")
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+            await _unitOfWork.Users.Create(_userConvertService.FromDTO(user));
+            await _unitOfWork.Save();
 
             var _response = new RestResponse<Object>(200, user, meta);
             return Ok(_response);
@@ -188,6 +197,50 @@ namespace NotionBack.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete()
+        {
+            var meta = new RestMetaData()
+            {
+                method = "DELETE",
+                name = "Delete",
+                uri = "/imgriff/auth",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            //CCA8C249-5947-45AF-A3A2-08DD84246888
+            try
+            {
+                await _unitOfWork.Users.Delete(new Guid("CCA8C249-5947-45AF-A3A2-08DD84246888"));
+                await _unitOfWork.Save();
+                var _response = new RestResponse<Object>(200, "CCA8C249-5947-45AF-A3A2-08DD84246888", meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                return Ok(_response);
+            }
+        }
+
+        private UserDTO getUserByResponse(AuthenticateResult authResult)
+        {
+            var fullname = authResult.Principal.FindFirstValue(ClaimTypes.Name).Split(" ");
+
+            var user = new UserDTO();
+            user.Email = authResult.Principal.FindFirstValue(ClaimTypes.Email);
+            user.Avatar = authResult.Principal.FindFirstValue("urn:google:picture");
+            user.Name = fullname[0];
+
+            if (fullname.Length > 1)
+            {
+                user.Lastname = fullname[1];
+            }
+
+            return user;
         }
     }
 }
