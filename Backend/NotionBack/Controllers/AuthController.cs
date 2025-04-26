@@ -189,7 +189,7 @@ namespace NotionBack.Controllers
             await _unitOfWork.Users.Create(_userConvertService.FromDTO(user));
             await _unitOfWork.Save();
 
-            UserDTOStore.Add(user.Email, user);
+            UserDTOStore[user.Email] = user;
 
             return Redirect($"http://localhost:3000/login/success?email={user.Email}");
         }
