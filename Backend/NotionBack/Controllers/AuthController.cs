@@ -37,7 +37,7 @@ namespace NotionBack.Controllers
         private readonly IRandomService _randomService = randomService;
         private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
 
-        [HttpGet("")]
+        [HttpGet("get-otp")]
         public async Task<IActionResult> Get(String email)
         {
             var meta = new RestMetaData()
