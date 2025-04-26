@@ -28,6 +28,7 @@ namespace NotionBack.Controllers
         IConvertService<UserDTO, User> userConvertService) : ControllerBase
     {
         private static Dictionary<string, OTPModel> OTPStore = new();
+        private static Dictionary<string, UserDTO> UserDTOStore = new();
         private readonly HttpClient _httpClient = client;
 
 
@@ -188,8 +189,9 @@ namespace NotionBack.Controllers
             await _unitOfWork.Users.Create(_userConvertService.FromDTO(user));
             await _unitOfWork.Save();
 
-            var _response = new RestResponse<Object>(200, user, meta);
-            return Redirect("http://localhost:3000/login");
+            UserDTOStore.Add(user.Email, user);
+
+            return Redirect($"http://localhost:3000/login/success?email={user.Email}");
         }
 
         [HttpGet("logout")]
@@ -241,6 +243,30 @@ namespace NotionBack.Controllers
             }
 
             return user;
+        }
+
+        [HttpGet("user-by-email")]
+        public async Task<IActionResult> GetByEmail(String email)
+        {
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "GetByEmail",
+                uri = "/imgriff/auth/user-by-email",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            try
+            {
+                var response = new RestResponse<Object>(200, UserDTOStore[email], meta);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var response = new RestResponse<string>(500, ex.Message, meta);
+                return Ok(response);
+            }
         }
     }
 }
