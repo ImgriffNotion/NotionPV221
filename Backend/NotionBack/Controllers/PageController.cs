@@ -131,7 +131,7 @@ namespace NotionBack.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("delete-permanently")]
         public async Task<IActionResult> DeletePermanently()
         {
             var meta = new RestMetaData()
@@ -149,7 +149,7 @@ namespace NotionBack.Controllers
 
                 foreach (var page in pages)
                 {
-                    await _unitOfWork.Pages.Delete(page.Id);
+                    await _unitOfWork.Pages.DeletePagePermanently(page);
                 }
                 await _unitOfWork.Save();
 
@@ -160,7 +160,7 @@ namespace NotionBack.Controllers
             {
                 var _response = new RestResponse<Object>(200, ex.Message, meta);
                 return Ok(_response);
-            }
+            } 
         }
     }
 }
