@@ -52,9 +52,10 @@ public class PageRepository(NotionDbContext context) : IPageRepository
 
     public async Task<IEnumerable<Page>> GetAll() => await _context.Pages.ToListAsync();
 
-    public Task<Page> GetPageBySlug(string slug)
+    public async Task<Page> GetPageBySlug(string slug)
     {
-        throw new NotImplementedException();
+        return await _context.Pages.Where(x => x.Slug == slug).FirstOrDefaultAsync()
+            ?? throw new KeyNotFoundException($"Page with Slug: {slug} not found");
     }
 
     public void Update(Page item)
