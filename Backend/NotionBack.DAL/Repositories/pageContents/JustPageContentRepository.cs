@@ -16,8 +16,15 @@ public class JustPageContentRepository(NotionDbContext context) : IJustPageConte
 
     public async Task Delete(Guid id)
     {
-        JustPageContent justPageContent = await this.Get(id);
-        _context.JustPageContents.Remove(justPageContent);
+        try
+        {
+            JustPageContent justPageContent = await this.Get(id);
+            _context.JustPageContents.Remove(justPageContent);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task<JustPageContent> Get(Guid id)

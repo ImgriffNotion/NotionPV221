@@ -16,8 +16,15 @@ namespace NotionBack.DAL.Repositories
 
         public async Task Delete(Guid id)
         {
-            User usr = await this.Get(id);
-            _context.Users.Remove(usr);
+            try
+            {
+                User usr = await this.Get(id);
+                _context.Users.Remove(usr);
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new Exception(ex.Message);
+            }
             //_logger.LogInformation($"User with ID: {usr.Id} deleted");
         }
 
@@ -26,6 +33,12 @@ namespace NotionBack.DAL.Repositories
             ?? throw new NullReferenceException($"User with ID: {id} not found");
 
         public async Task<IEnumerable<User>> GetAll() => await _context.Users.ToListAsync();
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync()
+                ?? throw new KeyNotFoundException($"User with Email: {email} not found");
+        }
 
         public void Update(User item)
         {
