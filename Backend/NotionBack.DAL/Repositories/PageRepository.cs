@@ -31,13 +31,12 @@ public class PageRepository(NotionDbContext context) : IPageRepository
         //_logger.LogInformation($"Page {page.Title} with ID: {page.Id} marked as deleted");
     }
 
-    public async Task<bool> DeletePagePermanently(Page page)
+    public async Task DeletePagePermanently(Page page)
     {
         try
         {
             Page pg = await this.Get(page.Id);
             _context.Pages.Remove(page);
-            return true;
         }
         catch (NullReferenceException ex)
         {
