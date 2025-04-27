@@ -19,9 +19,16 @@ namespace NotionBack.DAL.Repositories
 
         public async Task Delete(Guid id)
         {
-            Token token = await this.Get(id);
-            token.DeleteDt = DateTime.Now;
-            this.Update(token);
+            try
+            {
+                Token token = await this.Get(id);
+                token.DeleteDt = DateTime.Now;
+                this.Update(token);
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<Token> Get(Guid id)

@@ -16,9 +16,16 @@ public class BoardRepository(NotionDbContext context) : IBoardRepository
 
     public async Task Delete(Guid id)
     {
-        Board board = await this.Get(id);
-        board.DeleteDt = DateTime.Now;
-        this.Update(board);
+        try
+        {
+            Board board = await this.Get(id);
+            board.DeleteDt = DateTime.Now;
+            this.Update(board);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task<Board> Get(Guid id)

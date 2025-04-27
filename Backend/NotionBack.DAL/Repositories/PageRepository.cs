@@ -17,10 +17,32 @@ public class PageRepository(NotionDbContext context) : IPageRepository
 
     public async Task Delete(Guid id)
     {
-        Page page = await this.Get(id);
-        page.DeleteDt = DateTime.Now;
-        this.Update(page);
+        Page page;
+        try
+        {
+            page = await this.Get(id);
+            page.DeleteDt = DateTime.Now;
+            this.Update(page);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
         //_logger.LogInformation($"Page {page.Title} with ID: {page.Id} marked as deleted");
+    }
+
+    public async Task<bool> DeletePagePermanently(Page page)
+    {
+        try
+        {
+            Page pg = await this.Get(page.Id);
+            _context.Pages.Remove(page);
+            return true;
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task<Page> Get(Guid id)
@@ -30,6 +52,11 @@ public class PageRepository(NotionDbContext context) : IPageRepository
     }
 
     public async Task<IEnumerable<Page>> GetAll() => await _context.Pages.ToListAsync();
+
+    public Task<Page> GetPageBySlug(string slug)
+    {
+        throw new NotImplementedException();
+    }
 
     public void Update(Page item)
     {

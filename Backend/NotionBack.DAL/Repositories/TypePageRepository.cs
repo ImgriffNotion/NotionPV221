@@ -18,8 +18,16 @@ public class TypePageRepository(NotionDbContext context) : ITypePageRepository
 
     public async Task Delete(Guid id)
     {
-        TypePage item = await this.Get(id);
-        _context.TypePages.Remove(item);
+        try
+        {
+            TypePage item = await this.Get(id);
+            _context.TypePages.Remove(item);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+
         //_logger.LogInformation($"Page Type with ID: {id} deleted");
     }
 
@@ -28,6 +36,18 @@ public class TypePageRepository(NotionDbContext context) : ITypePageRepository
         ?? throw new NullReferenceException($"Page type with ID: {id} not found");
 
     public async Task<IEnumerable<TypePage>> GetAll() => await _context.TypePages.ToListAsync();
+
+    public async Task<TypePage> GetTypePageByCode(int code)
+    {
+        return await _context.TypePages.Where(x => x.TypeCode == code).FirstOrDefaultAsync()
+            ?? throw new KeyNotFoundException($"TypePage with Code: {code} not found");
+    }
+
+    public async Task<TypePage> GetTypePageByName(string name)
+    {
+        return await _context.TypePages.Where(x => x.Name == name).FirstOrDefaultAsync()
+            ?? throw new KeyNotFoundException($"TypePage with Name: {name} not found");
+    }
 
     public void Update(TypePage item)
     {

@@ -16,8 +16,15 @@ public class CalendarContentRepository(NotionDbContext context) : ICalendarConte
 
     public async Task Delete(Guid id)
     {
-        CalendarContent calendarContent = await this.Get(id);
-        _context.CalendarContents.Remove(calendarContent);
+        try
+        {
+            CalendarContent calendarContent = await this.Get(id);
+            _context.CalendarContents.Remove(calendarContent);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task<CalendarContent> Get(Guid id)

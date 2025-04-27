@@ -16,9 +16,16 @@ public class GalleryRepository(NotionDbContext context) : IGalleryRepository
 
     public async Task Delete(Guid id)
     {
-        Gallery gallery = await this.Get(id);
-        gallery.DeleteDt = DateTime.Now;
-        this.Update(gallery);
+        try
+        {
+            Gallery gallery = await this.Get(id);
+            gallery.DeleteDt = DateTime.Now;
+            this.Update(gallery);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task<Gallery> Get(Guid id)

@@ -5,11 +5,9 @@ using File = NotionBack.DAL.Models.fileStructure.File;
 
 namespace NotionBack.DAL.Repositories;
 
-public class FileRepository(NotionDbContext context)
-    : IFileRepository
+public class FileRepository(NotionDbContext context) : IFileRepository
 {
     private readonly NotionDbContext _context = context;
-    
 
     public async Task Create(File item)
     {
@@ -19,8 +17,16 @@ public class FileRepository(NotionDbContext context)
 
     public async Task Delete(Guid id)
     {
-        File file = await this.Get(id);
-        _context.Files.Remove(file);
+        try
+        {
+            File file = await this.Get(id);
+            _context.Files.Remove(file);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+
         //_logger.LogInformation($"File {file.Name} with ID: {file.Id} deleted");
     }
 
@@ -33,6 +39,6 @@ public class FileRepository(NotionDbContext context)
     public void Update(File item)
     {
         _context.Files.Entry(item).State = EntityState.Modified;
-       // _logger.LogInformation($"File with ID: {item.Id} updated");
+        // _logger.LogInformation($"File with ID: {item.Id} updated");
     }
 }

@@ -16,9 +16,16 @@ public class ListRepository(NotionDbContext context) : IListRepository
 
     public async Task Delete(Guid id)
     {
-        List list = await this.Get(id);
-        list.DeleteDt = DateTime.Now;
-        this.Update(list);
+        try
+        {
+            List list = await this.Get(id);
+            list.DeleteDt = DateTime.Now;
+            this.Update(list);
+        }
+        catch (NullReferenceException ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task<List> Get(Guid id)
