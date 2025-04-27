@@ -38,6 +38,18 @@ builder.Services.AddCors(options =>
     );
 });
 
+//System.Net.ServicePointManager.ServerCertificateValidationCallback =
+//    (sender, certificate, chain, sslPolicyErrors) =>
+//    {
+//        if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors)
+//        {
+//            // Игнорировать ошибку отзыва
+//            return true;
+//        }
+//        return sslPolicyErrors == System.Net.Security.SslPolicyErrors.None;
+//    };
+
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>

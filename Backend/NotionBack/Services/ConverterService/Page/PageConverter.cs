@@ -81,6 +81,7 @@ namespace NotionBack.Services.ConverterService.Page
                 DeleteDt = model.DeleteDt,
                 Slug = model.Slug,
                 Type = _typeConvertService.ToDTO(model.Type)
+
             };
 
             var converter = _contentRegistry.GetConverter(model.Type.Name);

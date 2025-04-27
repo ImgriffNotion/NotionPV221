@@ -124,24 +124,6 @@ namespace NotionBack.Controllers
 
         }
 
-        [HttpPost("get-access-token")]
-        public async Task<IActionResult> GetAccessToken()
-        {
-            var tokenRequest = new Dictionary<string, string>
-            {
-                { "client_id", "24881042872-ep2a4i7maue9ecm09f0viigeuvperr5t.apps.googleusercontent.com" },
-                { "client_secret", "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" },
-                { "grant_type", "client_credentials" },
-                { "scope", "openid email profile" }
-            };
-
-            var response = await _httpClient.PostAsync("https://oauth2.googleapis.com/token",
-                new FormUrlEncodedContent(tokenRequest));
-
-            var responseString = await response.Content.ReadAsStringAsync();
-            return Ok(responseString);
-        }
-
         [HttpGet("login")]
         public IActionResult Login()
         {
@@ -199,6 +181,30 @@ namespace NotionBack.Controllers
             return Redirect($"http://localhost:3000/login/success?email={user.Email}");
         }
 
+        [HttpGet("user-by-email")]
+        public async Task<IActionResult> GetByEmail(String email)
+        {
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "GetByEmail",
+                uri = "/imgriff/auth/user-by-email",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            try
+            {
+                var response = new RestResponse<Object>(200, UserDTOStore[email], meta);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var response = new RestResponse<string>(500, ex.Message, meta);
+                return Ok(response);
+            }
+        }
+
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
@@ -218,12 +224,9 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
-            //CCA8C249-5947-45AF-A3A2-08DD84246888
             try
             {
-                await _unitOfWork.Users.Delete(new Guid("CCA8C249-5947-45AF-A3A2-08DD84246888"));
-                await _unitOfWork.Save();
-                var _response = new RestResponse<Object>(200, "CCA8C249-5947-45AF-A3A2-08DD84246888", meta);
+                var _response = new RestResponse<Object>(200, "delete", meta);
                 return Ok(_response);
             }
             catch (Exception ex)
@@ -250,29 +253,6 @@ namespace NotionBack.Controllers
             return user;
         }
 
-        [HttpGet("user-by-email")]
-        public async Task<IActionResult> GetByEmail(String email)
-        {
-            var meta = new RestMetaData()
-            {
-                method = "GET",
-                name = "GetByEmail",
-                uri = "/imgriff/auth/user-by-email",
-                locale = "UK-UA",
-                serverTime = DateTime.UtcNow
-            };
-
-            try
-            {
-                var response = new RestResponse<Object>(200, UserDTOStore[email], meta);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                var response = new RestResponse<string>(500, ex.Message, meta);
-                return Ok(response);
-            }
-        }
     }
 }
 
