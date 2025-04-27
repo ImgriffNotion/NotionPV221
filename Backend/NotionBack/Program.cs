@@ -30,12 +30,25 @@ builder.Services.AddCors(options =>
                 .WithOrigins("http://10.0.1.4")
                 .WithOrigins("http://13.79.53.15")
                 .WithOrigins("http://localhost:5000")
+                .WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();
         }
     );
 });
+
+//System.Net.ServicePointManager.ServerCertificateValidationCallback =
+//    (sender, certificate, chain, sslPolicyErrors) =>
+//    {
+//        if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors)
+//        {
+//            // Игнорировать ошибку отзыва
+//            return true;
+//        }
+//        return sslPolicyErrors == System.Net.Security.SslPolicyErrors.None;
+//    };
+
 
 builder.Services.AddDistributedMemoryCache();
 

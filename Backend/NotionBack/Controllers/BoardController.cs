@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models.pageContents;
 using NotionBack.Models.ModelsDTO.ContentDTO;
+using NotionBack.REST;
 using NotionBack.Services.ConverterService;
 
 namespace NotionBack.Controllers
@@ -15,28 +16,66 @@ namespace NotionBack.Controllers
         private readonly IConvertService<BoardDTO, Board> _convertService = converterService;
 
         [HttpGet]
-        public Task<IActionResult> Get(String id)
+        public async Task<IActionResult> Get(String id)
         {
 
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "GetAll",
+                uri = "/imgriff/board",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            try
+            {
+                var tmp = await _unitOfWork.Boards.GetAll();
+
+                var _response = new RestResponse<Object>(200, tmp, meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                return Ok(_response);
+            }
+
         }
 
         [HttpPost]
         public async Task<IActionResult> Post()
         {
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "GetAll",
+                uri = "/imgriff/board",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
             var board = new BoardDTO()
             {
                 CreatedAt = DateTime.Now,
                 DeleteDt = DateTime.Now,
                 Id = new Guid(),
-                InternalContent = null,
+                InternalContent = new List<ListDTO>(),
                 ParentPageId = new Guid(),
                 Title = "NEW BOARD FROM TODAY"
             };
-
-           await _unitOfWork.Boards.Create(_convertService.FromDTO(board));
-
-            return null;
+            try
+            {
+                await _unitOfWork.Boards.Create(_convertService.FromDTO(board));
+                await _unitOfWork.Save();
+                var _response = new RestResponse<Object>(200, "OK", meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                return Ok(_response);
+            }
         }
 
         [HttpPut]
