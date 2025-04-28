@@ -1,38 +1,108 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NotionBack.DAL.Interfaces;
+using NotionBack.DAL.Models.pageContents;
+using NotionBack.Models.ModelsDTO.ContentDTO;
+using NotionBack.REST;
+using NotionBack.Services.ConverterService;
 
 namespace NotionBack.Controllers
 {
     [Route("imgriff/calendars")]
     [ApiController]
-    public class CalendarController(IUnitOfWork unitOfWork) : ControllerBase
+    public class CalendarController(IUnitOfWork unitOfWork, IConvertService<CalendarDTO, Calendar> convertService) : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IConvertService<CalendarDTO, Calendar> _convertService = convertService;
 
 
         [HttpGet]
-        public Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get(String id)
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "Get",
+                uri = $"/imgriff/calendars?id={id}",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            try
+            {
+
+                var calendar = await _unitOfWork.Calendars.Get(new Guid(id));
+
+                var _response = new RestResponse<Object>(200, _convertService.ToDTO(calendar), meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
+                return Ok(_response);
+            }
         }
 
         [HttpPost]
-        public Task<IActionResult> Post()
+        public async Task<IActionResult> Post()
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "POST",
+                name = "Post",
+                uri = "/imgriff/calendars",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            var response = new RestResponse<string>(500, "Post method is empty", meta);
+            return Ok(response);
         }
 
         [HttpPut]
-        public Task<IActionResult> Put()
+        public async Task<IActionResult> Put([FromBody] CalendarDTO calendarFromRequest)
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "PUT",
+                name = "Put",
+                uri = "/imgriff/calendars",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            try
+            {
+                var calendar = await _unitOfWork.Calendars.Get(calendarFromRequest.Id);
+
+                _unitOfWork.Calendars.Update(_convertService.FromDTO(calendarFromRequest));
+                await _unitOfWork.Save();
+
+                var _response = new RestResponse<Object>(200, calendarFromRequest, meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
+                return Ok(_response);
+            }
+
         }
 
         [HttpDelete]
-        public Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete()
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "DELETE",
+                name = "Delete",
+                uri = "/imgriff/calendars",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            var response = new RestResponse<string>(500, "Delete method is empty", meta);
+            return Ok(response);
         }
     }
 }

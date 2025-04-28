@@ -6,6 +6,7 @@ using NotionBack.DAL.Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using NotionBack.Services;
+using NotionBack.Services.ContentConverterService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,16 +39,13 @@ builder.Services.AddCors(options =>
     );
 });
 
-//System.Net.ServicePointManager.ServerCertificateValidationCallback =
-//    (sender, certificate, chain, sslPolicyErrors) =>
+//builder.Services.AddHttpClient("IgnoreSSL").ConfigurePrimaryHttpMessageHandler(() =>
+//{
+//    return new HttpClientHandler
 //    {
-//        if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateChainErrors)
-//        {
-//            // Игнорировать ошибку отзыва
-//            return true;
-//        }
-//        return sslPolicyErrors == System.Net.Security.SslPolicyErrors.None;
+//        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
 //    };
+//});
 
 
 builder.Services.AddDistributedMemoryCache();
@@ -105,6 +103,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.RegistatorAllServices();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetRequiredService<ContentConverterRegistryInitializer>();
+    initializer.Initialize();
+}
 
 if (app.Environment.IsDevelopment())
 {

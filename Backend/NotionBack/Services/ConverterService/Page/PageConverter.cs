@@ -1,8 +1,11 @@
-﻿using NotionBack.DAL.Models;
+﻿using NotionBack.DAL.Interfaces;
+using NotionBack.DAL.Models;
 using NotionBack.DAL.Models.pageContents;
 using NotionBack.Models.Enums;
 using NotionBack.Models.ModelsDTO;
+using NotionBack.Models.ModelsDTO.ContentDTO;
 using NotionBack.Services.ConverterService.UntypeContentService;
+using System.Text.Json;
 
 namespace NotionBack.Services.ConverterService.Page
 {
@@ -23,11 +26,19 @@ namespace NotionBack.Services.ConverterService.Page
                 CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
                 Slug = model.Slug,
-                Type = _typeConvertService.FromDTO(model.Type)
+                Type = _typeConvertService.FromDTO(model.Type),
+                Boards = new List<Board>(),
+                Lists = new List<List>(),
+                Tables = new List<Table>(),
+                Calendars = new List<Calendar>(),
+                Galleries = new List<Gallery>(),
+                JustPageContents = new List<JustPageContent>()
             };
 
             if (model.Content != null && model.Type != null)
             {
+                var content = model.Content;
+                var contentElement = JsonSerializer.SerializeToElement(model.Content);
                 var converter = _contentRegistry.GetConverter(model.Type.Name);
                 switch ((PageType)page.Type.TypeCode)
                 {
@@ -38,6 +49,8 @@ namespace NotionBack.Services.ConverterService.Page
                         }
                     case PageType.Board:
                         {
+                            var boardDto = JsonSerializer.Deserialize<BoardDTO>(contentElement.GetRawText());
+                            model.Content = boardDto;
                             page.Boards.Add((Board)converter.FromDTO(model.Content));
                             break;
                         }
@@ -46,7 +59,7 @@ namespace NotionBack.Services.ConverterService.Page
                             page.Lists.Add((List)converter.FromDTO(model.Content));
                             break;
                         }
-                    case PageType.Calendar:
+                    case PageType.Calendar: 
                         {
                             page.Calendars.Add((Calendar)converter.FromDTO(model.Content));
                             break;

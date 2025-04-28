@@ -1,37 +1,123 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using NotionBack.REST;
 using NotionBack.DAL.Interfaces;
+using NotionBack.Services.ConverterService;
+using NotionBack.Models.ModelsDTO;
+using NotionBack.DAL.Models;
+
 
 namespace NotionBack.Controllers
 {
-    [Route("imgriff/person")]
+   
     [ApiController]
-    public class UserController(IUnitOfWork unitOfWork) : ControllerBase
+    [Route("imgriff/person")]
+    public class UserController(IUnitOfWork unitOfWork, IConvertService<UserDTO, User> userConverService) : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IConvertService<UserDTO, User> _userConvertService = userConverService;
 
         [HttpGet]
-        public Task<IActionResult> Get(String id)
+        public async Task<IActionResult> Get(String id)
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "Get",
+                uri = $"/imgriff/person?id={id}",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow,
+            };
+
+            try
+            {
+                var user = await _unitOfWork.Users.Get(new Guid(id));
+                var response = new RestResponse<object>(200, _userConvertService.ToDTO(user), meta);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var response = new RestResponse<string>(500, ex.Message, meta);
+                return Ok(response);
+            }
         }
 
         [HttpPost]
-        public Task<IActionResult> Post()
+        public async Task<IActionResult> Post()
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "POST",
+                name = "Post",
+                uri = $"/imgriff/person",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow,
+            };
+            var response = new RestResponse<string>(500, "post method is empty", meta);
+            return Ok(response);
         }
 
         [HttpPut]
-        public Task<IActionResult> Put()
+        public async Task<IActionResult> Put([FromBody] UserDTO userFromRequest)
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "PUT",
+                name = "Put",
+                uri = $"/imgriff/person",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow,
+            };
+
+            try
+            {
+                var user = await _unitOfWork.Users.Get(userFromRequest.Id);
+
+                _unitOfWork.Users.Update(_userConvertService.FromDTO(userFromRequest));
+                await _unitOfWork.Save();
+
+                var response = new RestResponse<object>(200, userFromRequest, meta);
+                return Ok(response);
+
+            }
+            catch (Exception ex)
+            {
+                var response = new RestResponse<string>(500, "post method is empty", meta);
+                return Ok(response);
+
+            }
         }
 
         [HttpDelete]
-        public Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete()
         {
-            return null;
+            //try
+            //{
+            //    var users = await _unitOfWork.Users.GetAll();
+            //    foreach (var user in users)
+            //    {
+            //        await _unitOfWork.Users.Delete(user.Id);
+            //    }
+            //    await _unitOfWork.Save();
+
+            //    var _response = new RestResponse<Object>(200, "delete", meta);
+            //    return Ok(_response);
+            //}
+            //catch (Exception ex)
+            //{
+            //    var _response = new RestResponse<Object>(500, ex.Message, meta);
+            //    return Ok(_response);
+            //}
+
+            var meta = new RestMetaData()
+            {
+                method = "DELETE",
+                name = "Delete",
+                uri = $"/imgriff/person",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow,
+            };
+            var response = new RestResponse<string>(500, "Delete method is empty", meta);
+            return Ok(response);
         }
     }
 }

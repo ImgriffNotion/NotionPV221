@@ -6,6 +6,7 @@ using NotionBack.Models.Enums;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO;
+using NotionBack.Services.ContentConverterService;
 using NotionBack.Services.ConverterService;
 using NotionBack.Services.ConverterService.Files;
 using NotionBack.Services.ConverterService.Page;
@@ -19,6 +20,7 @@ using NotionBack.Services.ConverterService.UntypeContentService;
 using NotionBack.Services.ConverterService.Users;
 using NotionBack.Services.EmailAuthorizationService;
 using NotionBack.Services.EmailService;
+using NotionBack.Services.PageTypesService;
 using NotionBack.Services.RandomService;
 
 namespace NotionBack.Services
@@ -67,27 +69,11 @@ namespace NotionBack.Services
 
             services.AddSingleton<IContentConverterRegistry, ContentConverterRegistry>();
 
-            var provider = services.BuildServiceProvider();
-            var registry = (ContentConverterRegistry)provider.GetRequiredService<IContentConverterRegistry>();
+            services.AddScoped<ContentConverterRegistryInitializer>();
 
-            registry.RegisterConverter(PageType.Empty.ToString(), new ConvertServiceWrapper<EmptyPageContentDTO, JustPageContent>(
-                provider.GetRequiredService<IConvertService<EmptyPageContentDTO, JustPageContent>>()));
-
-            registry.RegisterConverter(PageType.Gallery.ToString(), new ConvertServiceWrapper<GalleryDTO, Gallery>(
-                provider.GetRequiredService<IConvertService<GalleryDTO, Gallery>>()));
-
-            registry.RegisterConverter(PageType.Board.ToString(), new ConvertServiceWrapper<BoardDTO, Board>(
-                provider.GetRequiredService<IConvertService<BoardDTO, Board>>()));
-
-            registry.RegisterConverter(PageType.List.ToString(), new ConvertServiceWrapper<ListDTO, List>(
-                provider.GetRequiredService<IConvertService<ListDTO, List>>()));
-
-            registry.RegisterConverter(PageType.Calendar.ToString(), new ConvertServiceWrapper<CalendarDTO, Calendar>(
-                provider.GetRequiredService<IConvertService<CalendarDTO, Calendar>>()));
-
-            registry.RegisterConverter(PageType.Table.ToString(), new ConvertServiceWrapper<TableDTO, Table>(
-                provider.GetRequiredService<IConvertService<TableDTO, Table>>()));
             #endregion
+
+            services.AddScoped<IPageTypeService, PageTypeService>();
 
             services.AddSingleton<IRandomService, RandomCreatorService>();
             services.AddSingleton<IEmailService, EmailSenderService>();

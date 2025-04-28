@@ -1,5 +1,4 @@
-
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -9,27 +8,25 @@ using NotionBack.Models.RequestsBody;
 using NotionBack.Models.OTP;
 using NotionBack.Services.RandomService;
 using NotionBack.REST;
-using System.Net.Http;
-using System.Text.Json;
-using NotionBack.Services.EmailAuthorizationService.EmailModels;
 using NotionBack.DAL.Interfaces;
 using NotionBack.Services.ConverterService;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.DAL.Models;
+using NotionBack.Models;
 
 namespace NotionBack.Controllers
 {
     [ApiController]
     [Route("imgriff/auth")]
-    public class AuthController(IEmailService emailSender, 
-        IRandomService randomService, 
+    public class AuthController(IEmailService emailSender,
+        IRandomService randomService,
         HttpClient client,
         IUnitOfWork unitOfWork,
         IConvertService<UserDTO, User> userConvertService) : ControllerBase
     {
         private static Dictionary<string, OTPModel> OTPStore = new();
-        private static Dictionary<string, UserDTO> UserDTOStore = new();
         private readonly HttpClient _httpClient = client;
+        private static String redirectUrl = RedirectionURLs.localhostUrl;
 
 
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
@@ -44,7 +41,7 @@ namespace NotionBack.Controllers
             {
                 method = "GET",
                 name = "GetOtp",
-                uri = "/imgriff/auth/get-otp",
+                uri = $"/imgriff/auth/get-otp?email={email}",
                 locale = "UK-UA",
                 serverTime = DateTime.UtcNow
             };
@@ -103,16 +100,29 @@ namespace NotionBack.Controllers
 
                 OTPStore.Remove(body.Email);
 
-                var user = new UserDTO()
+                try
                 {
-                    Email = body.Email
-                };
+                    var user = await _unitOfWork.Users.GetUserByEmail(body.Email);
 
-                await _unitOfWork.Users.Create(_userConvertService.FromDTO(user));
-                await _unitOfWork.Save();
+                    var response = new RestResponse<Object>(200, user, meta);
+                    return Ok(response);
+                }
+                catch (Exception ex)
+                {
 
-                var _response = new RestResponse<Object>(200, user, meta);
-                return Ok();
+                    var newUser = new UserDTO()
+                    {
+                        Email = body.Email
+                    };
+                    await _unitOfWork.Users.Create(_userConvertService.FromDTO(newUser));
+                    await _unitOfWork.Save();
+
+                    var _response = new RestResponse<Object>(200, newUser, meta);
+                    return Ok(_response);
+                }
+
+
+
             }
             catch (Exception ex)
             {
@@ -157,15 +167,15 @@ namespace NotionBack.Controllers
             if (!authResult.Succeeded) return BadRequest("Google authentication failed.");
 
 
-            var user = getUserByResponse(authResult);
+            var userFromResponse = getUserByResponse(authResult);
 
             // Sign in the user
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Surname, user.Lastname),
-                new Claim("ProfilePicture", user.Avatar ?? "")
+                new Claim(ClaimTypes.Email,userFromResponse.Email),
+                new Claim(ClaimTypes.Name, userFromResponse.Name),
+                new Claim(ClaimTypes.Surname, userFromResponse.Lastname),
+                new Claim("ProfilePicture", userFromResponse.Avatar ?? "")
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -173,12 +183,23 @@ namespace NotionBack.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-            await _unitOfWork.Users.Create(_userConvertService.FromDTO(user));
+            try
+            {
+                var user = await _unitOfWork.Users.GetUserByEmail(userFromResponse.Email);
+                user.Avatar = userFromResponse.Avatar;
+                user.Name = userFromResponse.Name;
+                user.Lastname = userFromResponse.Lastname;
+
+                _unitOfWork.Users.Update(user);
+
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.Users.Create(_userConvertService.FromDTO(userFromResponse));
+            }
+
             await _unitOfWork.Save();
-
-            UserDTOStore[user.Email] = user;
-
-            return Redirect($"http://localhost:3000/login/success?email={user.Email}");
+            return Redirect($"{redirectUrl}/login/success?email={userFromResponse.Email}");
         }
 
         [HttpGet("user-by-email")]
@@ -188,14 +209,15 @@ namespace NotionBack.Controllers
             {
                 method = "GET",
                 name = "GetByEmail",
-                uri = "/imgriff/auth/user-by-email",
+                uri = $"/imgriff/auth/user-by-email?email={email}",
                 locale = "UK-UA",
                 serverTime = DateTime.UtcNow
             };
 
             try
             {
-                var response = new RestResponse<Object>(200, UserDTOStore[email], meta);
+                var user = await _unitOfWork.Users.GetUserByEmail(email);
+                var response = new RestResponse<Object>(200, _userConvertService.ToDTO(user), meta);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -224,16 +246,26 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
-            try
-            {
-                var _response = new RestResponse<Object>(200, "delete", meta);
-                return Ok(_response);
-            }
-            catch (Exception ex)
-            {
-                var _response = new RestResponse<Object>(500, ex.Message, meta);
-                return Ok(_response);
-            }
+            //try
+            //{
+            //    var users = await _unitOfWork.Users.GetAll();
+            //    foreach (var user in users)
+            //    {
+            //        await _unitOfWork.Users.Delete(user.Id);
+            //    }
+            //    await _unitOfWork.Save();
+
+            //    var _response = new RestResponse<Object>(200, "delete", meta);
+            //    return Ok(_response);
+            //}
+            //catch (Exception ex)
+            //{
+            //    var _response = new RestResponse<Object>(500, ex.Message, meta);
+            //    return Ok(_response);
+            //}
+
+            var _response = new RestResponse<string>(200, "Delete method is empty", meta);
+            return Ok(_response);
         }
 
         private UserDTO getUserByResponse(AuthenticateResult authResult)

@@ -23,21 +23,22 @@ namespace NotionBack.Controllers
             {
                 method = "GET",
                 name = "GetAll",
-                uri = "/imgriff/board",
+                uri = $"/imgriff/boards?id={id}",
                 locale = "UK-UA",
                 serverTime = DateTime.UtcNow
             };
 
             try
             {
-                var tmp = await _unitOfWork.Boards.GetAll();
+               
+                var board = await _unitOfWork.Boards.Get(new Guid(id));
 
-                var _response = new RestResponse<Object>(200, tmp, meta);
+                var _response = new RestResponse<Object>(200, _convertService.ToDTO(board), meta);
                 return Ok(_response);
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
 
@@ -48,9 +49,9 @@ namespace NotionBack.Controllers
         {
             var meta = new RestMetaData()
             {
-                method = "GET",
-                name = "GetAll",
-                uri = "/imgriff/board",
+                method = "POST",
+                name = "Post",
+                uri = "/imgriff/boards",
                 locale = "UK-UA",
                 serverTime = DateTime.UtcNow
             };
@@ -73,21 +74,56 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }
 
         [HttpPut]
-        public Task<IActionResult> Put()
+        public async Task<IActionResult> Put([FromBody] BoardDTO boardFromRequest)
         {
-            return null;
+            var meta = new RestMetaData()
+            {
+                method = "PUT",
+                name = "Put",
+                uri = "/imgriff/boards",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            try
+            {
+                var board = await _unitOfWork.Boards.Get(boardFromRequest.Id);
+
+                _unitOfWork.Boards.Update(_convertService.FromDTO(boardFromRequest));
+                await _unitOfWork.Save();
+
+                var _response = new RestResponse<Object>(200, boardFromRequest, meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
+                return Ok(_response);
+            }
+
         }
 
         [HttpDelete]
-        public Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete()
         {
-            return null;
+
+            var meta = new RestMetaData()
+            {
+                method = "DELETE",
+                name = "Delete",
+                uri = "/imgriff/boards",
+                locale = "UK-UA",
+                serverTime = DateTime.UtcNow
+            };
+
+            var response = new RestResponse<string>(500, "Delete method is empty", meta);
+            return Ok(response);
         }
     }
 }
