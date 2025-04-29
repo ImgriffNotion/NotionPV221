@@ -55,6 +55,8 @@ namespace NotionBack.Services.ConverterService.Page
                         }
                     case PageType.List:
                         {
+                            var listDTO = JsonSerializer.Deserialize<ListDTO>(contentElement.GetRawText());
+                            model.Content = listDTO;
                             page.Lists.Add((List)converter.FromDTO(model.Content));
                             break;
                         }

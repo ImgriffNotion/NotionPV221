@@ -37,12 +37,6 @@ public class NotionDbContext : DbContext
             .HasForeignKey<Token>(t => t.UserId)
             .OnDelete(DeleteBehavior.NoAction);
 
-        modelBuilder
-            .Entity<Token>()
-            .HasIndex(t => t.UserId)
-            .IsUnique()
-            .HasFilter($"[Exp] > GETDATE()"); // !!!Needs to be checked!!!
-
         //User
         modelBuilder
             .Entity<User>()
