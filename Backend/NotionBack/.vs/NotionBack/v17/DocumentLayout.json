@@ -3,24 +3,15 @@
   "WorkspaceRootPath": "D:\\NotionPV221\\Backend\\NotionBack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\services\\converterservice\\page\\pageconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:services\\converterservice\\page\\pageconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\models\\modelsdto\\contentdto\\boarddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:models\\modelsdto\\contentdto\\boarddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\models\\modelsdto\\contentdto\\internalcontentdto\\listcontentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:models\\modelsdto\\contentdto\\internalcontentdto\\listcontentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\models\\modelsdto\\pagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:models\\modelsdto\\pagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alesh\\AppData\\Local\\SourceServer\\39b891a83a1891c72ae8923eb89eff644c271ba948a0fbf7b7e4010f2739d426\\Backend\\NotionBack\\Controllers\\PageController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +21,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 345,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,67 +53,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PageDTO.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\PageDTO.cs",
-              "RelativeDocumentMoniker": "Models\\ModelsDTO\\PageDTO.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\PageDTO.cs",
-              "RelativeToolTip": "Models\\ModelsDTO\\PageDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T05:30:27.77Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ListContentDTO.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\ContentDTO\\InternalContentDTO\\ListContentDTO.cs",
-              "RelativeDocumentMoniker": "Models\\ModelsDTO\\ContentDTO\\InternalContentDTO\\ListContentDTO.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\ContentDTO\\InternalContentDTO\\ListContentDTO.cs",
-              "RelativeToolTip": "Models\\ModelsDTO\\ContentDTO\\InternalContentDTO\\ListContentDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T05:28:47.422Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "BoardDTO.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\ContentDTO\\BoardDTO.cs",
-              "RelativeDocumentMoniker": "Models\\ModelsDTO\\ContentDTO\\BoardDTO.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\ContentDTO\\BoardDTO.cs",
-              "RelativeToolTip": "Models\\ModelsDTO\\ContentDTO\\BoardDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAjAAAA",
+              "Title": "PageController.cs",
+              "DocumentMoniker": "C:\\Users\\alesh\\AppData\\Local\\SourceServer\\39b891a83a1891c72ae8923eb89eff644c271ba948a0fbf7b7e4010f2739d426\\Backend\\NotionBack\\Controllers\\PageController.cs",
+              "ToolTip": "C:\\Users\\alesh\\AppData\\Local\\SourceServer\\39b891a83a1891c72ae8923eb89eff644c271ba948a0fbf7b7e4010f2739d426\\Backend\\NotionBack\\Controllers\\PageController.cs [Read Only]",
+              "ViewState": "AQIAAGsAAAAAAAAAAADgv6kAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T05:25:02.175Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T04:08:54.337Z",
+              "EditorCaption": " [Read Only]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PageController.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PageController.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs*",
-              "RelativeToolTip": "Controllers\\PageController.cs*",
-              "ViewState": "AQIAAFIAAAAAAAAAAAAUwGMAAAA2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T03:41:03.051Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "PageConverter.cs",
               "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\Page\\PageConverter.cs",
               "RelativeDocumentMoniker": "Services\\ConverterService\\Page\\PageConverter.cs",
               "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\Page\\PageConverter.cs",
               "RelativeToolTip": "Services\\ConverterService\\Page\\PageConverter.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAswAsAAAB8AAAA",
+              "ViewState": "AQIAAGwAAAAAAAAAAADgv4MAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T21:40:03.284Z",
+              "WhenOpened": "2025-04-29T03:13:59.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PageController.cs",
+              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PageController.cs",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
+              "RelativeToolTip": "Controllers\\PageController.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAIA2wLkAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T03:41:03.051Z",
               "EditorCaption": ""
             }
           ]

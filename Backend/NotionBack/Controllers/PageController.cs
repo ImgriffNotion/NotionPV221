@@ -7,6 +7,7 @@ using NotionBack.DAL.Repositories;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.DAL.Models;
 using NotionBack.Services.PageTypesService;
+using System;
 
 namespace NotionBack.Controllers
 {
@@ -37,14 +38,16 @@ namespace NotionBack.Controllers
 
             try
             {
-                var pages = await _unitOfWork.Pages.GetPageBySlug(slug);
+                var page = await _unitOfWork.Pages.GetPageBySlug(slug);
+                page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
+                await GetContent(page);
 
-                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(pages), meta);
+                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(page), meta);
                 return Ok(_response);
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }
@@ -67,6 +70,7 @@ namespace NotionBack.Controllers
                 var pages = new List<PageDTO>();
                 foreach (var page in listOfPages) 
                 {
+                    page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
                     pages.Add(_pageConvertService.ToDTO(page));
                 }
 
@@ -164,6 +168,47 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(200, ex.Message, meta);
                 return Ok(_response);
             } 
+        }
+
+
+        /// There's enormous kostyl | YOU MUST MAKE IT CORRECT !!!!
+
+        private async Task<Page> GetContent(Page page)
+        {
+            switch ((PageType)page.Type.TypeCode)
+            {
+                case PageType.Empty:
+                    {
+                        await _unitOfWork.JustPageContents.GetAll();
+                        break;
+                    }
+                case PageType.Board:
+                    {
+                        await _unitOfWork.Boards.GetAll();
+                        break;
+                    }
+                case PageType.List:
+                    {
+                        await _unitOfWork.Lists.GetAll();
+                        break;
+                    }
+                case PageType.Calendar:
+                    {
+                        await _unitOfWork.Calendars.GetAll();
+                        break;
+                    }
+                case PageType.Gallery:
+                    {
+                        await _unitOfWork.Galleries.GetAll();
+                        break;
+                    }
+                case PageType.Table:
+                    {
+                        await _unitOfWork.Tables.GetAll();
+                        break;
+                    }
+            };
+            return page;
         }
     }
 }

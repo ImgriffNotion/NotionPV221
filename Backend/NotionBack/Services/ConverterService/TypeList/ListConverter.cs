@@ -18,7 +18,6 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Id = model.Id,
                 ParentPageId = (Guid)model.ParentPageId,
                 Title = model.Title,
-                DeleteDt = model.DeleteDt,
                 BoardId = (Guid)model.BoardId,
                 Contents = new List<ListContent>()
             };
@@ -41,6 +40,7 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Id = model.Id,
                 ParentPageId = (Guid)model.ParentPageId,
                 Title = model.Title,
+                CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
                 BoardId = (Guid)model.BoardId,
                 InternalContent = new List<ListContentDTO>()

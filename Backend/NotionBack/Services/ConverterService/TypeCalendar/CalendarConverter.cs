@@ -38,6 +38,8 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 Id = model.Id,
                 Title = model.Title,
                 ParentPageId = (Guid)model.ParentPageId,
+                CreatedAt = model.CreatedAt,
+                DeleteDt = model.DeleteDt,
                 InternalContent = new List<CalendarContentDTO>()
             };
 

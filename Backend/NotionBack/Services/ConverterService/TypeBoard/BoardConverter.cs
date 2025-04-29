@@ -14,7 +14,6 @@ namespace NotionBack.Services.ConverterService.TypeBoard
                 Id = model.Id,
                 Title = model.Title,
                 ParentPageId = model.ParentPageId,
-                DeleteDt = model.DeleteDt,
                 Lists = new List<DAL.Models.pageContents.List>()
             };
 
@@ -30,11 +29,13 @@ namespace NotionBack.Services.ConverterService.TypeBoard
 
         public BoardDTO ToDTO(Board model)
         {
+
             var board = new BoardDTO()
             {
                 Id = model.Id,
                 Title = model.Title,
                 ParentPageId = (Guid)model.ParentPageId,
+                CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
                 InternalContent = new List<ListDTO>()
             };

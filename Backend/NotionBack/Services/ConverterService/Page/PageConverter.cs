@@ -16,6 +16,7 @@ namespace NotionBack.Services.ConverterService.Page
 
         public DAL.Models.Page FromDTO(PageDTO model)
         {
+  
             var page = new DAL.Models.Page()
             {
                 Id = model.Id,
@@ -23,8 +24,6 @@ namespace NotionBack.Services.ConverterService.Page
                 Icon = model.Icon,
                 OwnerId = model.OwnerId,
                 Title = model.Title,
-                CreatedAt = model.CreatedAt,
-                DeleteDt = model.DeleteDt,
                 Slug = model.Slug,
                 Type = _typeConvertService.FromDTO(model.Type),
                 Boards = new List<Board>(),
@@ -83,6 +82,7 @@ namespace NotionBack.Services.ConverterService.Page
 
         public PageDTO ToDTO(DAL.Models.Page model)
         {
+            
             var page = new PageDTO()
             {
                 Id = model.Id,
@@ -98,40 +98,45 @@ namespace NotionBack.Services.ConverterService.Page
             };
 
             var converter = _contentRegistry.GetConverter(model.Type.Name);
-
+            object content = null;
+            
             switch ((PageType)page.Type.TypeCode)
             {
                 case PageType.Empty:
                     {
-                        page.Content = converter.ToDTO(model.JustPageContents.FirstOrDefault());
+                        content = model.JustPageContents.FirstOrDefault();
                         break;
                     }
                 case PageType.Board:
                     {
-                        page.Content = converter.ToDTO(model.Boards.FirstOrDefault());
+                        content = model.Boards.FirstOrDefault();
                         break;
                     }
                 case PageType.List:
                     {
-                        page.Content = converter.ToDTO(model.Lists.FirstOrDefault());
+                        content = model.Lists.FirstOrDefault();
                         break;
                     }
                 case PageType.Calendar:
                     {
-                        page.Content =converter.ToDTO( model.Calendars.FirstOrDefault());
+                        content = model.Calendars.FirstOrDefault();
                         break;
                     }
                 case PageType.Gallery:
                     {
-                        page.Content = converter.ToDTO(model.Galleries.FirstOrDefault());
+                        content = model.Galleries.FirstOrDefault();
                         break;
                     }
                 case PageType.Table:
                     {
-                        page.Content = converter.ToDTO(model.Tables.FirstOrDefault());
+                        content = model.Tables.FirstOrDefault();
                         break;
                     }
             };
+
+            if (content != null)
+                page.Content = converter.ToDTO(content);
+
             return page;
         }
     }
