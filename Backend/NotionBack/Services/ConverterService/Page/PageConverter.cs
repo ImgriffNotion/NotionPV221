@@ -4,15 +4,19 @@ using NotionBack.DAL.Models.pageContents;
 using NotionBack.Models.Enums;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO;
+using NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO;
 using NotionBack.Services.ConverterService.UntypeContentService;
+using NotionBack.Services.PageTypesService;
 using System.Text.Json;
 
 namespace NotionBack.Services.ConverterService.Page
 {
-    public class PageConverter(IContentConverterRegistry registry, IConvertService<PageTypeDTO, TypePage> typeConvertService) : IConvertService<PageDTO, NotionBack.DAL.Models.Page>
+    public class PageConverter(IContentConverterRegistry registry, IConvertService<PageTypeDTO, TypePage> typeConvertService, IPageTypeService pageTypeService) : IConvertService<PageDTO, NotionBack.DAL.Models.Page>
     {
         private readonly IContentConverterRegistry _contentRegistry = registry;
         private readonly IConvertService<PageTypeDTO, TypePage> _typeConvertService = typeConvertService;
+        private readonly IPageTypeService _pageTypeService = pageTypeService;
+
 
         public DAL.Models.Page FromDTO(PageDTO model)
         {
@@ -39,39 +43,41 @@ namespace NotionBack.Services.ConverterService.Page
                 var content = model.Content;
                 var contentElement = JsonSerializer.SerializeToElement(model.Content);
                 var converter = _contentRegistry.GetConverter(model.Type.Name);
-                switch ((PageType)page.Type.TypeCode)
+                switch ((PageType)_pageTypeService.GetCodeOfPageType(model.Type.Name))
                 {
                     case PageType.Empty:
                         {
+                            model.Content = JsonSerializer.Deserialize<EmptyPageContentDTO>(contentElement.GetRawText());
                             page.JustPageContents.Add((JustPageContent)converter.FromDTO(model.Content));
                             break;
                         }
                     case PageType.Board:
                         {
-                            var boardDto = JsonSerializer.Deserialize<BoardDTO>(contentElement.GetRawText());
-                            model.Content = boardDto;
+                            model.Content = JsonSerializer.Deserialize<BoardDTO>(contentElement.GetRawText());
                             page.Boards.Add((Board)converter.FromDTO(model.Content));
                             break;
                         }
                     case PageType.List:
                         {
-                            var listDTO = JsonSerializer.Deserialize<ListDTO>(contentElement.GetRawText());
-                            model.Content = listDTO;
+                            model.Content = JsonSerializer.Deserialize<ListDTO>(contentElement.GetRawText());
                             page.Lists.Add((List)converter.FromDTO(model.Content));
                             break;
                         }
                     case PageType.Calendar: 
                         {
+                            model.Content = JsonSerializer.Deserialize<CalendarDTO>(contentElement.GetRawText());
                             page.Calendars.Add((Calendar)converter.FromDTO(model.Content));
                             break;
                         }
                     case PageType.Gallery:
                         {
+                            model.Content = JsonSerializer.Deserialize<GalleryDTO>(contentElement.GetRawText()); 
                             page.Galleries.Add((Gallery)converter.FromDTO(model.Content));
                             break;
                         }
                     case PageType.Table:
                         {
+                            model.Content = JsonSerializer.Deserialize<TableDTO>(contentElement.GetRawText()); 
                             page.Tables.Add((Table)converter.FromDTO(model.Content));
                             break;
                         }

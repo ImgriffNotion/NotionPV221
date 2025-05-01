@@ -102,6 +102,7 @@ namespace NotionBack.Controllers
                 var newPage = _pageConvertService.FromDTO(page);
                 newPage.Type = pageType;
                 await _unitOfWork.Pages.Create(newPage);
+                
                 await _unitOfWork.Save();
 
                 var _response = new RestResponse<Object>(200, page, meta);
@@ -184,7 +185,7 @@ namespace NotionBack.Controllers
                     }
                 case PageType.Board:
                     {
-                        await _unitOfWork.Boards.GetAll();
+                        var tmp = await _unitOfWork.Boards.GetAll();
                         break;
                     }
                 case PageType.List:

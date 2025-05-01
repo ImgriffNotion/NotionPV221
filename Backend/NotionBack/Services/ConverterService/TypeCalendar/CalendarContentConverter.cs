@@ -26,7 +26,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 Files = new List<CalendarFile>()
             };
 
-            if (model.Files.Count != 0 && model.Files != null)
+            if (model.Files != null && model.Files.Count != 0)
             {
                 foreach (var file in model.Files)
                 {
@@ -55,7 +55,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 Files = new List<FileDTO>(),
             };
 
-            if (model.Files.Count != 0 && model.Files != null)
+            if (model.Files != null && model.Files.Count != 0)
             {
                 foreach (var file in model.Files)
                 {

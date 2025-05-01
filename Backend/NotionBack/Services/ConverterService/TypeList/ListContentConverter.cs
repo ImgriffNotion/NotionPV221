@@ -24,7 +24,7 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Files = new List<DAL.Models.fileStructure.ListFile>()
             };
 
-            if (model.Files.Count != 0 && model.Files != null) 
+            if (model.Files != null && model.Files.Count != 0) 
             {
                 foreach (var file in model.Files)
                 {
@@ -54,7 +54,7 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Files = new List<FileDTO>()
             };
 
-            if (model.Files.Count != 0 && model.Files != null)
+            if (model.Files != null && model.Files.Count != 0)
             {
                 foreach (var file in model.Files)
                 {
