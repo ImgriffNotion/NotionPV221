@@ -1,4 +1,4 @@
-﻿using NotionBack.Models.ModelsDTO.ContentDTO;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace NotionBack.Models.ModelsDTO
@@ -7,23 +7,38 @@ namespace NotionBack.Models.ModelsDTO
     {
         [JsonPropertyName("id")] 
         public Guid Id { get; set; }
-        [JsonPropertyName("ownerId")] 
+        
+        [Required]
+        [JsonPropertyName("ownerId")]
         public Guid OwnerId { get; set; }
+
+        [Required]
         [JsonPropertyName("title")] 
         public String? Title { get; set; }
+        
+        [Required]
         [JsonPropertyName("banner")] 
         public String? Banner {  get; set; }
+        
+        [Required]
         [JsonPropertyName("icon")] 
         public String? Icon { get; set; }
+        
         [JsonPropertyName("slug")] 
         public String? Slug { get; set; }
+        
+        [Required]
         [JsonPropertyName("type")] 
-        public PageTypeDTO? Type { get; set; }
+        public String? Type { get; set; }
+        
         [JsonPropertyName("createdAt")] 
         public DateTime? CreatedAt { get; set; }
+        
         [JsonPropertyName("deleteDt")] 
         public DateTime? DeleteDt { get; set; }
-        [JsonPropertyName("content")] 
+        
+        [Required]
+        [JsonPropertyName("content")]
         public Object? Content { get; set; }
     }
 }

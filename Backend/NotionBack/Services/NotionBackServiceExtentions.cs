@@ -20,6 +20,7 @@ using NotionBack.Services.ConverterService.UntypeContentService;
 using NotionBack.Services.ConverterService.Users;
 using NotionBack.Services.EmailAuthorizationService;
 using NotionBack.Services.EmailService;
+using NotionBack.Services.OTPService;
 using NotionBack.Services.PageTypesService;
 using NotionBack.Services.RandomService;
 
@@ -70,6 +71,8 @@ namespace NotionBack.Services
             services.AddSingleton<IContentConverterRegistry, ContentConverterRegistry>();
 
             services.AddScoped<ContentConverterRegistryInitializer>();
+
+            services.AddScoped<IOtpService, OtpService>();
 
             #endregion
 

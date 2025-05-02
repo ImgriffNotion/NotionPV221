@@ -13,6 +13,7 @@ using NotionBack.Services.ConverterService;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.DAL.Models;
 using NotionBack.Models;
+using NotionBack.Services.OTPService;
 
 namespace NotionBack.Controllers
 {
@@ -22,15 +23,16 @@ namespace NotionBack.Controllers
         IRandomService randomService,
         HttpClient client,
         IUnitOfWork unitOfWork,
+        IOtpService otpService,
         IConvertService<UserDTO, User> userConvertService) : ControllerBase
     {
-        private static Dictionary<string, OTPModel> OTPStore = new();
         private readonly HttpClient _httpClient = client;
         private static String redirectUrl = RedirectionURLs.localhostUrl;
 
 
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IEmailService emailService = emailSender;
+        private readonly IOtpService _otpService = otpService;
         private readonly IRandomService _randomService = randomService;
         private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
 
@@ -46,18 +48,17 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
-            try
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                var response = new RestResponse<string>(400, "Email is required", meta);
+                return Ok(response);
+            }
 
+            try
             {
                 string verificationCode = _randomService.CreatorOnePassCodeByRandom();
                 await emailSender.SendEmail(email, verificationCode);
-
-                OTPStore.Add(email, new OTPModel()
-                {
-                    user_email = email,
-                    otp = verificationCode,
-                    expired = DateTime.UtcNow.AddMinutes(10)
-                });
+                await _otpService.SaveOtp(email, verificationCode);
 
                 var response = new RestResponse<string>(200, "OTP has been sent", meta);
                 return Ok(response);
@@ -83,22 +84,22 @@ namespace NotionBack.Controllers
 
             try
             {
+                var tmp = await _otpService.VerifyOtp(body.Email, body.Passcode);
+                //if (!OTPStore.ContainsKey(body.Email))
+                //{
+                //    var response = new RestResponse<string>(400, "user should have made request to get the OTP", meta);
+                //    return Ok(response);
+                //}
 
-                if (!OTPStore.ContainsKey(body.Email))
-                {
-                    var response = new RestResponse<string>(400, "user should have made request to get the OTP", meta);
-                    return Ok(response);
-                }
+                //OTPModel otpModel = OTPStore[body.Email];
 
-                OTPModel otpModel = OTPStore[body.Email];
+                //if (otpModel == null || !otpModel.otp.Equals(body.Passcode) || otpModel.expired < DateTime.UtcNow)
+                //{
+                //    var response = new RestResponse<string>(400, "OTP is incorrect", meta);
+                //    return Ok(response);
+                //}
 
-                if (otpModel == null || !otpModel.otp.Equals(body.Passcode) || otpModel.expired < DateTime.UtcNow)
-                {
-                    var response = new RestResponse<string>(400, "OTP is incorrect", meta);
-                    return Ok(response);
-                }
-
-                OTPStore.Remove(body.Email);
+                //OTPStore.Remove(body.Email);
 
                 try
                 {

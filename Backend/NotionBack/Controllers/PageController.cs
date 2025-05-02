@@ -50,6 +50,11 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(404, ex.Message, meta);
                 return Ok(_response);
             }
+            catch (KeyNotFoundException ex)
+            {
+                var _response = new RestResponse<Object>(404, ex.Message, meta);
+                return Ok(_response);
+            }
             catch (Exception ex)
             {
                 var _response = new RestResponse<Object>(500, ex.Message, meta);
@@ -82,9 +87,14 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(200, pages, meta);
                 return Ok(_response);
             }
+            catch (NullReferenceException ex)
+            {
+                var _response = new RestResponse<Object>(404, ex.Message, meta);
+                return Ok(_response);
+            }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }
@@ -101,9 +111,10 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
+
             try
             {
-                var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type.Name));
+                var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
                 var newPage = _pageConvertService.FromDTO(page);
                 newPage.Type = pageType;
                 await _unitOfWork.Pages.Create(newPage);
@@ -115,7 +126,7 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }

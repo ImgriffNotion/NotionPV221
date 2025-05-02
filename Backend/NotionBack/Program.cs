@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using NotionBack.Services;
 using NotionBack.Services.ContentConverterService;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,6 +89,19 @@ builder.Services.AddAuthentication(options =>
     googleOptions.CallbackPath = "/signin-google";
 });
 
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var redisConfig = builder.Configuration.GetConnectionString("Redis");
+
+    var config = ConfigurationOptions.Parse(redisConfig);
+    config.Ssl = false;
+    config.AbortOnConnectFail = false;
+    config.Password = "JqITgntQMmYoyAHFIQuNwSBQncbxxBQK";
+    config.DefaultDatabase = 0;
+
+    return ConnectionMultiplexer.Connect(config);
+});
 
 // Add services to the container.
 

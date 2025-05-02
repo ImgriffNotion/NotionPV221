@@ -29,7 +29,6 @@ namespace NotionBack.Services.ConverterService.Page
                 OwnerId = model.OwnerId,
                 Title = model.Title,
                 Slug = model.Slug,
-                Type = _typeConvertService.FromDTO(model.Type),
                 Boards = new List<Board>(),
                 Lists = new List<List>(),
                 Tables = new List<Table>(),
@@ -40,10 +39,9 @@ namespace NotionBack.Services.ConverterService.Page
 
             if (model.Content != null && model.Type != null)
             {
-                var content = model.Content;
                 var contentElement = JsonSerializer.SerializeToElement(model.Content);
-                var converter = _contentRegistry.GetConverter(model.Type.Name);
-                switch ((PageType)_pageTypeService.GetCodeOfPageType(model.Type.Name))
+                var converter = _contentRegistry.GetConverter(model.Type);
+                switch ((PageType)_pageTypeService.GetCodeOfPageType(model.Type))
                 {
                     case PageType.Empty:
                         {
@@ -101,14 +99,14 @@ namespace NotionBack.Services.ConverterService.Page
                 CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
                 Slug = model.Slug,
-                Type = _typeConvertService.ToDTO(model.Type)
+                Type = model.Type.Name
 
             };
 
             var converter = _contentRegistry.GetConverter(model.Type.Name);
             object content = null;
             
-            switch ((PageType)page.Type.TypeCode)
+            switch ((PageType)_pageTypeService.GetCodeOfPageType(page.Type))
             {
                 case PageType.Empty:
                     {
