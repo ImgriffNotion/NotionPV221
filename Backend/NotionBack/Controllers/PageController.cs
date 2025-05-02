@@ -45,6 +45,11 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(page), meta);
                 return Ok(_response);
             }
+            catch (NullReferenceException ex)
+            {
+                var _response = new RestResponse<Object>(404, ex.Message, meta);
+                return Ok(_response);
+            }
             catch (Exception ex)
             {
                 var _response = new RestResponse<Object>(500, ex.Message, meta);
