@@ -25,7 +25,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/emptypage?id={id}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -52,7 +52,7 @@ namespace NotionBack.Controllers
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -68,7 +68,7 @@ namespace NotionBack.Controllers
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -98,7 +98,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 

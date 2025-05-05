@@ -44,7 +44,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "GetOtp",
                 uri = $"/imgriff/auth/get-otp?email={email}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -56,7 +56,7 @@ namespace NotionBack.Controllers
 
             try
             {
-                string verificationCode = _randomService.CreatorOnePassCodeByRandom();
+                string verificationCode = _randomService.CreatorSymbolsByCount();
                 await emailSender.SendEmail(email, verificationCode);
                 await _otpService.SaveOtp(email, verificationCode);
 
@@ -78,60 +78,48 @@ namespace NotionBack.Controllers
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/auth",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
+            if (string.IsNullOrWhiteSpace(body.Email) || string.IsNullOrEmpty(body.Passcode))
+            {
+                var response = new RestResponse<Object>(400, "Email and passcode are required", meta);
+                return Ok(response);
+            }
+
             try
             {
-                var tmp = await _otpService.VerifyOtp(body.Email, body.Passcode);
-                //if (!OTPStore.ContainsKey(body.Email))
-                //{
-                //    var response = new RestResponse<string>(400, "user should have made request to get the OTP", meta);
-                //    return Ok(response);
-                //}
-
-                //OTPModel otpModel = OTPStore[body.Email];
-
-                //if (otpModel == null || !otpModel.otp.Equals(body.Passcode) || otpModel.expired < DateTime.UtcNow)
-                //{
-                //    var response = new RestResponse<string>(400, "OTP is incorrect", meta);
-                //    return Ok(response);
-                //}
-
-                //OTPStore.Remove(body.Email);
-
-                try
+                var isSuccessful = await _otpService.VerifyOtp(body.Email, body.Passcode);
+                if (isSuccessful)
                 {
                     var user = await _unitOfWork.Users.GetUserByEmail(body.Email);
 
                     var response = new RestResponse<Object>(200, user, meta);
                     return Ok(response);
+
                 }
-                catch (Exception ex)
+
+                var _response = new RestResponse<Object>(400, "Otp is incorrect", meta);
+                return Ok(_response);
+            }
+            catch (NullReferenceException ex)
+            {
+                var newUser = new UserDTO()
                 {
+                    Email = body.Email
+                };
+                await _unitOfWork.Users.Create(_userConvertService.FromDTO(newUser));
+                await _unitOfWork.Save();
 
-                    var newUser = new UserDTO()
-                    {
-                        Email = body.Email
-                    };
-                    await _unitOfWork.Users.Create(_userConvertService.FromDTO(newUser));
-                    await _unitOfWork.Save();
-
-                    var _response = new RestResponse<Object>(200, newUser, meta);
-                    return Ok(_response);
-                }
-
-
-
+                var _response = new RestResponse<Object>(200, newUser, meta);
+                return Ok(_response);
             }
             catch (Exception ex)
             {
                 var _response = new RestResponse<string>(500, ex.Message, meta);
                 return Ok(_response);
             }
-
-
 
         }
 
@@ -160,7 +148,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "GoogleResponse",
                 uri = "/imgriff/auth/google-response",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -211,7 +199,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "GetByEmail",
                 uri = $"/imgriff/auth/user-by-email?email={email}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -220,6 +208,11 @@ namespace NotionBack.Controllers
                 var user = await _unitOfWork.Users.GetUserByEmail(email);
                 var response = new RestResponse<Object>(200, _userConvertService.ToDTO(user), meta);
                 return Ok(response);
+            }
+            catch (NullReferenceException ex)
+            {
+                var _response = new RestResponse<Object>(400, "Email is incorrect", meta);
+                return Ok(_response);
             }
             catch (Exception ex)
             {
@@ -243,7 +236,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/auth",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -320,7 +313,7 @@ mail.ru
     "first_name": "Ivan",
     "last_name": "Ivanov",
     "gender": "male",
-    "birthday": "1985-10-20",
+    "birthday": "19854000-20",
     "photo": "https://avatar.mail.ru/user.jpg"
   }
 }

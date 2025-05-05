@@ -16,7 +16,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "Get",
                 uri = "/imgriff/meta",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -27,7 +27,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/emptypage?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
 
@@ -36,7 +36,7 @@ namespace NotionBack.Controllers
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -44,7 +44,7 @@ namespace NotionBack.Controllers
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -52,7 +52,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }});
             metaInfo.Add("TableController", new List<RestMetaData>()
@@ -62,7 +62,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/tables?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -70,7 +70,7 @@ namespace NotionBack.Controllers
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/tables",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
 new RestMetaData()
@@ -78,14 +78,14 @@ new RestMetaData()
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/tables",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },new RestMetaData()
             {
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/tables",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -96,7 +96,7 @@ new RestMetaData()
                 method = "GET",
                 name = "GetAll",
                 uri = $"/imgriff/boards?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -104,7 +104,7 @@ new RestMetaData()
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/boards",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -112,7 +112,7 @@ new RestMetaData()
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/boards",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -120,7 +120,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/boards",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -131,7 +131,7 @@ new RestMetaData()
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/calendars?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -139,14 +139,14 @@ new RestMetaData()
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/calendars",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }, new RestMetaData()
             {
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/calendars",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -154,7 +154,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/calendars",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -165,7 +165,7 @@ new RestMetaData()
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/emptypage?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -173,7 +173,7 @@ new RestMetaData()
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -181,7 +181,7 @@ new RestMetaData()
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -189,7 +189,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/emptypage",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -200,14 +200,14 @@ new RestMetaData()
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/galleries?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },new RestMetaData()
             {
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/galleries",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -215,7 +215,7 @@ new RestMetaData()
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/galleries",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -223,7 +223,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/galleries",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -234,14 +234,14 @@ new RestMetaData()
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/lists?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },new RestMetaData()
             {
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/lists",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -249,7 +249,7 @@ new RestMetaData()
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/lists",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -257,7 +257,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/lists",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -268,7 +268,7 @@ new RestMetaData()
                 method = "GET",
                 name = "GetAll",
                 uri = $"/imgriff/pages?slug=page_slug",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -276,14 +276,14 @@ new RestMetaData()
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/pages/get-all",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },new RestMetaData()
             {
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/pages",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -291,7 +291,7 @@ new RestMetaData()
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/pages",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -299,7 +299,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/pages?slug=page_slug",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -307,7 +307,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "DeletePermanently",
                 uri = "/imgriff/page/delete-permanently?slug=page_slug",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -318,14 +318,14 @@ new RestMetaData()
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/person?id={new Guid()}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },new RestMetaData()
             {
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/person",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                 new RestMetaData()
@@ -333,7 +333,7 @@ new RestMetaData()
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/person",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -341,7 +341,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/person",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });
@@ -352,21 +352,21 @@ new RestMetaData()
                method = "GET",
                 name = "GetOtp",
                 uri = $"/imgriff/auth/get-otp?email=user_email",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },new RestMetaData()
             {
                method = "GET",
                 name = "Login",
                 uri = $"/imgriff/auth/login",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },new RestMetaData()
             {
                 method = "GET",
                 name = "GoogleResponse",
                 uri = "/imgriff/auth/google-response",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -374,7 +374,7 @@ new RestMetaData()
                 method = "GET",
                 name = "GetByEmail",
                 uri = $"/imgriff/auth/user-by-email?email=user_email",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -382,7 +382,7 @@ new RestMetaData()
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/auth",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             },
                  new RestMetaData()
@@ -390,7 +390,7 @@ new RestMetaData()
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/auth",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             }
             });

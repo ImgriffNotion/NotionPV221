@@ -23,7 +23,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/galleries?id={id}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -50,7 +50,7 @@ namespace NotionBack.Controllers
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/galleries",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -66,7 +66,7 @@ namespace NotionBack.Controllers
                 method = "PUT",
                 name = "Put",
                 uri = "/imgriff/calendars",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -96,7 +96,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "Delete",
                 uri = "/imgriff/galleries",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 

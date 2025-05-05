@@ -4,9 +4,8 @@
     {
         public static Random _random = new Random();
 
-        public String CreatorOnePassCodeByRandom()
+        public String CreatorSymbolsByCount(int countOfSymbols = 8)
         {
-            int countOfSymbols = 8;
             String onePassCode = new String("");
 
             for (int i = 0; i < countOfSymbols; i++)

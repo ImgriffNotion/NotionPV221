@@ -24,7 +24,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "Get",
                 uri = $"/imgriff/person?id={id}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
 
@@ -49,7 +49,7 @@ namespace NotionBack.Controllers
                 method = "POST",
                 name = "Post",
                 uri = $"/imgriff/person",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
             var response = new RestResponse<string>(500, "post method is empty", meta);
@@ -64,7 +64,7 @@ namespace NotionBack.Controllers
                 method = "PUT",
                 name = "Put",
                 uri = $"/imgriff/person",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
 
@@ -113,7 +113,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "Delete",
                 uri = $"/imgriff/person",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
             var response = new RestResponse<string>(500, "Delete method is empty", meta);

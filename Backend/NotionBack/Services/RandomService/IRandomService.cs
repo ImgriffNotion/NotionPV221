@@ -2,6 +2,6 @@
 {
     public interface IRandomService
     {
-        public String CreatorOnePassCodeByRandom();
+        public String CreatorSymbolsByCount(int countOfSymbols = 8);
     }
 }

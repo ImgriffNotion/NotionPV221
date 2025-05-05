@@ -8,6 +8,7 @@ using NotionBack.Models.ModelsDTO;
 using NotionBack.DAL.Models;
 using NotionBack.Services.PageTypesService;
 using System;
+using NotionBack.Services.SlugService;
 
 namespace NotionBack.Controllers
 {
@@ -17,13 +18,15 @@ namespace NotionBack.Controllers
     public class PageController(IUnitOfWork unitOfWork, 
         IConvertService<PageDTO, Page> pageConvertService,
         IConvertService<PageTypeDTO, TypePage> pagetypeConvertService,
-        IPageTypeService pageTypeService) : ControllerBase
+        IPageTypeService pageTypeService,
+        ISlugerService slugerService) : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IConvertService<PageDTO, Page> _pageConvertService = pageConvertService;
         private readonly IConvertService<PageTypeDTO, TypePage> _pagetypeConvertService = pagetypeConvertService;
         private readonly IPageTypeService _pageTypeService = pageTypeService;
-
+        private readonly ISlugerService _slugerService = slugerService;
+        
         [HttpGet]
         public async Task<IActionResult> Get(String slug)
         {
@@ -32,7 +35,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "GetAll",
                 uri = $"/imgriff/pages?slug={slug}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -70,7 +73,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "GetAll",
                 uri = "/imgriff/pages/get-all",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -107,7 +110,7 @@ namespace NotionBack.Controllers
                 method = "POST",
                 name = "Post",
                 uri = "/imgriff/pages",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -117,6 +120,7 @@ namespace NotionBack.Controllers
                 var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
                 var newPage = _pageConvertService.FromDTO(page);
                 newPage.Type = pageType;
+                newPage.Slug = await _slugerService.GenerateUniqueSlug(newPage.Title);
                 await _unitOfWork.Pages.Create(newPage);
                 
                 await _unitOfWork.Save();
@@ -139,7 +143,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "Delete",
                 uri = $"/imgriff/pages?slug={slug}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -167,7 +171,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "DeletePermanently",
                 uri = $"/imgriff/pages/delete-permanently?slug={slug}",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 

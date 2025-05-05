@@ -26,7 +26,7 @@ namespace NotionBack.Controllers
                 method = "GET",
                 name = "RegTypeOfPage",
                 uri = "/imgriff/admin/page-type/register-type-page",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 
@@ -64,7 +64,7 @@ namespace NotionBack.Controllers
                 method = "DELETE",
                 name = "DelTypeOfPage",
                 uri = "/imgriff/admin/page-type/delete-type-page",
-                locale = "UK-UA",
+                locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
 

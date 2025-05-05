@@ -2,7 +2,6 @@
 using NotionBack.DAL.Models.fileStructure;
 using NotionBack.DAL.Models.pageContents;
 using NotionBack.DAL.Models.pageContents.pageInPageContents;
-using NotionBack.Models.Enums;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO;
@@ -23,6 +22,7 @@ using NotionBack.Services.EmailService;
 using NotionBack.Services.OTPService;
 using NotionBack.Services.PageTypesService;
 using NotionBack.Services.RandomService;
+using NotionBack.Services.SlugService;
 
 namespace NotionBack.Services
 {
@@ -72,12 +72,11 @@ namespace NotionBack.Services
 
             services.AddScoped<ContentConverterRegistryInitializer>();
 
-            services.AddScoped<IOtpService, OtpService>();
-
             #endregion
 
             services.AddScoped<IPageTypeService, PageTypeService>();
-
+            services.AddScoped<IOtpService, OtpService>();
+            services.AddScoped<ISlugerService, SlugerService>();
             services.AddSingleton<IRandomService, RandomCreatorService>();
             services.AddSingleton<IEmailService, EmailSenderService>();
             services.AddScoped<IEmailAuthService, EmailAuthService>();
