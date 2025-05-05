@@ -15,7 +15,7 @@ namespace NotionBack.Controllers
 
     [ApiController]
     [Route("imgriff/pages")]
-    public class PageController(IUnitOfWork unitOfWork, 
+    public class PageController(IUnitOfWork unitOfWork,
         IConvertService<PageDTO, Page> pageConvertService,
         IConvertService<PageTypeDTO, TypePage> pagetypeConvertService,
         IPageTypeService pageTypeService,
@@ -26,7 +26,7 @@ namespace NotionBack.Controllers
         private readonly IConvertService<PageTypeDTO, TypePage> _pagetypeConvertService = pagetypeConvertService;
         private readonly IPageTypeService _pageTypeService = pageTypeService;
         private readonly ISlugerService _slugerService = slugerService;
-        
+
         [HttpGet]
         public async Task<IActionResult> Get(String slug)
         {
@@ -77,11 +77,12 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
+
             try
             {
                 var listOfPages = (await this._unitOfWork.Pages.GetAll()).ToList();
                 var pages = new List<PageDTO>();
-                foreach (var page in listOfPages) 
+                foreach (var page in listOfPages)
                 {
                     page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
                     pages.Add(_pageConvertService.ToDTO(page));
@@ -122,10 +123,12 @@ namespace NotionBack.Controllers
                 newPage.Type = pageType;
                 newPage.Slug = await _slugerService.GenerateUniqueSlug(newPage.Title);
                 await _unitOfWork.Pages.Create(newPage);
-                
+
                 await _unitOfWork.Save();
 
-                var _response = new RestResponse<Object>(200, page, meta);
+                var updatedPage = await _unitOfWork.Pages.GetPageBySlug(newPage.Slug);
+
+                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(updatedPage), meta);
                 return Ok(_response);
             }
             catch (Exception ex)
@@ -133,6 +136,13 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] PageDTO page)
+        {
+
+            return Ok();
         }
 
         [HttpDelete]

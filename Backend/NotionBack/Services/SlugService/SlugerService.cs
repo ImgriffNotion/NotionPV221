@@ -25,7 +25,7 @@ namespace NotionBack.Services.SlugService
                     if (page != null)
                         slug = $"{baseSlug}-{_randomService.CreatorSymbolsByCount(6)}";
                 }
-                catch (NullReferenceException ex)
+                catch (Exception ex)
                 {
                     isUnique = true; 
                 }
