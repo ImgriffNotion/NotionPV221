@@ -86,6 +86,69 @@ namespace NotionBack.Services.ConverterService.Page
             return page;
         }
 
+        public DAL.Models.Page FromDTO(DAL.Models.Page domain, PageDTO dto)
+        {
+            domain.Title = dto.Title;
+            domain.Banner = dto.Banner;
+            domain.Icon = dto.Icon;
+            domain.Slug = dto.Slug;
+
+            if (dto.Content != null && dto.Type != null)
+            {
+                var converter = _contentRegistry.GetConverter(dto.Type);
+                var contentElement = JsonSerializer.SerializeToElement(dto.Content);
+                switch ((PageType)_pageTypeService.GetCodeOfPageType(dto.Type))
+                {
+                    case PageType.Empty:
+                        {
+                            dto.Content = JsonSerializer.Deserialize<EmptyPageContentDTO>(contentElement.GetRawText());
+                            var domainContent = domain.JustPageContents.FirstOrDefault();
+                            domainContent = (JustPageContent)converter.FromDTO(domainContent, dto.Content);
+                            break;
+                        }
+                    case PageType.Board:
+                        {
+                            dto.Content = JsonSerializer.Deserialize<BoardDTO>(contentElement.GetRawText());
+                            var domainContent = domain.Boards.FirstOrDefault();
+                            domainContent = (Board)converter.FromDTO(domainContent, dto.Content);
+                            break;
+                        }
+                    case PageType.List:
+                        {
+                            dto.Content = JsonSerializer.Deserialize<ListDTO>(contentElement.GetRawText());
+                            var domainContent = domain.Lists.FirstOrDefault();
+                            domainContent = (List)converter.FromDTO(domainContent, dto.Content);
+                            break;
+                        }
+                    case PageType.Calendar:
+                        {
+                            dto.Content = JsonSerializer.Deserialize<CalendarDTO>(contentElement.GetRawText());
+                            var domainContent = domain.Calendars.FirstOrDefault();
+                            domainContent = (Calendar)converter.FromDTO(domainContent, dto.Content);
+                            break;
+                        }
+                    case PageType.Gallery:
+                        {
+                            dto.Content = JsonSerializer.Deserialize<GalleryDTO>(contentElement.GetRawText());
+                            var domainContent = domain.Galleries.FirstOrDefault();
+                            domainContent = (Gallery)converter.FromDTO(domainContent, dto.Content);
+                            break;
+                        }
+                    case PageType.Table:
+                        {
+                            dto.Content = JsonSerializer.Deserialize<TableDTO>(contentElement.GetRawText());
+                            var domainContent = domain.Tables.FirstOrDefault();
+                            domainContent = (Table)converter.FromDTO(domainContent, dto.Content);
+                            break;
+                        }
+
+                };
+
+            }
+
+            return domain;
+        }
+
         public PageDTO ToDTO(DAL.Models.Page model)
         {
             

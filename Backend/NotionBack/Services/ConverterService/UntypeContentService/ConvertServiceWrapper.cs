@@ -5,6 +5,7 @@
         private readonly IConvertService<TDto, TModel> _service = service;
 
         public object FromDTO(object dto) => _service.FromDTO((TDto)dto);
+        public object FromDTO(object domain, object dto) => _service.FromDTO((TModel)domain, (TDto)dto);
         public object ToDTO(object model) => _service.ToDTO((TModel)model);
     }
 }

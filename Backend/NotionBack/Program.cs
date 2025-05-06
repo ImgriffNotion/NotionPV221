@@ -8,6 +8,7 @@ using System.Security.Claims;
 using NotionBack.Services;
 using NotionBack.Services.ContentConverterService;
 using StackExchange.Redis;
+using NotionBack.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -102,6 +103,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 
     return ConnectionMultiplexer.Connect(config);
 });
+
+builder.Services.Configure<JwtSettings>(
+    builder.Configuration.GetSection("JwtSettings"));
 
 // Add services to the container.
 

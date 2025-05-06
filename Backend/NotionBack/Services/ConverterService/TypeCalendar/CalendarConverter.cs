@@ -31,6 +31,36 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             return calendar;
         }
 
+        public Calendar FromDTO(Calendar domain, CalendarDTO dto)
+        {
+            domain.Title = dto.Title;
+
+            if (dto.InternalContent != null && dto.InternalContent.Count != 0)
+            {
+                var tmpBuffer = new List<CalendarContent>();
+                foreach (var dtoContent in dto.InternalContent)
+                {
+                    var domainContent = domain.Contents.Where(obj => obj.Id == dtoContent.Id).FirstOrDefault();
+                    if (domainContent != null)
+                    {
+                        _convertService.FromDTO(domainContent, dtoContent);
+                    }
+                    else
+                    {
+                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                    }
+                }
+
+                foreach (var content in tmpBuffer)
+                {
+                    domain.Contents.Add(content);
+                }
+            }
+
+
+            return domain;
+        }
+
         public CalendarDTO ToDTO(Calendar model)
         {
             var calendar = new CalendarDTO()

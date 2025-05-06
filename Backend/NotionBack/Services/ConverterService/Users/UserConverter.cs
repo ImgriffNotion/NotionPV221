@@ -9,7 +9,6 @@ namespace NotionBack.Services.ConverterService.Users
         {
             var user = new User()
             {
-                Id = model.Id,
                 Name = model.Name,
                 Lastname = model.Lastname,
                 Email = model.Email,
@@ -19,11 +18,21 @@ namespace NotionBack.Services.ConverterService.Users
             return user;
         }
 
+        public User FromDTO(User domain, UserDTO dto)
+        {
+            domain.Name = dto.Name;
+            domain.Lastname = dto.Lastname;
+            domain.Email = dto.Email;
+            domain.Avatar = dto.Avatar;
+
+            return domain;
+        }
+
         public UserDTO ToDTO(User model)
         {
             var user = new UserDTO()
             {
-                Id=model.Id,
+                Id = model.Id,
                 Name = model.Name,
                 Lastname = model.Lastname,
                 Email = model.Email,

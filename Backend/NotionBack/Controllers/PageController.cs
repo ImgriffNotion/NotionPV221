@@ -115,6 +115,12 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
+            if (!ModelState.IsValid)
+            {
+                var _response = new RestResponse<Object>(400, ModelState, meta);
+                return Ok(_response);
+            }
+
 
             try
             {
@@ -141,8 +147,41 @@ namespace NotionBack.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] PageDTO page)
         {
+            var meta = new RestMetaData()
+            {
+                method = "PUT",
+                name = "Put",
+                uri = $"/imgriff/pages",
+                locale = "en-US",
+                serverTime = DateTime.UtcNow
+            };
 
-            return Ok();
+
+            if (!ModelState.IsValid)
+            {
+                var _response = new RestResponse<Object>(400, ModelState, meta);
+                return Ok(_response);
+            }
+
+            try
+            {
+                var pageForUpdate = await _unitOfWork.Pages.GetPageBySlug(page.Slug);
+                pageForUpdate.Type = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
+                await GetContent(pageForUpdate);
+                _pageConvertService.FromDTO(pageForUpdate, page);
+                _unitOfWork.Pages.Update(pageForUpdate);
+                await _unitOfWork.Save();
+
+                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(pageForUpdate), meta);
+                return Ok(_response);
+
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
+                return Ok(_response);
+            }
+
         }
 
         [HttpDelete]
@@ -202,7 +241,6 @@ namespace NotionBack.Controllers
         }
 
 
-        /// There's enormous kostyl | YOU MUST MAKE IT CORRECT !!!!
 
         private async Task<Page> GetContent(Page page)
         {
@@ -216,26 +254,32 @@ namespace NotionBack.Controllers
                 case PageType.Board:
                     {
                         var tmp = await _unitOfWork.Boards.GetAll();
+                        await _unitOfWork.Lists.GetAll();
+                        await _unitOfWork.ListContents.GetAll();
                         break;
                     }
                 case PageType.List:
                     {
                         await _unitOfWork.Lists.GetAll();
+                        await _unitOfWork.ListContents.GetAll();
                         break;
                     }
                 case PageType.Calendar:
                     {
                         await _unitOfWork.Calendars.GetAll();
+                        await _unitOfWork.CalendarContents.GetAll();
                         break;
                     }
                 case PageType.Gallery:
                     {
                         await _unitOfWork.Galleries.GetAll();
+                        await _unitOfWork.GalleryContents.GetAll();
                         break;
                     }
                 case PageType.Table:
                     {
                         await _unitOfWork.Tables.GetAll();
+                        await _unitOfWork.TableContents.GetAll();
                         break;
                     }
             };

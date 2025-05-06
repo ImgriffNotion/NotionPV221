@@ -70,7 +70,7 @@ namespace NotionBack.Controllers
 
             try
             {
-                var user = await _unitOfWork.Users.Get(userFromRequest.Id);
+                var user = await _unitOfWork.Users.GetUserByEmail(userFromRequest.Email);
 
                 _unitOfWork.Users.Update(_userConvertService.FromDTO(userFromRequest));
                 await _unitOfWork.Save();

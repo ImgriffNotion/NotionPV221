@@ -41,6 +41,17 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             return calendarContent;
         }
 
+        public CalendarContent FromDTO(CalendarContent domain, CalendarContentDTO dto)
+        {
+            domain.Title = dto.Title;
+            domain.Description = dto.Description;
+            domain.PlanedDate = dto.PlanedDate;
+            domain.Number = dto.Number;
+            domain.Color = dto.Color;
+
+            return domain;
+        }
+
         public CalendarContentDTO ToDTO(CalendarContent model)
         {
             var calendarContent = new CalendarContentDTO()

@@ -9,6 +9,7 @@ using NotionBack.Services.ContentConverterService;
 using NotionBack.Services.ConverterService;
 using NotionBack.Services.ConverterService.Files;
 using NotionBack.Services.ConverterService.Page;
+using NotionBack.Services.ConverterService.Token;
 using NotionBack.Services.ConverterService.TypeBoard;
 using NotionBack.Services.ConverterService.TypeCalendar;
 using NotionBack.Services.ConverterService.TypeEmpty;
@@ -23,6 +24,7 @@ using NotionBack.Services.OTPService;
 using NotionBack.Services.PageTypesService;
 using NotionBack.Services.RandomService;
 using NotionBack.Services.SlugService;
+using NotionBack.Services.TokenService;
 
 namespace NotionBack.Services
 {
@@ -34,6 +36,7 @@ namespace NotionBack.Services
 
             // Page
             services.AddScoped<IConvertService<UserDTO, User>, UserConverter>();
+            services.AddScoped<IConvertService<TokenDTO, Token>, TokenConverter>();
 
             // Page
             services.AddScoped<IConvertService<PageDTO, Page>, PageConverter>();
@@ -74,6 +77,7 @@ namespace NotionBack.Services
 
             #endregion
 
+            services.AddScoped<ITokenService<TokenDTO>, JwtTokenService>();
             services.AddScoped<IPageTypeService, PageTypeService>();
             services.AddScoped<IOtpService, OtpService>();
             services.AddScoped<ISlugerService, SlugerService>();

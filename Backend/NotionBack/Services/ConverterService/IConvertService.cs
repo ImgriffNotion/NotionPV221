@@ -4,5 +4,6 @@
     {
         public TDto ToDTO(TDomain model);
         public TDomain FromDTO (TDto model);
+        public TDomain FromDTO (TDomain domain, TDto dto);
     }
 }

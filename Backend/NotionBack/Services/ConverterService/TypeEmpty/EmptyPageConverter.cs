@@ -17,6 +17,13 @@ namespace NotionBack.Services.ConverterService.TypeEmpty
             return emptyContent;
         }
 
+        public JustPageContent FromDTO(JustPageContent domain, EmptyPageContentDTO dto)
+        {
+            domain.Text = dto.Text;
+
+            return domain;
+        }
+
         public EmptyPageContentDTO ToDTO(JustPageContent model)
         {
             var emptyContent = new EmptyPageContentDTO()

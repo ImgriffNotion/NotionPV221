@@ -22,6 +22,18 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             return galleryContent;
         }
 
+        public GalleryContent FromDTO(GalleryContent domain, GalleryContentDTO dto)
+        {
+            domain.Title = dto.Title;
+            domain.Url = dto.Url;
+            domain.Color = dto.Color;
+            domain.Date = dto.Date;
+            domain.Description = dto.Description;
+            domain.Number = dto.Number;
+
+            return domain;
+        }
+
         public GalleryContentDTO ToDTO(GalleryContent model)
         {
             var galleryContent = new GalleryContentDTO()

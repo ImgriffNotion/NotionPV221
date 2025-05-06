@@ -14,28 +14,39 @@ using NotionBack.Models.ModelsDTO;
 using NotionBack.DAL.Models;
 using NotionBack.Models;
 using NotionBack.Services.OTPService;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using NotionBack.Models.Settings;
+using Microsoft.Extensions.Options;
+using NotionBack.Services.TokenService;
 
 namespace NotionBack.Controllers
 {
     [ApiController]
     [Route("imgriff/auth")]
-    public class AuthController(IEmailService emailSender,
+    public class AuthController(
+        IEmailService emailSender,
         IRandomService randomService,
         HttpClient client,
         IUnitOfWork unitOfWork,
         IOtpService otpService,
-        IConvertService<UserDTO, User> userConvertService) : ControllerBase
+        IConvertService<UserDTO, User> userConvertService,
+        ITokenService<TokenDTO> tokenService,
+        IConvertService<TokenDTO, Token> tokenConvertService) : ControllerBase
     {
         private readonly HttpClient _httpClient = client;
         private static String redirectUrl = RedirectionURLs.localhostUrl;
 
-
+        private readonly ITokenService<TokenDTO> _tokenService = tokenService;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IEmailService emailService = emailSender;
         private readonly IOtpService _otpService = otpService;
         private readonly IRandomService _randomService = randomService;
         private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
-
+        private readonly IConvertService<TokenDTO, Token> _tokenConvertService = tokenConvertService;
+        
+        
         [HttpGet("get-otp")]
         public async Task<IActionResult> GetOtp(String email)
         {
@@ -93,9 +104,11 @@ namespace NotionBack.Controllers
                 var isSuccessful = await _otpService.VerifyOtp(body.Email, body.Passcode);
                 if (isSuccessful)
                 {
-                    var user = await _unitOfWork.Users.GetUserByEmail(body.Email);
+                    var user = _userConvertService.ToDTO((await _unitOfWork.Users.GetUserByEmail(body.Email)));
 
-                    var response = new RestResponse<Object>(200, user, meta);
+                    var token = await GetJwtToken(user);
+
+                    var response = new RestResponse<Object>(200, token, meta);
                     return Ok(response);
 
                 }
@@ -111,8 +124,10 @@ namespace NotionBack.Controllers
                 };
                 await _unitOfWork.Users.Create(_userConvertService.FromDTO(newUser));
                 await _unitOfWork.Save();
+                newUser = _userConvertService.ToDTO(await _unitOfWork.Users.GetUserByEmail(newUser.Email));
+                var token = await GetJwtToken(newUser);
 
-                var _response = new RestResponse<Object>(200, newUser, meta);
+                var _response = new RestResponse<Object>(200, token, meta);
                 return Ok(_response);
             }
             catch (Exception ex)
@@ -206,7 +221,8 @@ namespace NotionBack.Controllers
             try
             {
                 var user = await _unitOfWork.Users.GetUserByEmail(email);
-                var response = new RestResponse<Object>(200, _userConvertService.ToDTO(user), meta);
+                var token = await GetJwtToken(_userConvertService.ToDTO(user));
+                var response = new RestResponse<Object>(200, token, meta);
                 return Ok(response);
             }
             catch (NullReferenceException ex)
@@ -224,6 +240,15 @@ namespace NotionBack.Controllers
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "GetByEmail",
+                uri = $"/imgriff/auth/logout",
+                locale = "en-US",
+                serverTime = DateTime.UtcNow
+            };
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/");
         }
@@ -239,24 +264,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-
-            //try
-            //{
-            //    var users = await _unitOfWork.Users.GetAll();
-            //    foreach (var user in users)
-            //    {
-            //        await _unitOfWork.Users.Delete(user.Id);
-            //    }
-            //    await _unitOfWork.Save();
-
-            //    var _response = new RestResponse<Object>(200, "delete", meta);
-            //    return Ok(_response);
-            //}
-            //catch (Exception ex)
-            //{
-            //    var _response = new RestResponse<Object>(500, ex.Message, meta);
-            //    return Ok(_response);
-            //}
 
             var _response = new RestResponse<string>(200, "Delete method is empty", meta);
             return Ok(_response);
@@ -279,6 +286,38 @@ namespace NotionBack.Controllers
             return user;
         }
 
+        private async Task<JwtTokenModel> GetJwtToken(UserDTO user)
+        {
+            //await JustMethod(user);
+            var tokenDto = new TokenDTO()
+            {
+                Id = Guid.NewGuid(),
+                UserId = user.Id,
+                Iat = DateTime.UtcNow,
+                Exp = DateTime.UtcNow.AddHours(TokenValidTime.VaildTimeInHours),
+                User = user
+            };
+
+            var token = _tokenService.GenerateToken(tokenDto);
+            await _unitOfWork.Tokens.Create(_tokenConvertService.FromDTO(tokenDto));
+            await _unitOfWork.Save();
+
+            return new JwtTokenModel(){
+                Jwt = token,
+                User = user
+            };
+        }
+
+        private async Task JustMethod(UserDTO user)
+        {
+            var tmp = await _unitOfWork.Tokens.GetAll();
+            foreach (var token in tmp)
+            {
+                if (token.UserId == user.Id)
+                    await _unitOfWork.Tokens.Delete(token.Id);
+            }
+            await _unitOfWork.Save();
+        }
     }
 }
 

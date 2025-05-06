@@ -39,6 +39,18 @@ namespace NotionBack.Services.ConverterService.TypeList
             return listContent;
         }
 
+        public ListContent FromDTO(ListContent domain, ListContentDTO dto)
+        {
+            domain.Title = dto.Title;
+            domain.Number = dto.Number;
+            domain.Date = dto.Date;
+            domain.Description = dto.Description;
+            domain.Index = dto.Index;
+            domain.Color = dto.Color;
+           
+            return domain;
+        }
+
         public ListContentDTO ToDTO(ListContent model)
         {
             var listContent = new ListContentDTO()

@@ -32,6 +32,39 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             return gallery;
         }
 
+        public Gallery FromDTO(Gallery domain, GalleryDTO dto)
+        {
+            domain.Title = dto.Title;
+
+            if (dto.InternalContent != null && dto.InternalContent.Count != 0)
+            {
+                var tmpBuffer = new List<GalleryContent>();
+                foreach (var dtoContent in dto.InternalContent)
+                {
+                    if (dtoContent.Id != null)
+                    {
+                        var domainContent = domain.Contents.Where(obj => obj.Id == dtoContent.Id).FirstOrDefault();
+                        if (domainContent != null)
+                        {
+                            _convertService.FromDTO(domainContent, dtoContent);
+                        }
+                    }
+                    else
+                    {
+                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                    }
+                }
+
+                foreach (var content in tmpBuffer)
+                {
+                    domain.Contents.Add(content);
+                }
+            }
+
+
+            return domain;
+        }
+
         public GalleryDTO ToDTO(Gallery model)
         {
             var gallery = new GalleryDTO()

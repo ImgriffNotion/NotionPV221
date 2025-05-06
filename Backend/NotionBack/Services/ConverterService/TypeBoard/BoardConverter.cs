@@ -1,4 +1,5 @@
 ﻿using NotionBack.DAL.Models.pageContents;
+using NotionBack.DAL.Models.pageContents.pageInPageContents;
 using NotionBack.Models.ModelsDTO.ContentDTO;
 
 namespace NotionBack.Services.ConverterService.TypeBoard
@@ -25,6 +26,39 @@ namespace NotionBack.Services.ConverterService.TypeBoard
                 }
             }
             return board;
+        }
+
+        public Board FromDTO(Board domain, BoardDTO dto)
+        {
+            domain.Title = dto.Title;
+
+            if (dto.InternalContent != null && dto.InternalContent.Count != 0)
+            {
+
+                var tmpBuffer = new List<List>();
+                foreach (var dtoContent in dto.InternalContent)
+                {
+                    if (dtoContent.Id != null)
+                    {
+                        var domainContent = domain.Lists.Where(obj => obj.Id == dtoContent.Id).FirstOrDefault();
+                        if (domainContent != null)
+                        {
+                            _convertService.FromDTO(domainContent, dtoContent);
+                        }
+                    }
+                    else
+                    {
+                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                    }
+                }
+
+                foreach (var content in tmpBuffer)
+                {
+                    domain.Lists.Add(content);
+                }
+            }
+
+            return domain;
         }
 
         public BoardDTO ToDTO(Board model)

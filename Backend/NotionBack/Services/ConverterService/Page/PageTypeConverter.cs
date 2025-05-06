@@ -17,7 +17,14 @@ namespace NotionBack.Services.ConverterService.Page
 
             return type;
         }
-        
+
+        public TypePage FromDTO(TypePage domain, PageTypeDTO dto)
+        {
+            domain.Name = dto.Name;
+            domain.TypeCode = dto.TypeCode;
+            return domain;
+        }
+
         public PageTypeDTO ToDTO(TypePage model)
         {
             var type = new PageTypeDTO()

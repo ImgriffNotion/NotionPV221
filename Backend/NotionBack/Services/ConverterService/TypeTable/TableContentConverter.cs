@@ -21,6 +21,17 @@ namespace NotionBack.Services.ConverterService.TypeTable
             return tableContent;
         }
 
+        public TableContent FromDTO(TableContent domain, TableContentDTO dto)
+        {
+            domain.Row = dto.Row;
+            domain.Column = dto.Col;
+            domain.Data = dto.Data;
+            domain.Foreground = dto.Foreground;
+            domain.Background = dto.Background;
+            
+            return domain;
+        }
+
         public TableContentDTO ToDTO(TableContent model)
         {
             var tableContent = new TableContentDTO()

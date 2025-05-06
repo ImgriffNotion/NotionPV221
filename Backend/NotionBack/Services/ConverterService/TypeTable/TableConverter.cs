@@ -31,6 +31,39 @@ namespace NotionBack.Services.ConverterService.TypeTable
             return table;
         }
 
+        public Table FromDTO(Table domain, TableDTO dto)
+        {
+            domain.Title = dto.Title;
+            domain.ParentPageId = dto.ParentPageId;
+            if (dto.InternalContent != null && dto.InternalContent.Count != 0)
+            {
+                var tmpBuffer = new List<TableContent>();
+                foreach (var dtoContent in dto.InternalContent)
+                {
+                    if (dtoContent.Id != null)
+                    {
+                        var domainContent = domain.Contents.Where(obj => obj.Id == dtoContent.Id).FirstOrDefault();
+                        if (domainContent != null)
+                        {
+                            _convertService.FromDTO(domainContent, dtoContent);
+                        }
+                    }
+                    else
+                    {
+                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                    }
+                }
+
+                foreach (var content in tmpBuffer)
+                {
+                    domain.Contents.Add(content);
+                }
+            }
+
+
+            return domain;
+        }
+
         public TableDTO ToDTO(Table model)
         {
             var table = new TableDTO()

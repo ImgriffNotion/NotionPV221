@@ -13,5 +13,10 @@ namespace NotionBack.Models.ModelsDTO
         [JsonPropertyName("exp")]
         public DateTime Exp {  get; set; }
 
+        [JsonPropertyName("deleteDt")]
+        public DateTime DeleteDt { get; set; }
+        [JsonPropertyName("user")]
+        public UserDTO User { get; set; }
+
     }
 }
