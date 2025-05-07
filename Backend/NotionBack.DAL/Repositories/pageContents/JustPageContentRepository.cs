@@ -38,6 +38,13 @@ public class JustPageContentRepository(NotionDbContext context) : IJustPageConte
         return await _context.JustPageContents.ToListAsync();
     }
 
+    public async Task<IEnumerable<JustPageContent>> GetAll(Guid parentId)
+    {
+        return await _context
+            .JustPageContents.Where(jpc => jpc.ParentPageId == parentId)
+            .ToListAsync();
+    }
+
     public void Update(JustPageContent item)
     {
         _context.JustPageContents.Entry(item).State = EntityState.Modified;

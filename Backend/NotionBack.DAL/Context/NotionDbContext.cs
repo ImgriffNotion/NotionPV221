@@ -28,15 +28,6 @@ public class NotionDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //Token
-        modelBuilder
-            .Entity<Token>()
-            .ToTable("Tokens")
-            .HasOne(t => t.User)
-            .WithOne(u => u.Token)
-            .HasForeignKey<Token>(t => t.UserId)
-            .OnDelete(DeleteBehavior.NoAction);
-
         //User
         modelBuilder
             .Entity<User>()
@@ -45,6 +36,14 @@ public class NotionDbContext : DbContext
             .WithOne(p => p.Owner)
             .HasForeignKey(p => p.OwnerId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder
+            .Entity<User>()
+            .ToTable("Users")
+            .HasMany(u => u.Tokens)
+            .WithOne(t => t.User)
+            .HasForeignKey(t => t.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         // TypePage
         modelBuilder

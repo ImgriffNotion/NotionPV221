@@ -52,6 +52,9 @@ public class PageRepository(NotionDbContext context) : IPageRepository
 
     public async Task<IEnumerable<Page>> GetAll() => await _context.Pages.ToListAsync();
 
+    public async Task<IEnumerable<Page>> GetAll(Guid userId) =>
+        await _context.Pages.Where(p => p.OwnerId == userId).ToListAsync();
+
     public async Task<Page> GetPageBySlug(string slug)
     {
         return await _context.Pages.Where(x => x.Slug == slug).FirstOrDefaultAsync()
