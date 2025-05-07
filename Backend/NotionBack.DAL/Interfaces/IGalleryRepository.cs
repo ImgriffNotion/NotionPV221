@@ -2,4 +2,7 @@ using NotionBack.DAL.Models.pageContents;
 
 namespace NotionBack.DAL.Interfaces;
 
-public interface IGalleryRepository : IModelRepository<Gallery> { }
+public interface IGalleryRepository : IModelRepository<Gallery>
+{
+    Task<IEnumerable<Gallery>> GetAll(Guid parentId);
+}

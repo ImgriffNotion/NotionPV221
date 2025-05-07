@@ -39,6 +39,11 @@ public class GalleryRepository(NotionDbContext context) : IGalleryRepository
         return await _context.Galleries.ToListAsync();
     }
 
+    public async Task<IEnumerable<Gallery>> GetAll(Guid parentId)
+    {
+        return await _context.Galleries.Where(g => g.ParentPageId == parentId).ToListAsync();
+    }
+
     public void Update(Gallery item)
     {
         _context.Galleries.Entry(item).State = EntityState.Modified;
