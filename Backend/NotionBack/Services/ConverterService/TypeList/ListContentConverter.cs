@@ -19,7 +19,6 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Date = model.Date,
                 Description = model.Description,
                 Index = model.Index,
-                ListId = model.ListId,
                 Color = model.Color,
                 Files = new List<DAL.Models.fileStructure.ListFile>()
             };

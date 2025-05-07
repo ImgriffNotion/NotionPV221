@@ -16,7 +16,6 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             {
                 Id = model.Id,
                 Title = model.Title,
-                ParentPageId = model.ParentPageId,
                 Contents = new List<CalendarContent>()
             };
 

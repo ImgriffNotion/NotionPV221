@@ -12,33 +12,38 @@ using NotionBack.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowAll",
-//        policy => policy.AllowAnyOrigin()
-//                        .AllowAnyMethod()
-//                        .AllowAnyHeader());
-//});
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
-        "AllowFrontend",
-        policy =>
-        {
-            policy
-                .WithOrigins("http://127.0.0.1:5500")
-                .WithOrigins("https://localhost:7114")
-                .WithOrigins("http://localhost:5157")
-                .WithOrigins("http://10.0.1.4")
-                .WithOrigins("http://13.79.53.15")
-                .WithOrigins("http://localhost:5000")
-                .WithOrigins("http://localhost:3000")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
-        }
-    );
+    "AllowFrontend",
+    policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://127.0.0.1:5500",
+                "https://localhost:7114",
+                "http://localhost:5157",
+                "http://10.0.1.4",
+                "http://13.79.53.15",
+                "http://localhost:5000",
+                "http://localhost:3000",
+                "http://26.211.160.167"
+            )
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    }
+);
+});
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(7115);
+
+    options.ListenAnyIP(7114, listenOptions =>
+    {
+        listenOptions.UseHttps(); 
+    });
 });
 
 //builder.Services.AddHttpClient("IgnoreSSL").ConfigurePrimaryHttpMessageHandler(() =>

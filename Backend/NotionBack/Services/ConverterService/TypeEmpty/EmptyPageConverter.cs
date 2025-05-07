@@ -10,7 +10,6 @@ namespace NotionBack.Services.ConverterService.TypeEmpty
             var emptyContent = new JustPageContent()
             {
                 Id = model.Id,
-                ParentPageId = model.ParentPageId,
                 Text = model.Text,
             };
 

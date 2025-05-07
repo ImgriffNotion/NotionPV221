@@ -12,7 +12,6 @@ namespace NotionBack.Services.ConverterService.TypeGallery
                 Id = model.Id,
                 Title = model.Title,
                 Url = model.Url,
-                GalleryId = model.GalleryId,
                 Color = model.Color,
                 Date = model.Date,
                 Description = model.Description,

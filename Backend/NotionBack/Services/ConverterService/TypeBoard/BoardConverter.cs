@@ -14,7 +14,6 @@ namespace NotionBack.Services.ConverterService.TypeBoard
             {
                 Id = model.Id,
                 Title = model.Title,
-                ParentPageId = model.ParentPageId,
                 Lists = new List<DAL.Models.pageContents.List>()
             };
 

@@ -16,9 +16,9 @@ namespace NotionBack.Services.ConverterService.TypeList
             var newList = new DAL.Models.pageContents.List()
             {
                 Id = model.Id,
-                ParentPageId = (Guid)model.ParentPageId,
                 Title = model.Title,
-                BoardId = (Guid)model.BoardId,
+                ParentPageId = null,
+                BoardId = null,
                 Contents = new List<ListContent>()
             };
 
@@ -71,11 +71,11 @@ namespace NotionBack.Services.ConverterService.TypeList
             var newList = new ListDTO()
             {
                 Id = model.Id,
-                ParentPageId = (Guid)model.ParentPageId,
+                ParentPageId = model.ParentPageId,
                 Title = model.Title,
                 CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
-                BoardId = (Guid)model.BoardId,
+                BoardId = model.BoardId,
                 InternalContent = new List<ListContentDTO>()
             };
 

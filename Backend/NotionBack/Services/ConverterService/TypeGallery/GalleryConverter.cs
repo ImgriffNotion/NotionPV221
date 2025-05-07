@@ -17,7 +17,6 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             {
                 Id = model.Id,
                 Title = model.Title,
-                ParentPageId = model.ParentPageId,
                 Contents = new List<GalleryContent>()
             };
 

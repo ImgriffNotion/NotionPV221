@@ -16,7 +16,6 @@ namespace NotionBack.Services.ConverterService.TypeTable
                 Title = model.Title,
                 Rows = model.Rows,
                 Columns = model.Columns,
-                ParentPageId = model.ParentPageId,
                 Contents = new List<TableContent>()
             };
 

@@ -22,7 +22,6 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 PlanedDate = model.PlanedDate,
                 Number = model.Number,
                 Color = model.Color,
-                CalendarId = model.CalendarId,
                 Files = new List<CalendarFile>()
             };
 
