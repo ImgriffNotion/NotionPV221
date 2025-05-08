@@ -20,6 +20,7 @@ using System.Text;
 using NotionBack.Models.Settings;
 using Microsoft.Extensions.Options;
 using NotionBack.Services.TokenService;
+using Microsoft.AspNetCore.Http;
 
 namespace NotionBack.Controllers
 {
@@ -45,8 +46,8 @@ namespace NotionBack.Controllers
         private readonly IRandomService _randomService = randomService;
         private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
         private readonly IConvertService<TokenDTO, Token> _tokenConvertService = tokenConvertService;
-        
-        
+
+
         [HttpGet("get-otp")]
         public async Task<IActionResult> GetOtp(String email)
         {
@@ -237,6 +238,37 @@ namespace NotionBack.Controllers
             }
         }
 
+        [HttpGet("update-token")]
+        public async Task<IActionResult> UpdateToken()
+        {
+            var meta = new RestMetaData()
+            {
+                method = "GET",
+                name = "GetByEmail",
+                uri = $"/imgriff/auth/update-token",
+                locale = "en-US",
+                serverTime = DateTime.UtcNow
+            };
+
+            var encryptedToken = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(encryptedToken);
+            var tokenId = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "TokenId")?.Value;
+
+            try
+            {
+                if (Guid.TryParse(tokenId, out var parsedTokenId))
+                {
+                    var token = await _unitOfWork.Tokens.Get(new Guid(tokenId));
+
+                }
+            }catch(Exception ex)
+            {
+
+            };
+            return Ok();
+        }
+
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
@@ -288,7 +320,6 @@ namespace NotionBack.Controllers
 
         private async Task<JwtTokenModel> GetJwtToken(UserDTO user)
         {
-            //await JustMethod(user);
             var tokenDto = new TokenDTO()
             {
                 Id = Guid.NewGuid(),
@@ -302,22 +333,13 @@ namespace NotionBack.Controllers
             await _unitOfWork.Tokens.Create(_tokenConvertService.FromDTO(tokenDto));
             await _unitOfWork.Save();
 
-            return new JwtTokenModel(){
+            return new JwtTokenModel()
+            {
                 Jwt = token,
                 User = user
             };
         }
 
-        private async Task JustMethod(UserDTO user)
-        {
-            var tmp = await _unitOfWork.Tokens.GetAll();
-            foreach (var token in tmp)
-            {
-                if (token.UserId == user.Id)
-                    await _unitOfWork.Tokens.Delete(token.Id);
-            }
-            await _unitOfWork.Save();
-        }
     }
 }
 

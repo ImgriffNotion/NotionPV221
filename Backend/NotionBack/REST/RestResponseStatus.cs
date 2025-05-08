@@ -2,9 +2,9 @@
 {
     public class RestResponseStatus
     {
-        public bool isSuccessful;
-        public int code;
-        public String phrase;
+        public bool isSuccessful { get; set; }
+        public int code { get; set; }
+        public String phrase { get; set; }
 
         public RestResponseStatus() { }
 

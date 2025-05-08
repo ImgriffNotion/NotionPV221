@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models;
+using NotionBack.Models;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.Models.Settings;
 using NotionBack.Services.ConverterService;
@@ -33,9 +34,8 @@ namespace NotionBack.Services.TokenService
                 {
                     var tokenInfo = _tokenConvertService.ToDTO(await _unitOfWork.Tokens.Get(parsedTokenId));
                     if (tokenInfo != null && tokenInfo.Exp > DateTime.UtcNow)
-                    {
                         return tokenInfo;
-                    }
+
                 }
                 catch (Exception)
                 {

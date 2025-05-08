@@ -172,7 +172,7 @@ app.UseCors("AllowFrontend");
 
 app.UseSession();
 app.UseAuthentication();
-//app.UseAuthMiddleware();
+app.UseAuthMiddleware();
 app.UseAuthorization();
 app.MapControllers();
 
