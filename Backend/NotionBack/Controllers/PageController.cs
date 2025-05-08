@@ -34,7 +34,7 @@ namespace NotionBack.Controllers
             var meta = new RestMetaData()
             {
                 method = "GET",
-                name = "GetAll",
+                name = "Get",
                 uri = $"/imgriff/pages?slug={slug}",
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
