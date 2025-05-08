@@ -12,8 +12,7 @@ namespace NotionBack.Services.ConverterService.Token
                 Id = model.Id,
                 UserId = model.UserId,
                 Exp = model.Exp,
-                Iat = model.Iat,
-                DeleteDt = model.DeleteDt
+                Iat = model.Iat
             };
 
             return token;
@@ -25,7 +24,6 @@ namespace NotionBack.Services.ConverterService.Token
             domain.UserId = dto.UserId;
             domain.Exp = dto.Exp;
             domain.Iat = dto.Iat;
-            domain.DeleteDt = dto.DeleteDt;
             
             return domain;
         }

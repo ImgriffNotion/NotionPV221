@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models;
@@ -12,15 +13,37 @@ using System.Text;
 namespace NotionBack.Services.TokenService
 {
     public class JwtTokenService(IOptions<JwtSettings> jwtSettings,
-        IUnitOfWork unitOfWork) : ITokenService<TokenDTO>
+        IUnitOfWork unitOfWork,
+        IConvertService<TokenDTO, Token> tokenConvertService) : ITokenService<TokenDTO>
     {
         private int vaildHours = 3;
         private readonly String _secretKey = jwtSettings.Value.SecretKey;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IConvertService<TokenDTO, Token> _tokenConvertService = tokenConvertService;
 
-        public Task<bool> CheckToken(String token)
+        public async Task<TokenDTO> CheckToken(String token)
         {
-            throw new NotImplementedException();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            var tokenId = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "TokenId")?.Value;
+
+            if (Guid.TryParse(tokenId, out var parsedTokenId))
+            {
+                try
+                {
+                    var tokenInfo = _tokenConvertService.ToDTO(await _unitOfWork.Tokens.Get(parsedTokenId));
+                    if (tokenInfo != null && tokenInfo.Exp > DateTime.UtcNow)
+                    {
+                        return tokenInfo;
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+
+            return null;
         }
 
         public string GenerateToken(TokenDTO tokenModel)

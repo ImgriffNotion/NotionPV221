@@ -9,6 +9,7 @@ using NotionBack.DAL.Models;
 using NotionBack.Services.PageTypesService;
 using System;
 using NotionBack.Services.SlugService;
+using Microsoft.IdentityModel.Tokens;
 
 namespace NotionBack.Controllers
 {
@@ -77,10 +78,17 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
+            var userId = HttpContext.Items["userId"] as String;
+            bool isValid = CheckUserId(userId);
+            if(isValid)
+            {
+                var response = new RestResponse<String>(401, "User must be authorized", meta);
+                return Ok(response);
+            }
 
             try
             {
-                var listOfPages = (await this._unitOfWork.Pages.GetAll()).ToList();
+                var listOfPages = (await this._unitOfWork.Pages.GetAll(new Guid(userId))).ToList();
                 var pages = new List<PageDTO>();
                 foreach (var page in listOfPages)
                 {
@@ -121,12 +129,21 @@ namespace NotionBack.Controllers
                 return Ok(_response);
             }
 
+            var userId = HttpContext.Items["userId"] as String;
+            bool isValid = CheckUserId(userId);
+            if (isValid)
+            {
+                var response = new RestResponse<String>(401, "User must be authorized", meta);
+                return Ok(response);
+            }
+
 
             try
             {
                 var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
                 var newPage = _pageConvertService.FromDTO(page);
                 newPage.Type = pageType;
+                newPage.OwnerId = new Guid(userId);
                 newPage.Slug = await _slugerService.GenerateUniqueSlug(newPage.Title);
                 await _unitOfWork.Pages.Create(newPage);
 
@@ -266,7 +283,7 @@ namespace NotionBack.Controllers
                     }
                 case PageType.Calendar:
                     {
-                        await _unitOfWork.Calendars.GetAll();
+                        await _unitOfWork.Calendars.GetAll(page.Id);
                         await _unitOfWork.CalendarContents.GetAll();
                         break;
                     }
@@ -284,6 +301,14 @@ namespace NotionBack.Controllers
                     }
             };
             return page;
+        }
+        private bool CheckUserId(String userId)
+        {
+            if (String.IsNullOrEmpty(userId) || String.IsNullOrWhiteSpace(userId))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

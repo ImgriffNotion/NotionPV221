@@ -3,6 +3,6 @@
     public interface ITokenService<T>
     {
         public String GenerateToken(T tokenModel);
-        public Task<bool> CheckToken(String token);
+        public Task<T> CheckToken(String token);
     }
 }

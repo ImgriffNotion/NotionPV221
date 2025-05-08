@@ -52,7 +52,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
-            var response = new RestResponse<string>(500, "post method is empty", meta);
+            var response = new RestResponse<string>(418, "post method is empty", meta);
             return Ok(response);
         }
 
@@ -81,7 +81,7 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                var response = new RestResponse<string>(500, "post method is empty", meta);
+                var response = new RestResponse<string>(418, "post method is empty", meta);
                 return Ok(response);
 
             }
@@ -116,7 +116,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
-            var response = new RestResponse<string>(500, "Delete method is empty", meta);
+            var response = new RestResponse<string>(418, "Delete method is empty", meta);
             return Ok(response);
         }
     }
