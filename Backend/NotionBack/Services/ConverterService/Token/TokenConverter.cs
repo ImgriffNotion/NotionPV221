@@ -34,9 +34,9 @@ namespace NotionBack.Services.ConverterService.Token
             {
                 Id = model.Id,
                 UserId = model.UserId,
-                Exp = (DateTime)model.Exp,
-                Iat = (DateTime)model.Iat,
-                DeleteDt = (DateTime)model.DeleteDt
+                Exp = model.Exp,
+                Iat = model.Iat,
+                DeleteDt = model.DeleteDt
             };
 
             return token;

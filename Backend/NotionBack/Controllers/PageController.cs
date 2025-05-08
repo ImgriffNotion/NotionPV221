@@ -78,9 +78,8 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
-            var userId = HttpContext.Items["userId"] as String;
-            bool isValid = CheckUserId(userId);
-            if(isValid)
+            var userId = (Guid)HttpContext.Items["userId"];
+            if(userId == null)
             {
                 var response = new RestResponse<String>(401, "User must be authorized", meta);
                 return Ok(response);
@@ -88,7 +87,7 @@ namespace NotionBack.Controllers
 
             try
             {
-                var listOfPages = (await this._unitOfWork.Pages.GetAll(new Guid(userId))).ToList();
+                var listOfPages = (await this._unitOfWork.Pages.GetAll(userId)).ToList();
                 var pages = new List<PageDTO>();
                 foreach (var page in listOfPages)
                 {
@@ -129,9 +128,8 @@ namespace NotionBack.Controllers
                 return Ok(_response);
             }
 
-            var userId = HttpContext.Items["userId"] as String;
-            bool isValid = CheckUserId(userId);
-            if (isValid)
+            var userId = (Guid)HttpContext.Items["userId"];
+            if (userId == null)
             {
                 var response = new RestResponse<String>(401, "User must be authorized", meta);
                 return Ok(response);
@@ -143,7 +141,7 @@ namespace NotionBack.Controllers
                 var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
                 var newPage = _pageConvertService.FromDTO(page);
                 newPage.Type = pageType;
-                newPage.OwnerId = new Guid(userId);
+                newPage.OwnerId = userId;
                 newPage.Slug = await _slugerService.GenerateUniqueSlug(newPage.Title);
                 await _unitOfWork.Pages.Create(newPage);
 
@@ -302,13 +300,6 @@ namespace NotionBack.Controllers
             };
             return page;
         }
-        private bool CheckUserId(String userId)
-        {
-            if (String.IsNullOrEmpty(userId) || String.IsNullOrWhiteSpace(userId))
-            {
-                return false;
-            }
-            return true;
-        }
+       
     }
 }

@@ -32,8 +32,9 @@ namespace NotionBack.Services.TokenService
             {
                 try
                 {
-                    var tokenInfo = _tokenConvertService.ToDTO(await _unitOfWork.Tokens.Get(parsedTokenId));
-                    if (tokenInfo != null && tokenInfo.Exp > DateTime.UtcNow)
+                    var tokenFromDb = await _unitOfWork.Tokens.Get(parsedTokenId);
+                    var tokenInfo = _tokenConvertService.ToDTO(tokenFromDb);
+                    if (tokenInfo != null && (DateTime)tokenInfo.Exp > DateTime.UtcNow)
                         return tokenInfo;
 
                 }

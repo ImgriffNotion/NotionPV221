@@ -31,6 +31,7 @@ namespace NotionBack.Middleware.Auth
 
                 if (token != null)
                 {
+                    httpContext.Items["token"] = encryptedToken;
                     httpContext.Items["userId"] = token.UserId;
                     await _next(httpContext);
                     return;

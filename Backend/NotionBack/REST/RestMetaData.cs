@@ -6,7 +6,7 @@
         public String method { get; set; }
         public String name{  get; set; }
         public DateTime serverTime{  get; set; }
-        public Dictionary<String, Object> _params{  get; set; }
+        public Dictionary<String, Object> _params{  get; set; } = new Dictionary<String, Object>();
         public String locale{  get; set; }
         public String[] acceptMethods{  get; set; }
 

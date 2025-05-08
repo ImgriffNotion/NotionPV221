@@ -9,12 +9,12 @@ namespace NotionBack.Models.ModelsDTO
         [JsonPropertyName("userId")]
         public Guid UserId { get; set; }
         [JsonPropertyName("iat")]
-        public DateTime Iat { get; set; }
+        public DateTime? Iat { get; set; }
         [JsonPropertyName("exp")]
-        public DateTime Exp {  get; set; }
+        public DateTime? Exp {  get; set; }
 
         [JsonPropertyName("deleteDt")]
-        public DateTime DeleteDt { get; set; }
+        public DateTime? DeleteDt { get; set; }
         [JsonPropertyName("user")]
         public UserDTO User { get; set; }
 

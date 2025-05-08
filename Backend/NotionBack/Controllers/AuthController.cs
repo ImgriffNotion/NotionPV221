@@ -127,6 +127,7 @@ namespace NotionBack.Controllers
                 await _unitOfWork.Save();
                 newUser = _userConvertService.ToDTO(await _unitOfWork.Users.GetUserByEmail(newUser.Email));
                 var token = await GetJwtToken(newUser);
+                meta._params["access_token"] = token.Jwt;
 
                 var _response = new RestResponse<Object>(200, token, meta);
                 return Ok(_response);
