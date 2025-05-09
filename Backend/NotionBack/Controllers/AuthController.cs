@@ -298,7 +298,7 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
-            var _response = new RestResponse<string>(200, "Delete method is empty", meta);
+            var _response = new RestResponse<string>(418, "Delete method is empty", meta);
             return Ok(_response);
         }
 
@@ -330,9 +330,7 @@ namespace NotionBack.Controllers
                 User = user
             };
 
-            var token = _tokenService.GenerateToken(tokenDto);
-            await _unitOfWork.Tokens.Create(_tokenConvertService.FromDTO(tokenDto));
-            await _unitOfWork.Save();
+            var token = await _tokenService.GenerateToken(tokenDto);
 
             return new JwtTokenModel()
             {

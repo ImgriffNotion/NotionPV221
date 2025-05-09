@@ -2,7 +2,7 @@
 {
     public interface ITokenService<T>
     {
-        public String GenerateToken(T tokenModel);
+        public Task<String> GenerateToken(T tokenModel);
         public Task<T> CheckToken(String token);
     }
 }

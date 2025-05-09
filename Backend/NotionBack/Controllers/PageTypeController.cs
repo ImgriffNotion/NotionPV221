@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NotionBack.DAL.Interfaces;
 using NotionBack.DAL.Models;
+using NotionBack.Models;
 using NotionBack.Models.Enums;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.REST;
@@ -29,6 +30,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             var listOfTypes = new List<PageTypeDTO>();
             foreach(var type in Enum.GetValues(typeof(PageType)))
@@ -67,6 +69,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             var tmp = await _unitOfWork.PageTypes.GetAll();
             foreach (var type in tmp)

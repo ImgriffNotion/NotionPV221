@@ -4,6 +4,7 @@ using NotionBack.DAL.Interfaces;
 using NotionBack.Services.ConverterService;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.DAL.Models;
+using NotionBack.Models;
 
 
 namespace NotionBack.Controllers
@@ -27,6 +28,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             try
             {
@@ -52,6 +54,8 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+
             var response = new RestResponse<string>(418, "post method is empty", meta);
             return Ok(response);
         }
@@ -67,6 +71,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             try
             {
@@ -116,6 +121,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
             var response = new RestResponse<string>(418, "Delete method is empty", meta);
             return Ok(response);
         }

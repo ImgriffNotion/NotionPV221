@@ -10,6 +10,7 @@ using NotionBack.Services.ContentConverterService;
 using StackExchange.Redis;
 using NotionBack.Models.Settings;
 using NotionBack.Middleware.Auth;
+using NotionBack.Middleware.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -173,6 +174,7 @@ app.UseCors("AllowFrontend");
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthMiddleware();
+app.UseUpdateTokenMiddleware();
 app.UseAuthorization();
 app.MapControllers();
 

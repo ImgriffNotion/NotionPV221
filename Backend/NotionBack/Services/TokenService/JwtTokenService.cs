@@ -24,30 +24,43 @@ namespace NotionBack.Services.TokenService
 
         public async Task<TokenDTO> CheckToken(String token)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtToken = tokenHandler.ReadJwtToken(token);
-            var tokenId = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "TokenId")?.Value;
-
-            if (Guid.TryParse(tokenId, out var parsedTokenId))
+            try
             {
-                try
-                {
-                    var tokenFromDb = await _unitOfWork.Tokens.Get(parsedTokenId);
-                    var tokenInfo = _tokenConvertService.ToDTO(tokenFromDb);
-                    if (tokenInfo != null && (DateTime)tokenInfo.Exp > DateTime.UtcNow)
-                        return tokenInfo;
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+                var tokenId = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "TokenId")?.Value;
 
-                }
-                catch (Exception)
+                if (Guid.TryParse(tokenId, out var parsedTokenId))
                 {
-                    return null;
+                    try
+                    {
+                        var tokenFromDb = await _unitOfWork.Tokens.Get(parsedTokenId);
+                        var tokenInfo = _tokenConvertService.ToDTO(tokenFromDb);
+                        if (tokenInfo != null)
+                        {
+                            if ((DateTime)tokenInfo.Exp > DateTime.UtcNow)
+                                return tokenInfo;
+                            else
+                            {
+                                tokenFromDb.DeleteDt = DateTime.UtcNow;
+                                await _unitOfWork.Save();
+
+                                tokenInfo.DeleteDt = tokenFromDb.DeleteDt;
+                                return tokenInfo;
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
                 }
             }
-
+            catch (Exception) { }
             return null;
         }
 
-        public string GenerateToken(TokenDTO tokenModel)
+        public async Task<string> GenerateToken(TokenDTO tokenModel)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
@@ -62,6 +75,9 @@ namespace NotionBack.Services.TokenService
                 Expires = DateTime.UtcNow.AddHours(vaildHours),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            await _unitOfWork.Tokens.Create(_tokenConvertService.FromDTO(tokenModel));
+            await _unitOfWork.Save();
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

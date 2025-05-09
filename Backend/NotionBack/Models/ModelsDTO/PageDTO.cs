@@ -37,7 +37,6 @@ namespace NotionBack.Models.ModelsDTO
         [JsonPropertyName("deleteDt")] 
         public DateTime? DeleteDt { get; set; }
         
-        [Required]
         [JsonPropertyName("content")]
         public Object? Content { get; set; }
     }

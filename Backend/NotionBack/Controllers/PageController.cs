@@ -10,6 +10,9 @@ using NotionBack.Services.PageTypesService;
 using System;
 using NotionBack.Services.SlugService;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
+using NotionBack.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace NotionBack.Controllers
 {
@@ -37,8 +40,10 @@ namespace NotionBack.Controllers
                 name = "Get",
                 uri = $"/imgriff/pages?slug={slug}",
                 locale = "en-US",
-                serverTime = DateTime.UtcNow
+                serverTime = DateTime.UtcNow,
             };
+
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             try
             {
@@ -77,9 +82,10 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             var userId = (Guid)HttpContext.Items["userId"];
-            if(userId == null)
+            if (userId == null)
             {
                 var response = new RestResponse<String>(401, "User must be authorized", meta);
                 return Ok(response);
@@ -121,6 +127,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             if (!ModelState.IsValid)
             {
@@ -170,7 +177,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             if (!ModelState.IsValid)
             {
@@ -210,6 +217,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             try
             {
@@ -238,6 +246,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             try
             {
@@ -252,10 +261,42 @@ namespace NotionBack.Controllers
             {
                 var _response = new RestResponse<Object>(200, ex.Message, meta);
                 return Ok(_response);
-            } 
+            }
         }
 
-        // Получение удаление страниц 
+        [HttpDelete("delete-permanently-admin")]
+        public async Task<IActionResult> DeletePermanentlyAdmub()
+        {
+            var meta = new RestMetaData()
+            {
+                method = "DELETE",
+                name = "DeletePermanently",
+                uri = $"/imgriff/pages/delete-permanently-admin",
+                locale = "en-US",
+                serverTime = DateTime.UtcNow
+            };
+            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+
+            try
+            {
+                var pages = await _unitOfWork.Pages.GetAll();
+                foreach (var page in pages)
+                {
+
+                    await _unitOfWork.Pages.DeletePagePermanently(page);
+
+                }
+                await _unitOfWork.Save();
+
+                var _response = new RestResponse<Object>(200, "Deleted success", meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                return Ok(_response);
+            }
+        }
 
         private async Task<Page> GetContent(Page page)
         {
@@ -300,6 +341,6 @@ namespace NotionBack.Controllers
             };
             return page;
         }
-       
+
     }
 }
