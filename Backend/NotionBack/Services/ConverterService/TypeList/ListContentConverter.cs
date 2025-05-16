@@ -9,11 +9,13 @@ namespace NotionBack.Services.ConverterService.TypeList
     {
         private readonly IConvertService<FileDTO, DAL.Models.fileStructure.File> _convertService = convertService;
 
-        public ListContent FromDTO(ListContentDTO model)
+        public async Task<ListContent> FromDTO(ListContentDTO model)
         {
+            if (model == null)
+                return new ListContent();
+
             var listContent = new ListContent()
             {
-                Id = model.Id,
                 Title = model.Title,
                 Number = model.Number,
                 Date = model.Date,
@@ -23,14 +25,14 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Files = new List<DAL.Models.fileStructure.ListFile>()
             };
 
-            if (model.Files != null && model.Files.Count != 0) 
+            if (model.Files != null && model.Files.Count != 0)
             {
                 foreach (var file in model.Files)
                 {
                     var listFile = new ListFile()
                     {
                         ListContent = listContent,
-                        File = _convertService.FromDTO(file)
+                        File = await _convertService.FromDTO(file)
                     };
                 }
             }
@@ -38,20 +40,26 @@ namespace NotionBack.Services.ConverterService.TypeList
             return listContent;
         }
 
-        public ListContent FromDTO(ListContent domain, ListContentDTO dto)
+        public async Task<ListContent> FromDTO(ListContent domain, ListContentDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Title = dto.Title;
             domain.Number = dto.Number;
             domain.Date = dto.Date;
             domain.Description = dto.Description;
             domain.Index = dto.Index;
             domain.Color = dto.Color;
-           
+
             return domain;
         }
 
-        public ListContentDTO ToDTO(ListContent model)
+        public async Task<ListContentDTO> ToDTO(ListContent model)
         {
+            if (model == null)
+                return new ListContentDTO();
+
             var listContent = new ListContentDTO()
             {
                 Id = model.Id,
@@ -69,7 +77,7 @@ namespace NotionBack.Services.ConverterService.TypeList
             {
                 foreach (var file in model.Files)
                 {
-                    listContent.Files.Add(_convertService.ToDTO(file.File));
+                    listContent.Files.Add(await _convertService.ToDTO(file.File));
                 }
             }
 

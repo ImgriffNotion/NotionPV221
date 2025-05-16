@@ -10,11 +10,13 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
 
         private readonly IConvertService<CalendarContentDTO, CalendarContent> _convertService = convertService;
 
-        public Calendar FromDTO(CalendarDTO model)
+        public async Task<Calendar> FromDTO(CalendarDTO model)
         {
+            if (model == null)
+                return new Calendar();
+
             var calendar = new Calendar()
             {
-                Id = model.Id,
                 Title = model.Title,
                 Contents = new List<CalendarContent>()
             };
@@ -23,15 +25,18 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             {
                 foreach (var content in model.InternalContent)
                 {
-                    calendar.Contents.Add(_convertService.FromDTO(content));
+                    calendar.Contents.Add(await _convertService.FromDTO(content));
                 }
             }
 
             return calendar;
         }
 
-        public Calendar FromDTO(Calendar domain, CalendarDTO dto)
+        public async Task<Calendar> FromDTO(Calendar domain, CalendarDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Title = dto.Title;
 
             if (dto.InternalContent != null && dto.InternalContent.Count != 0)
@@ -46,7 +51,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                     }
                     else
                     {
-                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                        tmpBuffer.Add(await _convertService.FromDTO(dtoContent));
                     }
                 }
 
@@ -60,8 +65,11 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             return domain;
         }
 
-        public CalendarDTO ToDTO(Calendar model)
+        public async Task<CalendarDTO> ToDTO(Calendar model)
         {
+            if (model == null)
+                return new CalendarDTO();
+
             var calendar = new CalendarDTO()
             {
                 Id = model.Id,
@@ -76,7 +84,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             {
                 foreach (var content in model.Contents)
                 {
-                    calendar.InternalContent.Add(_convertService.ToDTO(content));
+                    calendar.InternalContent.Add(await _convertService.ToDTO(content));
                 }
             }
 

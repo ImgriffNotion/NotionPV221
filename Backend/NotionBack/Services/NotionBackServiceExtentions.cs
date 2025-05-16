@@ -5,7 +5,6 @@ using NotionBack.DAL.Models.pageContents.pageInPageContents;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO;
-using NotionBack.Services.ContentConverterService;
 using NotionBack.Services.ConverterService;
 using NotionBack.Services.ConverterService.Files;
 using NotionBack.Services.ConverterService.Page;
@@ -16,7 +15,6 @@ using NotionBack.Services.ConverterService.TypeEmpty;
 using NotionBack.Services.ConverterService.TypeGallery;
 using NotionBack.Services.ConverterService.TypeList;
 using NotionBack.Services.ConverterService.TypeTable;
-using NotionBack.Services.ConverterService.UntypeContentService;
 using NotionBack.Services.ConverterService.Users;
 using NotionBack.Services.EmailAuthorizationService;
 using NotionBack.Services.EmailService;
@@ -66,14 +64,6 @@ namespace NotionBack.Services
             // List
             services.AddScoped<IConvertService<ListDTO, DAL.Models.pageContents.List>, ListConverter>();
             services.AddScoped<IConvertService<ListContentDTO, ListContent>, ListContentConverter>();
-
-            #endregion
-
-            #region Register contentConverters 
-
-            services.AddSingleton<IContentConverterRegistry, ContentConverterRegistry>();
-
-            services.AddScoped<ContentConverterRegistryInitializer>();
 
             #endregion
 

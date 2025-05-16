@@ -77,7 +77,7 @@ namespace NotionBack.Controllers
             {
                 var user = await _unitOfWork.Users.GetUserByEmail(userFromRequest.Email);
 
-                _unitOfWork.Users.Update(_userConvertService.FromDTO(userFromRequest));
+                _unitOfWork.Users.Update(await _userConvertService.FromDTO(userFromRequest));
                 await _unitOfWork.Save();
 
                 var response = new RestResponse<object>(200, userFromRequest, meta);

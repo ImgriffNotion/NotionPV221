@@ -6,9 +6,9 @@ namespace NotionBack.Models.ModelsDTO.ContentDTO
     public class BoardDTO
     {
         [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [JsonPropertyName("parentPageId")]
-        public Guid ParentPageId { get; set; }
+        public Guid? ParentPageId { get; set; }
         [JsonPropertyName("title")]
         public String? Title { get; set; }
         [JsonPropertyName("internalContent")]

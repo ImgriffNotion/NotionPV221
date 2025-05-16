@@ -6,11 +6,13 @@ namespace NotionBack.Services.ConverterService.TypeTable
 {
     public class TableContentConverter : IConvertService<TableContentDTO, TableContent>
     {
-        public TableContent FromDTO(TableContentDTO model)
+        public async Task<TableContent> FromDTO(TableContentDTO model)
         {
+            if (model == null)
+                return new TableContent();
+
             var tableContent = new TableContent()
             {
-                Id = model.Id,
                 Row = model.Row,
                 Column = model.Col,
                 Data = model.Data,
@@ -20,8 +22,11 @@ namespace NotionBack.Services.ConverterService.TypeTable
             return tableContent;
         }
 
-        public TableContent FromDTO(TableContent domain, TableContentDTO dto)
+        public async Task<TableContent> FromDTO(TableContent domain, TableContentDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Row = dto.Row;
             domain.Column = dto.Col;
             domain.Data = dto.Data;
@@ -31,8 +36,11 @@ namespace NotionBack.Services.ConverterService.TypeTable
             return domain;
         }
 
-        public TableContentDTO ToDTO(TableContent model)
+        public async Task<TableContentDTO> ToDTO(TableContent model)
         {
+            if (model == null)
+                return new TableContentDTO();
+
             var tableContent = new TableContentDTO()
             {
                 Id = model.Id,

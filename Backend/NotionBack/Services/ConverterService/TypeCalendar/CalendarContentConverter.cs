@@ -12,11 +12,13 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
         private readonly IConvertService<FileDTO, DAL.Models.fileStructure.File> _convertService =
             convertService;
 
-        public CalendarContent FromDTO(CalendarContentDTO model)
+        public async Task<CalendarContent> FromDTO(CalendarContentDTO model)
         {
+            if (model == null)
+                return new CalendarContent();
+
             var calendarContent = new CalendarContent()
             {
-                Id = model.Id,
                 Title = model.Title,
                 Description = model.Description,
                 PlanedDate = model.PlanedDate,
@@ -32,7 +34,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                     var listFile = new CalendarFile()
                     {
                         CalendarContent = calendarContent,
-                        File = _convertService.FromDTO(file),
+                        File = await _convertService.FromDTO(file),
                     };
                 }
             }
@@ -40,8 +42,11 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             return calendarContent;
         }
 
-        public CalendarContent FromDTO(CalendarContent domain, CalendarContentDTO dto)
+        public async Task<CalendarContent> FromDTO(CalendarContent domain, CalendarContentDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Title = dto.Title;
             domain.Description = dto.Description;
             domain.PlanedDate = dto.PlanedDate;
@@ -51,8 +56,11 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             return domain;
         }
 
-        public CalendarContentDTO ToDTO(CalendarContent model)
+        public async Task<CalendarContentDTO> ToDTO(CalendarContent model)
         {
+            if (model == null)
+                return new CalendarContentDTO();
+
             var calendarContent = new CalendarContentDTO()
             {
                 Id = model.Id,
@@ -69,7 +77,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             {
                 foreach (var file in model.Files)
                 {
-                    calendarContent.Files.Add(_convertService.ToDTO(file.File));
+                    calendarContent.Files.Add(await _convertService.ToDTO(file.File));
                 }
             }
 

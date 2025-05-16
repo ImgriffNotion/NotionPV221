@@ -43,7 +43,7 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow,
             };
 
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+            
 
             try
             {
@@ -51,7 +51,7 @@ namespace NotionBack.Controllers
                 page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
                 await GetContent(page);
 
-                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(page), meta);
+                var _response = new RestResponse<PageDTO>(200, await _pageConvertService.ToDTO(page), meta);
                 return Ok(_response);
             }
             catch (NullReferenceException ex)
@@ -82,7 +82,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             var userId = (Guid)HttpContext.Items["userId"];
             if (userId == null)
@@ -98,7 +97,7 @@ namespace NotionBack.Controllers
                 foreach (var page in listOfPages)
                 {
                     page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
-                    pages.Add(_pageConvertService.ToDTO(page));
+                    pages.Add(await _pageConvertService.ToDTO(page));
                 }
 
                 var _response = new RestResponse<Object>(200, pages, meta);
@@ -127,7 +126,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+            
 
             if (!ModelState.IsValid)
             {
@@ -146,7 +145,7 @@ namespace NotionBack.Controllers
             try
             {
                 var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
-                var newPage = _pageConvertService.FromDTO(page);
+                var newPage = await _pageConvertService.FromDTO(page);
                 newPage.Type = pageType;
                 newPage.OwnerId = userId;
                 newPage.Slug = await _slugerService.GenerateUniqueSlug(newPage.Title);
@@ -156,7 +155,7 @@ namespace NotionBack.Controllers
 
                 var updatedPage = await _unitOfWork.Pages.GetPageBySlug(newPage.Slug);
 
-                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(updatedPage), meta);
+                var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(updatedPage), meta);
                 return Ok(_response);
             }
             catch (Exception ex)
@@ -177,7 +176,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+            
 
             if (!ModelState.IsValid)
             {
@@ -190,11 +189,11 @@ namespace NotionBack.Controllers
                 var pageForUpdate = await _unitOfWork.Pages.GetPageBySlug(page.Slug);
                 pageForUpdate.Type = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
                 await GetContent(pageForUpdate);
-                _pageConvertService.FromDTO(pageForUpdate, page);
+                await _pageConvertService.FromDTO(pageForUpdate, page);
                 _unitOfWork.Pages.Update(pageForUpdate);
                 await _unitOfWork.Save();
 
-                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(pageForUpdate), meta);
+                var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(pageForUpdate), meta);
                 return Ok(_response);
 
             }
@@ -217,7 +216,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+            
 
             try
             {
@@ -225,7 +224,7 @@ namespace NotionBack.Controllers
                 await _unitOfWork.Pages.Delete(pages.Id);
                 await _unitOfWork.Save();
 
-                var _response = new RestResponse<Object>(200, _pageConvertService.ToDTO(pages), meta);
+                var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(pages), meta);
                 return Ok(_response);
             }
             catch (Exception ex)
@@ -246,7 +245,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+            
 
             try
             {
@@ -259,7 +258,7 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }
@@ -275,7 +274,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
+            
 
             try
             {
@@ -293,7 +292,7 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }

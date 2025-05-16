@@ -5,9 +5,9 @@ namespace NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO
     public class ListContentDTO
     {
         [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [JsonPropertyName("listId")]
-        public Guid ListId { get; set; }
+        public Guid? ListId { get; set; }
         [JsonPropertyName("title")]
         public String? Title { get; set; }
         [JsonPropertyName("number")]

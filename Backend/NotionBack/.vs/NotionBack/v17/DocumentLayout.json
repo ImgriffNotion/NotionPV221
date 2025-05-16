@@ -7,36 +7,8 @@
       "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\middleware\\auth\\authmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:middleware\\auth\\authmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\models\\modelsdto\\pagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:models\\modelsdto\\pagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\services\\converterservice\\page\\pageconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:services\\converterservice\\page\\pageconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\middleware\\token\\updatetokenmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:middleware\\token\\updatetokenmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\models\\enums\\pagetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:models\\enums\\pagetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\models\\modelsdto\\contentdto\\tabledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:models\\modelsdto\\contentdto\\tabledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\services\\tokenservice\\jwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:services\\tokenservice\\jwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,120 +50,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PageDTO.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\PageDTO.cs",
-              "RelativeDocumentMoniker": "Models\\ModelsDTO\\PageDTO.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\PageDTO.cs",
-              "RelativeToolTip": "Models\\ModelsDTO\\PageDTO.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAA7wCYAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T13:44:51.906Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PageConverter.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\Page\\PageConverter.cs",
-              "RelativeDocumentMoniker": "Services\\ConverterService\\Page\\PageConverter.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\Page\\PageConverter.cs",
-              "RelativeToolTip": "Services\\ConverterService\\Page\\PageConverter.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAAwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T13:43:26.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PageType.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\Enums\\PageType.cs",
-              "RelativeDocumentMoniker": "Models\\Enums\\PageType.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\Enums\\PageType.cs",
-              "RelativeToolTip": "Models\\Enums\\PageType.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T13:02:19.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "TableDTO.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\ContentDTO\\TableDTO.cs",
-              "RelativeDocumentMoniker": "Models\\ModelsDTO\\ContentDTO\\TableDTO.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Models\\ModelsDTO\\ContentDTO\\TableDTO.cs",
-              "RelativeToolTip": "Models\\ModelsDTO\\ContentDTO\\TableDTO.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAAwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T12:39:25.65Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AQIAAIIAAAAAAAAAAAAswBoBAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T11:27:57.214Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PageController.cs",
               "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
               "RelativeDocumentMoniker": "Controllers\\PageController.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs*",
-              "RelativeToolTip": "Controllers\\PageController.cs*",
-              "ViewState": "AQIAAAsBAAAAAAAAAAA2wB0BAABGAAAA",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
+              "RelativeToolTip": "Controllers\\PageController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAKkAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T11:27:57.23Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UpdateTokenMiddleware.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Middleware\\Token\\UpdateTokenMiddleware.cs",
-              "RelativeDocumentMoniker": "Middleware\\Token\\UpdateTokenMiddleware.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Middleware\\Token\\UpdateTokenMiddleware.cs",
-              "RelativeToolTip": "Middleware\\Token\\UpdateTokenMiddleware.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAsAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T12:20:40.64Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "JwtTokenService.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\TokenService\\JwtTokenService.cs",
-              "RelativeDocumentMoniker": "Services\\TokenService\\JwtTokenService.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\TokenService\\JwtTokenService.cs",
-              "RelativeToolTip": "Services\\TokenService\\JwtTokenService.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAQwC0AAAA5AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T12:11:13.444Z",
+              "WhenOpened": "2025-05-13T07:56:10.326Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AuthMiddleware.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Middleware\\Auth\\AuthMiddleware.cs",
-              "RelativeDocumentMoniker": "Middleware\\Auth\\AuthMiddleware.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Middleware\\Auth\\AuthMiddleware.cs",
-              "RelativeToolTip": "Middleware\\Auth\\AuthMiddleware.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAIAwwDkAAAADAAAA",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T12:00:12.006Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T00:58:54.145Z"
             }
           ]
         }

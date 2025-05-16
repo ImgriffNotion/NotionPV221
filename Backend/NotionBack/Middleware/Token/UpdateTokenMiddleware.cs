@@ -44,7 +44,14 @@ namespace NotionBack.Middleware.Token
 
                         httpContext.Items.Remove("hasToBeUpdated");
                         httpContext.Items.Remove("tokenDTO");
-                        httpContext.Items["jwt"] = jwtTokenModel;
+                        httpContext.Items["userId"] = token.UserId;
+                        httpContext.Response.Cookies.Append("token", jwtTokenModel.Jwt, new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Secure = true,
+                            SameSite = SameSiteMode.None,
+                            Expires = DateTimeOffset.UtcNow.AddHours(TokenValidTime.VaildTimeInHours)
+                        });
 
                     }
                 }

@@ -5,9 +5,9 @@ namespace NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO
     public class CalendarContentDTO
     {
         [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [JsonPropertyName("calendarId")]
-        public Guid CalendarId { get; set; }
+        public Guid? CalendarId { get; set; }
         [JsonPropertyName("title")]
         public String? Title { get; set; }
         [JsonPropertyName("description")]

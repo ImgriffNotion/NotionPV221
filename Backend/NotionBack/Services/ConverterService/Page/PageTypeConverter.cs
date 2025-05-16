@@ -6,8 +6,11 @@ namespace NotionBack.Services.ConverterService.Page
 {
     public class PageTypeConverter : IConvertService<PageTypeDTO, TypePage>
     {
-        public TypePage FromDTO(PageTypeDTO model)
+        public async Task<TypePage> FromDTO(PageTypeDTO model)
         {
+            if (model == null)
+                return new TypePage();
+
             var type = new TypePage()
             {
                 Id = model.Id,
@@ -18,15 +21,21 @@ namespace NotionBack.Services.ConverterService.Page
             return type;
         }
 
-        public TypePage FromDTO(TypePage domain, PageTypeDTO dto)
+        public async Task<TypePage> FromDTO(TypePage domain, PageTypeDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Name = dto.Name;
             domain.TypeCode = dto.TypeCode;
             return domain;
         }
 
-        public PageTypeDTO ToDTO(TypePage model)
+        public async Task<PageTypeDTO> ToDTO(TypePage model)
         {
+            if (model == null)
+                return new PageTypeDTO();
+
             var type = new PageTypeDTO()
             {
                 Id = model.Id,

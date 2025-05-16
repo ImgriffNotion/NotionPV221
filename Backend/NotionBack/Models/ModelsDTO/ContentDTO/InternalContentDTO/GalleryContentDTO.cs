@@ -5,9 +5,9 @@ namespace NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO
     public class GalleryContentDTO
     {
         [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [JsonPropertyName("galleryId")]
-        public Guid GalleryId { get; set; }
+        public Guid? GalleryId { get; set; }
         [JsonPropertyName("title")]
         public String? Title { get; set; }
         [JsonPropertyName("url")]

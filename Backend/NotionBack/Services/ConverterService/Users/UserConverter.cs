@@ -5,8 +5,11 @@ namespace NotionBack.Services.ConverterService.Users
 {
     public class UserConverter : IConvertService<UserDTO, User>
     {
-        public User FromDTO(UserDTO model)
+        public async Task<User> FromDTO(UserDTO model)
         {
+            if (model == null)
+                return new User();
+
             var user = new User()
             {
                 Name = model.Name,
@@ -18,8 +21,11 @@ namespace NotionBack.Services.ConverterService.Users
             return user;
         }
 
-        public User FromDTO(User domain, UserDTO dto)
+        public async Task<User> FromDTO(User domain, UserDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Name = dto.Name;
             domain.Lastname = dto.Lastname;
             domain.Email = dto.Email;
@@ -28,8 +34,10 @@ namespace NotionBack.Services.ConverterService.Users
             return domain;
         }
 
-        public UserDTO ToDTO(User model)
+        public async Task<UserDTO> ToDTO(User model)
         {
+            if (model == null)
+                return new UserDTO();
             var user = new UserDTO()
             {
                 Id = model.Id,

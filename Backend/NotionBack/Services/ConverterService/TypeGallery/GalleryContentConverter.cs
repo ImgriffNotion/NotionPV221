@@ -1,15 +1,19 @@
-﻿using NotionBack.DAL.Models.pageContents.pageInPageContents;
+﻿using NotionBack.DAL.Models.pageContents;
+using NotionBack.DAL.Models.pageContents.pageInPageContents;
 using NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO;
 
 namespace NotionBack.Services.ConverterService.TypeGallery
 {
     public class GalleryContentConverter : IConvertService<GalleryContentDTO, GalleryContent>
     {
-        public GalleryContent FromDTO(GalleryContentDTO model)
+        public async Task<GalleryContent> FromDTO(GalleryContentDTO model)
         {
+            if (model == null)
+                return new GalleryContent();
+
+
             var galleryContent = new GalleryContent()
             {
-                Id = model.Id,
                 Title = model.Title,
                 Url = model.Url,
                 Color = model.Color,
@@ -21,8 +25,11 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             return galleryContent;
         }
 
-        public GalleryContent FromDTO(GalleryContent domain, GalleryContentDTO dto)
+        public async Task<GalleryContent> FromDTO(GalleryContent domain, GalleryContentDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Title = dto.Title;
             domain.Url = dto.Url;
             domain.Color = dto.Color;
@@ -33,8 +40,11 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             return domain;
         }
 
-        public GalleryContentDTO ToDTO(GalleryContent model)
+        public async Task<GalleryContentDTO> ToDTO(GalleryContent model)
         {
+            if (model == null)
+                return new GalleryContentDTO();
+
             var galleryContent = new GalleryContentDTO()
             {
                 Id = model.Id,

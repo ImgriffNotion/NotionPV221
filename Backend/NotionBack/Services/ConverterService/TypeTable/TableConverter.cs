@@ -8,11 +8,13 @@ namespace NotionBack.Services.ConverterService.TypeTable
     public class TableConverter(IConvertService<TableContentDTO, TableContent> convertService) : IConvertService<TableDTO, Table>
     {
         private readonly IConvertService<TableContentDTO, TableContent> _convertService = convertService;
-        public Table FromDTO(TableDTO model)
+        public async Task<Table> FromDTO(TableDTO model)
         {
+            if (model == null)
+                return new Table();
+
             var table = new Table()
             {
-                Id = model.Id,
                 Title = model.Title,
                 Rows = model.Rows,
                 Columns = model.Columns,
@@ -23,15 +25,18 @@ namespace NotionBack.Services.ConverterService.TypeTable
             {
                 foreach (var content in model.InternalContent)
                 {
-                    table.Contents.Add(_convertService.FromDTO(content));
+                    table.Contents.Add(await _convertService.FromDTO(content));
                 }
             }
 
             return table;
         }
 
-        public Table FromDTO(Table domain, TableDTO dto)
+        public async Task<Table> FromDTO(Table domain, TableDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Title = dto.Title;
             domain.ParentPageId = dto.ParentPageId;
             if (dto.InternalContent != null && dto.InternalContent.Count != 0)
@@ -49,7 +54,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
                     }
                     else
                     {
-                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                        tmpBuffer.Add(await _convertService.FromDTO(dtoContent));
                     }
                 }
 
@@ -63,8 +68,11 @@ namespace NotionBack.Services.ConverterService.TypeTable
             return domain;
         }
 
-        public TableDTO ToDTO(Table model)
+        public async Task<TableDTO> ToDTO(Table model)
         {
+            if (model == null)
+                return new TableDTO();
+
             var table = new TableDTO()
             {
                 Id = model.Id,
@@ -81,7 +89,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
             {
                 foreach (var content in model.Contents)
                 {
-                    table.InternalContent.Add(_convertService.ToDTO(content));
+                    table.InternalContent.Add(await _convertService.ToDTO(content));
                 }
             }
 

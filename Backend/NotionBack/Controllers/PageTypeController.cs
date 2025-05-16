@@ -47,7 +47,7 @@ namespace NotionBack.Controllers
                         TypeCode = (int)type
                     };
                     listOfTypes.Add(newType);
-                    await _unitOfWork.PageTypes.Create(_convertService.FromDTO(newType));
+                    await _unitOfWork.PageTypes.Create(await _convertService.FromDTO(newType));
                 }
             }
 
@@ -82,7 +82,7 @@ namespace NotionBack.Controllers
             var tmp1 = new List<PageTypeDTO>();
             foreach (var type in tmp)
             {
-                tmp1.Add(_convertService.ToDTO(type));
+                tmp1.Add(await _convertService.ToDTO(type));
             }
 
             var _response = new RestResponse<Object>(200, tmp1, meta);

@@ -1,4 +1,5 @@
-﻿using NotionBack.DAL.Models.pageContents;
+﻿using NotionBack.DAL.Models;
+using NotionBack.DAL.Models.pageContents;
 using NotionBack.DAL.Models.pageContents.pageInPageContents;
 using NotionBack.Models.ModelsDTO.ContentDTO;
 
@@ -8,11 +9,13 @@ namespace NotionBack.Services.ConverterService.TypeBoard
     {
         private readonly IConvertService<ListDTO, DAL.Models.pageContents.List> _convertService = convertService;
 
-        public Board FromDTO(BoardDTO model)
+        public async Task<Board> FromDTO(BoardDTO model)
         {
+            if (model == null)
+                return new Board();
+
             var board = new Board()
             {
-                Id = model.Id,
                 Title = model.Title,
                 Lists = new List<DAL.Models.pageContents.List>()
             };
@@ -21,14 +24,17 @@ namespace NotionBack.Services.ConverterService.TypeBoard
             {
                 foreach (var content in model.InternalContent)
                 {
-                    board.Lists.Add(_convertService.FromDTO(content));
+                    board.Lists.Add(await _convertService.FromDTO(content));
                 }
             }
             return board;
         }
 
-        public Board FromDTO(Board domain, BoardDTO dto)
+        public async Task<Board> FromDTO(Board domain, BoardDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Title = dto.Title;
 
             if (dto.InternalContent != null && dto.InternalContent.Count != 0)
@@ -42,12 +48,12 @@ namespace NotionBack.Services.ConverterService.TypeBoard
                         var domainContent = domain.Lists.Where(obj => obj.Id == dtoContent.Id).FirstOrDefault();
                         if (domainContent != null)
                         {
-                            _convertService.FromDTO(domainContent, dtoContent);
+                            await _convertService.FromDTO(domainContent, dtoContent);
                         }
                     }
                     else
                     {
-                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                        tmpBuffer.Add(await _convertService.FromDTO(dtoContent));
                     }
                 }
 
@@ -60,8 +66,10 @@ namespace NotionBack.Services.ConverterService.TypeBoard
             return domain;
         }
 
-        public BoardDTO ToDTO(Board model)
+        public async Task<BoardDTO> ToDTO(Board model)
         {
+            if (model == null)
+                return new BoardDTO();
 
             var board = new BoardDTO()
             {
@@ -77,7 +85,7 @@ namespace NotionBack.Services.ConverterService.TypeBoard
             {
                 foreach (var content in model.Lists)
                 {
-                    board.InternalContent.Add(_convertService.ToDTO(content));
+                    board.InternalContent.Add(await _convertService.ToDTO(content));
                 }
             }
             return board;

@@ -2,8 +2,8 @@
 {
     public interface IConvertService<TDto, TDomain>
     {
-        public TDto ToDTO(TDomain model);
-        public TDomain FromDTO (TDto model);
-        public TDomain FromDTO (TDomain domain, TDto dto);
+        public Task<TDto> ToDTO(TDomain model);
+        public Task<TDomain> FromDTO (TDto model);
+        public Task<TDomain> FromDTO (TDomain domain, TDto dto);
     }
 }

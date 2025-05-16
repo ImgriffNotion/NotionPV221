@@ -105,10 +105,10 @@ namespace NotionBack.Controllers
                 var isSuccessful = await _otpService.VerifyOtp(body.Email, body.Passcode);
                 if (isSuccessful)
                 {
-                    var user = _userConvertService.ToDTO((await _unitOfWork.Users.GetUserByEmail(body.Email)));
+                    var user = await _userConvertService.ToDTO((await _unitOfWork.Users.GetUserByEmail(body.Email)));
 
                     var token = await GetJwtToken(user);
-
+                    meta._params["access_token"] = token.Jwt;
                     var response = new RestResponse<Object>(200, token, meta);
                     return Ok(response);
 
@@ -117,17 +117,16 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(400, "Otp is incorrect", meta);
                 return Ok(_response);
             }
-            catch (NullReferenceException ex)
+            catch (KeyNotFoundException ex)
             {
                 var newUser = new UserDTO()
                 {
                     Email = body.Email
                 };
-                await _unitOfWork.Users.Create(_userConvertService.FromDTO(newUser));
+                await _unitOfWork.Users.Create(await _userConvertService.FromDTO(newUser));
                 await _unitOfWork.Save();
-                newUser = _userConvertService.ToDTO(await _unitOfWork.Users.GetUserByEmail(newUser.Email));
+                newUser = await _userConvertService.ToDTO(await _unitOfWork.Users.GetUserByEmail(newUser.Email));
                 var token = await GetJwtToken(newUser);
-                meta._params["access_token"] = token.Jwt;
 
                 var _response = new RestResponse<Object>(200, token, meta);
                 return Ok(_response);
@@ -201,7 +200,7 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                await _unitOfWork.Users.Create(_userConvertService.FromDTO(userFromResponse));
+                await _unitOfWork.Users.Create(await _userConvertService.FromDTO(userFromResponse));
             }
 
             await _unitOfWork.Save();
@@ -223,7 +222,7 @@ namespace NotionBack.Controllers
             try
             {
                 var user = await _unitOfWork.Users.GetUserByEmail(email);
-                var token = await GetJwtToken(_userConvertService.ToDTO(user));
+                var token = await GetJwtToken(await _userConvertService.ToDTO(user));
                 var response = new RestResponse<Object>(200, token, meta);
                 return Ok(response);
             }

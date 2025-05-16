@@ -6,7 +6,6 @@ using NotionBack.DAL.Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using NotionBack.Services;
-using NotionBack.Services.ContentConverterService;
 using StackExchange.Redis;
 using NotionBack.Models.Settings;
 using NotionBack.Middleware.Auth;
@@ -117,7 +116,8 @@ builder.Services.Configure<JwtSettings>(
 // Add services to the container.
 
 builder.Services.AddControllers();
-string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
+//string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
+string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
@@ -155,12 +155,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.RegistatorAllServices();
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var initializer = scope.ServiceProvider.GetRequiredService<ContentConverterRegistryInitializer>();
-    initializer.Initialize();
-}
 
 if (app.Environment.IsDevelopment())
 {

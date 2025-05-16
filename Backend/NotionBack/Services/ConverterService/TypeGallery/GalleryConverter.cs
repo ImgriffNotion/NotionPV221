@@ -3,6 +3,7 @@ using NotionBack.DAL.Models.pageContents;
 using NotionBack.DAL.Models.pageContents.pageInPageContents;
 using NotionBack.Models.ModelsDTO.ContentDTO;
 using NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace NotionBack.Services.ConverterService.TypeGallery
 {
@@ -11,11 +12,13 @@ namespace NotionBack.Services.ConverterService.TypeGallery
 
         private readonly IConvertService<GalleryContentDTO, GalleryContent> _convertService = convertService;
 
-        public Gallery FromDTO(GalleryDTO model)
+        public async Task<Gallery> FromDTO(GalleryDTO model)
         {
+            if (model == null)
+                return new Gallery();
+
             var gallery = new Gallery()
             {
-                Id = model.Id,
                 Title = model.Title,
                 Contents = new List<GalleryContent>()
             };
@@ -24,15 +27,18 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             {
                 foreach (var content in model.InternalContent)
                 {
-                    gallery.Contents.Add(_convertService.FromDTO(content));
+                    gallery.Contents.Add(await _convertService.FromDTO(content));
                 }
             }
 
             return gallery;
         }
 
-        public Gallery FromDTO(Gallery domain, GalleryDTO dto)
+        public async Task<Gallery> FromDTO(Gallery domain, GalleryDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Title = dto.Title;
 
             if (dto.InternalContent != null && dto.InternalContent.Count != 0)
@@ -50,7 +56,7 @@ namespace NotionBack.Services.ConverterService.TypeGallery
                     }
                     else
                     {
-                        tmpBuffer.Add(_convertService.FromDTO(dtoContent));
+                        tmpBuffer.Add(await _convertService.FromDTO(dtoContent));
                     }
                 }
 
@@ -64,8 +70,11 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             return domain;
         }
 
-        public GalleryDTO ToDTO(Gallery model)
+        public async Task<GalleryDTO> ToDTO(Gallery model)
         {
+            if (model == null)
+                return new GalleryDTO();
+
             var gallery = new GalleryDTO()
             {
                 Id = model.Id,
@@ -80,7 +89,7 @@ namespace NotionBack.Services.ConverterService.TypeGallery
             {
                 foreach (var content in model.Contents)
                 {
-                    gallery.InternalContent.Add(_convertService.ToDTO(content));
+                    gallery.InternalContent.Add(await _convertService.ToDTO(content));
                 }
             }
 

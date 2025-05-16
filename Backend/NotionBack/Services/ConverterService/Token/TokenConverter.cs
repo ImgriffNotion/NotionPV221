@@ -5,8 +5,11 @@ namespace NotionBack.Services.ConverterService.Token
 {
     public class TokenConverter : IConvertService<TokenDTO, NotionBack.DAL.Models.Token>
     {
-        public DAL.Models.Token FromDTO(TokenDTO model)
+        public async Task<DAL.Models.Token> FromDTO(TokenDTO model)
         {
+            if (model == null)
+                return new DAL.Models.Token();
+
             var token = new DAL.Models.Token()
             {
                 Id = model.Id,
@@ -18,8 +21,11 @@ namespace NotionBack.Services.ConverterService.Token
             return token;
         }
 
-        public DAL.Models.Token FromDTO(DAL.Models.Token domain, TokenDTO dto)
+        public async Task<DAL.Models.Token> FromDTO(DAL.Models.Token domain, TokenDTO dto)
         {
+            if (domain == null || dto == null)
+                return domain;
+
             domain.Id = dto.Id;
             domain.UserId = dto.UserId;
             domain.Exp = dto.Exp;
@@ -28,8 +34,11 @@ namespace NotionBack.Services.ConverterService.Token
             return domain;
         }
 
-        public TokenDTO ToDTO(DAL.Models.Token model)
+        public async Task<TokenDTO> ToDTO(DAL.Models.Token model)
         {
+            if (model == null)
+                return new TokenDTO();
+
             var token = new TokenDTO()
             {
                 Id = model.Id,

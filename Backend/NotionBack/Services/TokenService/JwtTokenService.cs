@@ -15,12 +15,14 @@ namespace NotionBack.Services.TokenService
 {
     public class JwtTokenService(IOptions<JwtSettings> jwtSettings,
         IUnitOfWork unitOfWork,
-        IConvertService<TokenDTO, Token> tokenConvertService) : ITokenService<TokenDTO>
+        IConvertService<TokenDTO, Token> tokenConvertService,
+        IConvertService<UserDTO, User> userConvertService) : ITokenService<TokenDTO>
     {
         private int vaildHours = 3;
         private readonly String _secretKey = jwtSettings.Value.SecretKey;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IConvertService<TokenDTO, Token> _tokenConvertService = tokenConvertService;
+        private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
 
         public async Task<TokenDTO> CheckToken(String token)
         {
@@ -35,7 +37,8 @@ namespace NotionBack.Services.TokenService
                     try
                     {
                         var tokenFromDb = await _unitOfWork.Tokens.Get(parsedTokenId);
-                        var tokenInfo = _tokenConvertService.ToDTO(tokenFromDb);
+                        var tokenInfo = await _tokenConvertService.ToDTO(tokenFromDb);
+                        tokenInfo.User = await _userConvertService.ToDTO(await _unitOfWork.Users.Get(tokenInfo.UserId));
                         if (tokenInfo != null)
                         {
                             if ((DateTime)tokenInfo.Exp > DateTime.UtcNow)
@@ -76,7 +79,7 @@ namespace NotionBack.Services.TokenService
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            await _unitOfWork.Tokens.Create(_tokenConvertService.FromDTO(tokenModel));
+            await _unitOfWork.Tokens.Create(await _tokenConvertService.FromDTO(tokenModel));
             await _unitOfWork.Save();
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
