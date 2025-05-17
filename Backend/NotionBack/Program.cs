@@ -28,6 +28,10 @@ builder.Services.AddCors(options =>
                 "http://13.79.53.15",
                 "https://13.79.53.15",
                 "http://26.211.160.167",
+                "http://localhost:5000",
+                "http://localhost:3000",
+                "https://localhost:7114",
+                "http://localhost:5157",
                 "http://52.169.26.188"
             )
             .AllowAnyMethod()
@@ -38,10 +42,7 @@ builder.Services.AddCors(options =>
 });
 
 
-//"http://localhost:5000",
-//"http://localhost:3000",
-//"https://localhost:7114",
-//"http://localhost:5157",
+
 
 //builder.WebHost.ConfigureKestrel(options =>
 //{
