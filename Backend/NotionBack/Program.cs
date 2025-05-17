@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
-using NotionBack.DAL;
 using NotionBack.DAL.Infrastructure;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
@@ -22,13 +21,9 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://127.0.0.1:5500",
-                "https://localhost:7114",
-                "http://localhost:5157",
                 "http://10.0.1.4",
                 "http://10.0.2.4",
                 "http://13.79.53.15",
-                "http://localhost:5000",
-                "http://localhost:3000",
                 "http://26.211.160.167",
                 "http://52.169.26.188"
             )
@@ -38,6 +33,12 @@ builder.Services.AddCors(options =>
     }
 );
 });
+
+
+//"http://localhost:5000",
+//"http://localhost:3000",
+//"https://localhost:7114",
+//"http://localhost:5157",
 
 //builder.WebHost.ConfigureKestrel(options =>
 //{
