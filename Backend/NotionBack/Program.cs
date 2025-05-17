@@ -25,6 +25,7 @@ builder.Services.AddCors(options =>
                 "https://localhost:7114",
                 "http://localhost:5157",
                 "http://10.0.1.4",
+                "http://10.0.2.4",
                 "http://13.79.53.15",
                 "http://localhost:5000",
                 "http://localhost:3000",
