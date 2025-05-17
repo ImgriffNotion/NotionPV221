@@ -21,8 +21,11 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://127.0.0.1:5500",
+                "http://10.0.1.4",
                 "https://10.0.1.4",
+                "http://10.0.2.4",
                 "https://10.0.2.4",
+                "http://13.79.53.15",
                 "https://13.79.53.15",
                 "http://26.211.160.167",
                 "http://52.169.26.188"
