@@ -38,15 +38,15 @@ builder.Services.AddCors(options =>
 );
 });
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(7115);
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(7115);
 
-    options.ListenAnyIP(7114, listenOptions =>
-    {
-        listenOptions.UseHttps(); 
-    });
-});
+//    options.ListenAnyIP(7114, listenOptions =>
+//    {
+//        listenOptions.UseHttps(); 
+//    });
+//});
 
 //builder.Services.AddHttpClient("IgnoreSSL").ConfigurePrimaryHttpMessageHandler(() =>
 //{
