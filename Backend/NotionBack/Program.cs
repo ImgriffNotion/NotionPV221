@@ -44,15 +44,15 @@ builder.Services.AddCors(options =>
 
 
 
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(7115);
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(7115);
 
-//    options.ListenAnyIP(7114, listenOptions =>
-//    {
-//        listenOptions.UseHttps(); 
-//    });
-//});
+    options.ListenAnyIP(7114, listenOptions =>
+    {
+        listenOptions.UseHttps();
+    });
+});
 
 //builder.Services.AddHttpClient("IgnoreSSL").ConfigurePrimaryHttpMessageHandler(() =>
 //{
@@ -123,8 +123,8 @@ builder.Services.Configure<JwtSettings>(
 // Add services to the container.
 
 builder.Services.AddControllers();
-//string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
-string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
+string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
+//string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
