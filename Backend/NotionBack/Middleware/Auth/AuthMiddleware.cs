@@ -58,7 +58,7 @@ namespace NotionBack.Middleware.Auth
             }
 
             httpContext.Response.StatusCode = 401;
-            await httpContext.Response.WriteAsync("Middleware Unauthorized");
+            await httpContext.Response.WriteAsync($"PATH: {path} \n Middleware Unauthorized");
             return;
         }
     }
