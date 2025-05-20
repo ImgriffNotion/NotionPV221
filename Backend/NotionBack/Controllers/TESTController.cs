@@ -12,8 +12,10 @@ namespace NotionBack.Controllers
     public class TESTController : ControllerBase
     {
         [HttpGet]
-        public void TestMethod()
+        public IActionResult TestMethod()
         {
+
+
             var meta = new RestMetaData()
             {
                 method = "GET",
@@ -22,12 +24,8 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-
-            HttpContext.Response.WriteAsync($"YOU DID IT Blyat");
-            return;
-
-            //var _response = new RestResponse<String>(200, "YOU DID IT Blyat", meta);
-            //return Ok(_response);
+            var _response = new RestResponse<String>(200, "YOU DID IT Blyat", meta);
+            return Ok(_response);
         }
     }
 }
