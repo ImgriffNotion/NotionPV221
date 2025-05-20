@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.REST;
+using System.IO;
+using System.Net.Http;
 
 namespace NotionBack.Controllers
 {
@@ -10,7 +12,7 @@ namespace NotionBack.Controllers
     public class TESTController : ControllerBase
     {
         [HttpGet]
-        public IActionResult TestMethod()
+        public void TestMethod()
         {
             var meta = new RestMetaData()
             {
@@ -21,8 +23,11 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
-            var _response = new RestResponse<String>(200, "YOU DID IT Blyat", meta);
-            return Ok(_response);
+            HttpContext.Response.WriteAsync($"YOU DID IT Blyat");
+            return;
+
+            //var _response = new RestResponse<String>(200, "YOU DID IT Blyat", meta);
+            //return Ok(_response);
         }
     }
 }
