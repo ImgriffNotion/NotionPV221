@@ -51,7 +51,7 @@ namespace NotionBack.Services.ConverterService.TypeGallery
                         var domainContent = domain.Contents.Where(obj => obj.Id == dtoContent.Id).FirstOrDefault();
                         if (domainContent != null)
                         {
-                            _convertService.FromDTO(domainContent, dtoContent);
+                            await _convertService.FromDTO(domainContent, dtoContent);
                         }
                     }
                     else
