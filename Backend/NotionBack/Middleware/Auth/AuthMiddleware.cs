@@ -20,6 +20,10 @@ namespace NotionBack.Middleware.Auth
             {
                 await _next(httpContext);
                 return;
+            }else if (path.StartsWith("/imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/imgriff/auth", StringComparison.OrdinalIgnoreCase))
+            {
+                await _next(httpContext);
+                return;
             }
 
             var encryptedToken = httpContext.Request.Cookies["token"] ?? httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
