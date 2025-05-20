@@ -16,7 +16,7 @@ namespace NotionBack.Middleware.Auth
             var path = httpContext.Request.Path.ToString();
             Console.WriteLine($"\n\n\nAuthMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
 
-            if(path.StartsWith("/imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/imgriff/auth", StringComparison.OrdinalIgnoreCase))
+            if(path.StartsWith("//imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("//imgriff/auth", StringComparison.OrdinalIgnoreCase))
             {
                 await _next(httpContext);
                 return;
