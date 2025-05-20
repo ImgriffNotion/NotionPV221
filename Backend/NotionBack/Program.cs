@@ -41,22 +41,29 @@ builder.Services.AddCors(options =>
 );
 });
 
+#region WEB host
+
 //builder.WebHost.UseUrls("http://0.0.0.0:80", "https://0.0.0.0:443");
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(7115);
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(7115);
 
-    options.ListenAnyIP(7114, listenOptions =>
-    {
-        listenOptions.UseHttps();
-    });
+//    options.ListenAnyIP(7114, listenOptions =>
+//    {
+//        listenOptions.UseHttps();
+//    });
 
-    //options.ListenAnyIP(80); // HTTP
-    //options.ListenAnyIP(443, listenOptions =>
-    //{
-    //    listenOptions.UseHttps(); // HTTPS
-    //});
-});
+    
+//});
+
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(80); // HTTP
+//    options.ListenAnyIP(443, listenOptions =>
+//    {
+//        listenOptions.UseHttps(); // HTTPS
+//    });
+//});
 
 //builder.Services.AddHttpClient("IgnoreSSL").ConfigurePrimaryHttpMessageHandler(() =>
 //{
@@ -66,6 +73,7 @@ builder.WebHost.ConfigureKestrel(options =>
 //    };
 //});
 
+#endregion
 
 builder.Services.AddDistributedMemoryCache();
 
