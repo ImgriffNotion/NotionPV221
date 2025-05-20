@@ -25,6 +25,7 @@ builder.Services.AddCors(options =>
                 "https://10.0.1.4",
                 "http://10.0.2.4",
                 "http://10.0.2.5:7115",
+                "http://0.0.0.0:7115",
                 "https://10.0.2.4",
                 "http://13.79.53.15",
                 "https://13.79.53.15",
