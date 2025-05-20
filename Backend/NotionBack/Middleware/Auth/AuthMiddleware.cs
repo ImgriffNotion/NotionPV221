@@ -22,6 +22,8 @@ namespace NotionBack.Middleware.Auth
                 return;
             }else if (path.StartsWith("/imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/imgriff/auth", StringComparison.OrdinalIgnoreCase))
             {
+                await httpContext.Response.WriteAsync($"YOU DID IT Blyat");
+                return;
                 await _next(httpContext);
                 return;
             }
