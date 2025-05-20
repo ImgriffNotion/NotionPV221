@@ -15,7 +15,6 @@ namespace NotionBack.Controllers
         public IActionResult TestMethod()
         {
 
-
             var meta = new RestMetaData()
             {
                 method = "GET",

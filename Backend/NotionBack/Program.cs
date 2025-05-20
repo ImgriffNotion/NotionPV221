@@ -175,6 +175,9 @@ builder.Services.RegistatorAllServices();
 
 var app = builder.Build();
 
+
+app.UseCors("AllowFrontend");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -182,7 +185,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowFrontend");
 
 app.UseSession();
 app.UseAuthentication();
