@@ -41,7 +41,7 @@ namespace NotionBack.Controllers
 
         private readonly ITokenService<TokenDTO> _tokenService = tokenService;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IEmailService emailService = emailSender;
+        private readonly IEmailService _emailService = emailSender;
         private readonly IOtpService _otpService = otpService;
         private readonly IRandomService _randomService = randomService;
         private readonly IConvertService<UserDTO, User> _userConvertService = userConvertService;
@@ -69,7 +69,7 @@ namespace NotionBack.Controllers
             try
             {
                 string verificationCode = _randomService.CreatorSymbolsByCount();
-                await emailSender.SendEmail(email, verificationCode);
+                await _emailService.SendEmail(email, verificationCode);
                 await _otpService.SaveOtp(email, verificationCode);
 
                 var response = new RestResponse<string>(200, "OTP has been sent", meta);
@@ -117,7 +117,7 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(400, "Otp is incorrect", meta);
                 return Ok(_response);
             }
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
                 var newUser = new UserDTO()
                 {
@@ -177,9 +177,9 @@ namespace NotionBack.Controllers
             // Sign in the user
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email,userFromResponse.Email),
-                new Claim(ClaimTypes.Name, userFromResponse.Name),
-                new Claim(ClaimTypes.Surname, userFromResponse.Lastname),
+                new Claim(ClaimTypes.Email,userFromResponse.Email ?? ""),
+                new Claim(ClaimTypes.Name, userFromResponse.Name ?? ""),
+                new Claim(ClaimTypes.Surname, userFromResponse.Lastname ?? ""),
                 new Claim("ProfilePicture", userFromResponse.Avatar ?? "")
             };
 
@@ -190,15 +190,17 @@ namespace NotionBack.Controllers
 
             try
             {
-                var user = await _unitOfWork.Users.GetUserByEmail(userFromResponse.Email);
-                user.Avatar = userFromResponse.Avatar;
-                user.Name = userFromResponse.Name;
-                user.Lastname = userFromResponse.Lastname;
+                if (userFromResponse.Email != null)
+                {
+                    var user = await _unitOfWork.Users.GetUserByEmail(userFromResponse.Email);
+                    user.Avatar = userFromResponse.Avatar;
+                    user.Name = userFromResponse.Name;
+                    user.Lastname = userFromResponse.Lastname;
 
-                _unitOfWork.Users.Update(user);
-
+                    _unitOfWork.Users.Update(user);
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await _unitOfWork.Users.Create(await _userConvertService.FromDTO(userFromResponse));
             }
@@ -226,7 +228,7 @@ namespace NotionBack.Controllers
                 var response = new RestResponse<Object>(200, token, meta);
                 return Ok(response);
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 var _response = new RestResponse<Object>(400, "Email is incorrect", meta);
                 return Ok(_response);
@@ -262,9 +264,10 @@ namespace NotionBack.Controllers
                     var token = await _unitOfWork.Tokens.Get(new Guid(tokenId));
 
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-
+                return Ok(ex.Message);
             };
             return Ok();
         }
@@ -286,7 +289,7 @@ namespace NotionBack.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete()
+        public IActionResult Delete()
         {
             var meta = new RestMetaData()
             {
@@ -303,17 +306,33 @@ namespace NotionBack.Controllers
 
         private UserDTO getUserByResponse(AuthenticateResult authResult)
         {
-            var fullname = authResult.Principal.FindFirstValue(ClaimTypes.Name).Split(" ");
+            if (authResult == null || authResult.Principal == null)
+            {
+                return new UserDTO();
+            }
+
+            var fullname = authResult?.Principal.FindFirstValue(ClaimTypes.Name);
+            String name = new("");
+            String lastname = new("");
+
+            if (fullname != null && !fullname.IsNullOrEmpty())
+            {
+                var tmp = fullname.Split(" ");
+                name = tmp[0];
+                if (tmp.Length > 1)
+                {
+                    lastname = tmp[1];
+                }
+            }
+
 
             var user = new UserDTO();
-            user.Email = authResult.Principal.FindFirstValue(ClaimTypes.Email);
-            user.Avatar = authResult.Principal.FindFirstValue("urn:google:picture");
-            user.Name = fullname[0];
+            user.Email = authResult?.Principal.FindFirstValue(ClaimTypes.Email);
+            user.Avatar = authResult?.Principal.FindFirstValue("urn:google:picture");
+            user.Name = name;
+            user.Lastname = lastname;
 
-            if (fullname.Length > 1)
-            {
-                user.Lastname = fullname[1];
-            }
+
 
             return user;
         }

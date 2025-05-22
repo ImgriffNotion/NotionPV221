@@ -45,7 +45,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
         public async Task<CalendarContent> FromDTO(CalendarContent domain, CalendarContentDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new CalendarContent();
 
             domain.Title = dto.Title;
             domain.Description = dto.Description;
@@ -69,7 +69,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 PlanedDate = model.PlanedDate,
                 Number = model.Number,
                 Color = model.Color,
-                CalendarId = (Guid)model.CalendarId,
+                CalendarId = model.CalendarId,
                 Files = new List<FileDTO>(),
             };
 

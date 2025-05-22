@@ -25,7 +25,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
         public async Task<TableContent> FromDTO(TableContent domain, TableContentDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new TableContent();
 
             domain.Row = dto.Row;
             domain.Column = dto.Col;
@@ -49,7 +49,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
                 Data = model.Data,
                 Foreground = model.Foreground,
                 Background = model.Background,
-                TableId = (Guid)model.TableId
+                TableId = model.TableId
             };
             return tableContent;
         }

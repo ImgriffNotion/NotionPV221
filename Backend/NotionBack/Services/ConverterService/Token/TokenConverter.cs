@@ -24,7 +24,7 @@ namespace NotionBack.Services.ConverterService.Token
         public async Task<DAL.Models.Token> FromDTO(DAL.Models.Token domain, TokenDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new DAL.Models.Token();
 
             domain.Id = dto.Id;
             domain.UserId = dto.UserId;

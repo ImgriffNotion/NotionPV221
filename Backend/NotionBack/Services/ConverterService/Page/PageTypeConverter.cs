@@ -24,7 +24,7 @@ namespace NotionBack.Services.ConverterService.Page
         public async Task<TypePage> FromDTO(TypePage domain, PageTypeDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new TypePage();
 
             domain.Name = dto.Name;
             domain.TypeCode = dto.TypeCode;

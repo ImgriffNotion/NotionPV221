@@ -35,7 +35,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
         public async Task<Calendar> FromDTO(Calendar domain, CalendarDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new Calendar();
 
             domain.Title = dto.Title;
 
@@ -74,7 +74,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
             {
                 Id = model.Id,
                 Title = model.Title,
-                ParentPageId = (Guid)model.ParentPageId,
+                ParentPageId = model.ParentPageId,
                 CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
                 InternalContent = new List<CalendarContentDTO>()

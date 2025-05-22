@@ -59,17 +59,8 @@ namespace NotionBack.Middleware.Auth
 
             httpContext.Response.StatusCode = 401;
 
-            string origin = httpContext.Request.Headers["Origin"];
 
-            if (!string.IsNullOrEmpty(origin))
-            {
-                httpContext.Response.Headers["Access-Control-Allow-Origin"] = origin;
-                httpContext.Response.Headers["Access-Control-Allow-Credentials"] = "true";
-                httpContext.Response.Headers["Vary"] = "Origin";
-            }
-
-
-            await httpContext.Response.WriteAsync($"PATH: {path} \n Middleware Unauthorized \n Origin: {origin}");
+            await httpContext.Response.WriteAsync($"PATH: {path} \n Middleware Unauthorized \n");
             return;
         }
     }

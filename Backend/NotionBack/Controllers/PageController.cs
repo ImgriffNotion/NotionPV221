@@ -43,13 +43,15 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow,
             };
 
-            
+
 
             try
             {
                 var page = await _unitOfWork.Pages.GetPageBySlug(slug);
-                page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
+                if (page.TypeId != null)
+                    page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
                 await GetContent(page);
+
 
                 var _response = new RestResponse<PageDTO>(200, await _pageConvertService.ToDTO(page), meta);
                 return Ok(_response);
@@ -83,21 +85,23 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow
             };
 
-            var userId = (Guid)HttpContext.Items["userId"];
+            var userId = HttpContext.Items["userId"];
             if (userId == null)
             {
-                var response = new RestResponse<String>(401, "User must be authorized", meta);
-                return Ok(response);
+                return userUnauthorized(meta);
             }
 
             try
             {
-                var listOfPages = (await this._unitOfWork.Pages.GetAll(userId)).ToList();
+                var listOfPages = (await this._unitOfWork.Pages.GetAll((Guid)userId)).ToList();
                 var pages = new List<PageDTO>();
                 foreach (var page in listOfPages)
                 {
-                    page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
-                    pages.Add(await _pageConvertService.ToDTO(page));
+                    if (page.TypeId != null)
+                    {
+                        page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
+                        pages.Add(await _pageConvertService.ToDTO(page));
+                    }
                 }
 
                 var _response = new RestResponse<Object>(200, pages, meta);
@@ -126,7 +130,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            
+
 
             if (!ModelState.IsValid)
             {
@@ -134,29 +138,36 @@ namespace NotionBack.Controllers
                 return Ok(_response);
             }
 
-            var userId = (Guid)HttpContext.Items["userId"];
+            var userId = HttpContext.Items["userId"];
             if (userId == null)
             {
-                var response = new RestResponse<String>(401, "User must be authorized", meta);
-                return Ok(response);
+                return userUnauthorized(meta);
             }
 
 
             try
             {
-                var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
-                var newPage = await _pageConvertService.FromDTO(page);
-                newPage.Type = pageType;
-                newPage.OwnerId = userId;
-                newPage.Slug = await _slugerService.GenerateUniqueSlug(newPage.Title);
-                await _unitOfWork.Pages.Create(newPage);
+                if (page.Type != null)
+                {
+                    var pageType = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
+                    var newPage = await _pageConvertService.FromDTO(page);
+                    newPage.Type = pageType;
+                    newPage.OwnerId = (Guid)userId;
+                    newPage.Slug = await _slugerService.GenerateUniqueSlug(newPage.Title ?? "");
+                    await _unitOfWork.Pages.Create(newPage);
 
-                await _unitOfWork.Save();
+                    await _unitOfWork.Save();
 
-                var updatedPage = await _unitOfWork.Pages.GetPageBySlug(newPage.Slug);
+                    var updatedPage = await _unitOfWork.Pages.GetPageBySlug(newPage.Slug);
 
-                var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(updatedPage), meta);
-                return Ok(_response);
+                    var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(updatedPage), meta);
+                    return Ok(_response);
+                }
+                else
+                {
+                    var _response = new RestResponse<Object>(400, page, meta);
+                    return Ok(_response);
+                }
             }
             catch (Exception ex)
             {
@@ -176,7 +187,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            
+
 
             if (!ModelState.IsValid)
             {
@@ -186,16 +197,23 @@ namespace NotionBack.Controllers
 
             try
             {
-                var pageForUpdate = await _unitOfWork.Pages.GetPageBySlug(page.Slug);
-                pageForUpdate.Type = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
-                await GetContent(pageForUpdate);
-                await _pageConvertService.FromDTO(pageForUpdate, page);
-                _unitOfWork.Pages.Update(pageForUpdate);
-                await _unitOfWork.Save();
+                if (page.Slug != null && page.Type != null)
+                {
+                    var pageForUpdate = await _unitOfWork.Pages.GetPageBySlug(page.Slug);
+                    pageForUpdate.Type = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
+                    await GetContent(pageForUpdate);
+                    await _pageConvertService.FromDTO(pageForUpdate, page);
+                    _unitOfWork.Pages.Update(pageForUpdate);
+                    await _unitOfWork.Save();
 
-                var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(pageForUpdate), meta);
-                return Ok(_response);
-
+                    var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(pageForUpdate), meta);
+                    return Ok(_response);
+                }
+                else
+                {
+                    var _response = new RestResponse<Object>(400, page, meta);
+                    return Ok(_response);
+                }
             }
             catch (Exception ex)
             {
@@ -216,7 +234,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            
+
 
             try
             {
@@ -245,7 +263,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            
+
 
             try
             {
@@ -274,7 +292,7 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            
+
 
             try
             {
@@ -299,46 +317,59 @@ namespace NotionBack.Controllers
 
         private async Task<Page> GetContent(Page page)
         {
-            switch ((PageType)page.Type.TypeCode)
+            if (page == null)
+                return new Page();
+
+            if (page.Type != null)
             {
-                case PageType.Empty:
-                    {
-                        await _unitOfWork.JustPageContents.GetAll();
-                        break;
-                    }
-                case PageType.Board:
-                    {
-                        var tmp = await _unitOfWork.Boards.GetAll();
-                        await _unitOfWork.Lists.GetAll();
-                        await _unitOfWork.ListContents.GetAll();
-                        break;
-                    }
-                case PageType.List:
-                    {
-                        await _unitOfWork.Lists.GetAll();
-                        await _unitOfWork.ListContents.GetAll();
-                        break;
-                    }
-                case PageType.Calendar:
-                    {
-                        await _unitOfWork.Calendars.GetAll(page.Id);
-                        await _unitOfWork.CalendarContents.GetAll();
-                        break;
-                    }
-                case PageType.Gallery:
-                    {
-                        await _unitOfWork.Galleries.GetAll();
-                        await _unitOfWork.GalleryContents.GetAll();
-                        break;
-                    }
-                case PageType.Table:
-                    {
-                        await _unitOfWork.Tables.GetAll();
-                        await _unitOfWork.TableContents.GetAll();
-                        break;
-                    }
-            };
+
+                switch ((PageType)page.Type.TypeCode)
+                {
+                    case PageType.Empty:
+                        {
+                            await _unitOfWork.JustPageContents.GetAll();
+                            break;
+                        }
+                    case PageType.Board:
+                        {
+                            var tmp = await _unitOfWork.Boards.GetAll();
+                            await _unitOfWork.Lists.GetAll();
+                            await _unitOfWork.ListContents.GetAll();
+                            break;
+                        }
+                    case PageType.List:
+                        {
+                            await _unitOfWork.Lists.GetAll();
+                            await _unitOfWork.ListContents.GetAll();
+                            break;
+                        }
+                    case PageType.Calendar:
+                        {
+                            await _unitOfWork.Calendars.GetAll(page.Id);
+                            await _unitOfWork.CalendarContents.GetAll();
+                            break;
+                        }
+                    case PageType.Gallery:
+                        {
+                            await _unitOfWork.Galleries.GetAll();
+                            await _unitOfWork.GalleryContents.GetAll();
+                            break;
+                        }
+                    case PageType.Table:
+                        {
+                            await _unitOfWork.Tables.GetAll();
+                            await _unitOfWork.TableContents.GetAll();
+                            break;
+                        }
+                };
+            }
             return page;
+        }
+
+        private IActionResult userUnauthorized(RestMetaData meta)
+        {
+            var response = new RestResponse<String>(401, "User must be authorized", meta);
+            return Ok(response);
         }
 
     }

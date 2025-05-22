@@ -8,7 +8,7 @@ namespace NotionBack.Services.ConverterService.Files
         {
             var file = new DAL.Models.fileStructure.File()
             {
-                Id = (Guid)model.Id,
+                Id = model.Id,
                 Name = model.Name,
                 Url = model.Url,
             };

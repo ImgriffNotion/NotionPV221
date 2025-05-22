@@ -11,27 +11,27 @@ namespace NotionBack.Controllers
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         [HttpGet]
-        public Task<IActionResult> Get(string id)
+        public  IActionResult Get(string id)
         {
-            return null;
+            return Ok("this method is empty");
         }
 
         [HttpPost]
-        public Task<IActionResult> Post()
+        public IActionResult Post()
         {
-            return null;
+            return Ok("this method is empty");
         }
 
         [HttpPut]
-        public Task<IActionResult> Put()
+        public IActionResult Put()
         {
-            return null;
+            return Ok("this method is empty");
         }
 
         [HttpDelete]
-        public Task<IActionResult> Delete()
+        public IActionResult Delete()
         {
-            return null;
+            return Ok("this method is empty");
         }
     }
 }

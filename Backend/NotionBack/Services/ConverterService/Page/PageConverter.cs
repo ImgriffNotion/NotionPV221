@@ -58,37 +58,43 @@ namespace NotionBack.Services.ConverterService.Page
                     case PageType.Empty:
                         {
                             model.Content = JsonSerializer.Deserialize<EmptyPageContentDTO>(contentElement.GetRawText());
-                            page.JustPageContents.Add(await _emptyConvertService.FromDTO((EmptyPageContentDTO)model.Content));
+                            if (model.Content != null)
+                                page.JustPageContents.Add(await _emptyConvertService.FromDTO((EmptyPageContentDTO)model.Content));
                             break;
                         }
                     case PageType.Board:
                         {
                             model.Content = JsonSerializer.Deserialize<BoardDTO>(contentElement.GetRawText());
-                            page.Boards.Add(await _boardConvertService.FromDTO((BoardDTO)model.Content));
+                            if (model.Content != null)
+                                page.Boards.Add(await _boardConvertService.FromDTO((BoardDTO)model.Content));
                             break;
                         }
                     case PageType.List:
                         {
                             model.Content = JsonSerializer.Deserialize<ListDTO>(contentElement.GetRawText());
-                            page.Lists.Add(await _listConvertService.FromDTO((ListDTO)model.Content));
+                            if (model.Content != null)
+                                page.Lists.Add(await _listConvertService.FromDTO((ListDTO)model.Content));
                             break;
                         }
                     case PageType.Calendar:
                         {
                             model.Content = JsonSerializer.Deserialize<CalendarDTO>(contentElement.GetRawText());
-                            page.Calendars.Add(await _calendarConvertService.FromDTO((CalendarDTO)model.Content));
+                            if (model.Content != null)
+                                page.Calendars.Add(await _calendarConvertService.FromDTO((CalendarDTO)model.Content));
                             break;
                         }
                     case PageType.Gallery:
                         {
                             model.Content = JsonSerializer.Deserialize<GalleryDTO>(contentElement.GetRawText());
-                            page.Galleries.Add(await _galleryConvertService.FromDTO((GalleryDTO)model.Content));
+                            if (model.Content != null)
+                                page.Galleries.Add(await _galleryConvertService.FromDTO((GalleryDTO)model.Content));
                             break;
                         }
                     case PageType.Table:
                         {
                             model.Content = JsonSerializer.Deserialize<TableDTO>(contentElement.GetRawText());
-                            page.Tables.Add(await _tableConvertService.FromDTO((TableDTO)model.Content));
+                            if (model.Content != null)
+                                page.Tables.Add(await _tableConvertService.FromDTO((TableDTO)model.Content));
                             break;
                         }
 
@@ -101,7 +107,7 @@ namespace NotionBack.Services.ConverterService.Page
         public async Task<DAL.Models.Page> FromDTO(DAL.Models.Page domain, PageDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new DAL.Models.Page();
 
             domain.Title = dto.Title;
             domain.Banner = dto.Banner;
@@ -111,18 +117,22 @@ namespace NotionBack.Services.ConverterService.Page
             if (dto.Content != null && dto.Type != null)
             {
                 var contentElement = JsonSerializer.SerializeToElement(dto.Content);
+
                 switch ((PageType)_pageTypeService.GetCodeOfPageType(dto.Type))
                 {
                     case PageType.Empty:
                         {
                             dto.Content = JsonSerializer.Deserialize<EmptyPageContentDTO>(contentElement.GetRawText());
                             var domainContent = domain.JustPageContents.FirstOrDefault();
-                            if (domainContent != null)
-                                domainContent = await _emptyConvertService.FromDTO(domainContent, (EmptyPageContentDTO)dto.Content);
-                            else
+                            if (dto.Content != null)
                             {
-                                domainContent = await _emptyConvertService.FromDTO((EmptyPageContentDTO)dto.Content);
-                                domain.JustPageContents.Add(domainContent);
+                                if (domainContent != null)
+                                    domainContent = await _emptyConvertService.FromDTO(domainContent, (EmptyPageContentDTO)dto.Content);
+                                else
+                                {
+                                    domainContent = await _emptyConvertService.FromDTO((EmptyPageContentDTO)dto.Content);
+                                    domain.JustPageContents.Add(domainContent);
+                                }
                             }
                             break;
                         }
@@ -130,12 +140,15 @@ namespace NotionBack.Services.ConverterService.Page
                         {
                             dto.Content = JsonSerializer.Deserialize<BoardDTO>(contentElement.GetRawText());
                             var domainContent = domain.Boards.FirstOrDefault();
-                            if (domainContent != null)
-                                domainContent = await _boardConvertService.FromDTO(domainContent, (BoardDTO)dto.Content);
-                            else
+                            if (dto.Content != null)
                             {
-                                domainContent = await _boardConvertService.FromDTO((BoardDTO)dto.Content);
-                                domain.Boards.Add(domainContent);
+                                if (domainContent != null)
+                                    domainContent = await _boardConvertService.FromDTO(domainContent, (BoardDTO)dto.Content);
+                                else
+                                {
+                                    domainContent = await _boardConvertService.FromDTO((BoardDTO)dto.Content);
+                                    domain.Boards.Add(domainContent);
+                                }
                             }
                             break;
                         }
@@ -143,12 +156,15 @@ namespace NotionBack.Services.ConverterService.Page
                         {
                             dto.Content = JsonSerializer.Deserialize<ListDTO>(contentElement.GetRawText());
                             var domainContent = domain.Lists.FirstOrDefault();
-                            if (domainContent != null)
-                                domainContent = await _listConvertService.FromDTO(domainContent, (ListDTO)dto.Content);
-                            else
+                            if (dto.Content != null)
                             {
-                                domainContent = await _listConvertService.FromDTO((ListDTO)dto.Content);
-                                domain.Lists.Add(domainContent);
+                                if (domainContent != null)
+                                    domainContent = await _listConvertService.FromDTO(domainContent, (ListDTO)dto.Content);
+                                else
+                                {
+                                    domainContent = await _listConvertService.FromDTO((ListDTO)dto.Content);
+                                    domain.Lists.Add(domainContent);
+                                }
                             }
                             break;
                         }
@@ -156,12 +172,15 @@ namespace NotionBack.Services.ConverterService.Page
                         {
                             dto.Content = JsonSerializer.Deserialize<CalendarDTO>(contentElement.GetRawText());
                             var domainContent = domain.Calendars.FirstOrDefault();
-                            if (domainContent != null)
-                                domainContent = await _calendarConvertService.FromDTO(domainContent, (CalendarDTO)dto.Content);
-                            else
+                            if (dto.Content != null)
                             {
-                                domainContent = await _calendarConvertService.FromDTO((CalendarDTO)dto.Content);
-                                domain.Calendars.Add(domainContent);
+                                if (domainContent != null)
+                                    domainContent = await _calendarConvertService.FromDTO(domainContent, (CalendarDTO)dto.Content);
+                                else
+                                {
+                                    domainContent = await _calendarConvertService.FromDTO((CalendarDTO)dto.Content);
+                                    domain.Calendars.Add(domainContent);
+                                }
                             }
                             break;
                         }
@@ -169,12 +188,15 @@ namespace NotionBack.Services.ConverterService.Page
                         {
                             dto.Content = JsonSerializer.Deserialize<GalleryDTO>(contentElement.GetRawText());
                             var domainContent = domain.Galleries.FirstOrDefault();
-                            if (domainContent != null)
-                                domainContent = await _galleryConvertService.FromDTO(domainContent, (GalleryDTO)dto.Content);
-                            else
+                            if (dto.Content != null)
                             {
-                                domainContent = await _galleryConvertService.FromDTO((GalleryDTO)dto.Content);
-                                domain.Galleries.Add(domainContent);
+                                if (domainContent != null)
+                                    domainContent = await _galleryConvertService.FromDTO(domainContent, (GalleryDTO)dto.Content);
+                                else
+                                {
+                                    domainContent = await _galleryConvertService.FromDTO((GalleryDTO)dto.Content);
+                                    domain.Galleries.Add(domainContent);
+                                }
                             }
                             break;
                         }
@@ -182,12 +204,15 @@ namespace NotionBack.Services.ConverterService.Page
                         {
                             dto.Content = JsonSerializer.Deserialize<TableDTO>(contentElement.GetRawText());
                             var domainContent = domain.Tables.FirstOrDefault();
-                            if (domainContent != null)
-                                domainContent = await _tableConvertService.FromDTO(domainContent, (TableDTO)dto.Content);
-                            else
+                            if (dto.Content != null)
                             {
-                                domainContent = await _tableConvertService.FromDTO((TableDTO)dto.Content);
-                                domain.Tables.Add(domainContent);
+                                if (domainContent != null)
+                                    domainContent = await _tableConvertService.FromDTO(domainContent, (TableDTO)dto.Content);
+                                else
+                                {
+                                    domainContent = await _tableConvertService.FromDTO((TableDTO)dto.Content);
+                                    domain.Tables.Add(domainContent);
+                                }
                             }
                             break;
                         }
@@ -209,52 +234,54 @@ namespace NotionBack.Services.ConverterService.Page
                 Id = model.Id,
                 Banner = model.Banner,
                 Icon = model.Icon,
-                OwnerId = (Guid)model.OwnerId,
+                OwnerId = model.OwnerId,
                 Title = model.Title,
                 CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
                 Slug = model.Slug,
-                Type = model.Type.Name
+                Type = model?.Type?.Name
 
             };
 
 
-            switch ((PageType)_pageTypeService.GetCodeOfPageType(page.Type))
+            switch ((PageType)_pageTypeService.GetCodeOfPageType(page.Type ?? ""))
             {
                 case PageType.Empty:
                     {
-                        var content = model.JustPageContents.FirstOrDefault();
-                        page.Content = await _emptyConvertService.ToDTO(content);
+                        var content = model?.JustPageContents.FirstOrDefault();
+                        if (content != null)
+                            page.Content = await _emptyConvertService.ToDTO(content);
                         break;
                     }
                 case PageType.Board:
                     {
-                        var content = model.Boards.FirstOrDefault();
-                        page.Content = await _boardConvertService.ToDTO(content);
+                        var content = model?.Boards.FirstOrDefault();
+                        if (content != null) 
+                            page.Content = await _boardConvertService.ToDTO(content);
                         break;
                     }
                 case PageType.List:
                     {
-                        var content = model.Lists.FirstOrDefault();
-                        page.Content = await _listConvertService.ToDTO(content);
+                        var content = model?.Lists.FirstOrDefault();
+                        if (content != null) page.Content = await _listConvertService.ToDTO(content);
                         break;
                     }
                 case PageType.Calendar:
                     {
-                        var content = model.Calendars.FirstOrDefault();
-                        page.Content = await _calendarConvertService.ToDTO(content);
+                        var content = model?.Calendars.FirstOrDefault();
+                        if (content != null) page.Content = await _calendarConvertService.ToDTO(content);
                         break;
                     }
                 case PageType.Gallery:
                     {
-                        var content = model.Galleries.FirstOrDefault();
-                        page.Content = await _galleryConvertService.ToDTO(content);
+                        var content = model?.Galleries.FirstOrDefault();
+                        if (content != null) page.Content = await _galleryConvertService.ToDTO(content);
                         break;
                     }
                 case PageType.Table:
                     {
-                        var content = model.Tables.FirstOrDefault();
-                        page.Content = await _tableConvertService.ToDTO(content);
+                        var content = model?.Tables.FirstOrDefault();
+                        if (content != null) page.Content = await _tableConvertService.ToDTO(content);
                         break;
                     }
             };

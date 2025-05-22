@@ -44,7 +44,7 @@ namespace NotionBack.Services.ConverterService.TypeList
         public async Task<DAL.Models.pageContents.List> FromDTO(List domain, ListDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new List();
 
             domain.Title = dto.Title;
 

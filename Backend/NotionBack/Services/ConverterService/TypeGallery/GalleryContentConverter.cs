@@ -28,7 +28,7 @@ namespace NotionBack.Services.ConverterService.TypeGallery
         public async Task<GalleryContent> FromDTO(GalleryContent domain, GalleryContentDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new GalleryContent();
 
             domain.Title = dto.Title;
             domain.Url = dto.Url;
@@ -50,7 +50,7 @@ namespace NotionBack.Services.ConverterService.TypeGallery
                 Id = model.Id,
                 Title = model.Title,
                 Url = model.Url,
-                GalleryId = (Guid)model.GalleryId,
+                GalleryId = model.GalleryId,
                 Color = model.Color,
                 Date = model.Date,
                 Description = model.Description,

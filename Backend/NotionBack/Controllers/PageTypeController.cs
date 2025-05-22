@@ -30,7 +30,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             var listOfTypes = new List<PageTypeDTO>();
             foreach(var type in Enum.GetValues(typeof(PageType)))
@@ -39,7 +38,7 @@ namespace NotionBack.Controllers
                 {
                     var isType = await _unitOfWork.PageTypes.GetTypePageByCode((int)type);
                 }
-                catch (Exception ex) 
+                catch (Exception) 
                 {
                     var newType = new PageTypeDTO()
                     {
@@ -69,7 +68,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             var tmp = await _unitOfWork.PageTypes.GetAll();
             foreach (var type in tmp)

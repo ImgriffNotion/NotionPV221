@@ -43,7 +43,7 @@ namespace NotionBack.Services.ConverterService.TypeList
         public async Task<ListContent> FromDTO(ListContent domain, ListContentDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new ListContent();
 
             domain.Title = dto.Title;
             domain.Number = dto.Number;
@@ -69,7 +69,7 @@ namespace NotionBack.Services.ConverterService.TypeList
                 Description = model.Description,
                 Color = model.Color,
                 Index = model.Index,
-                ListId = (Guid)model.ListId,
+                ListId = model.ListId,
                 Files = new List<FileDTO>()
             };
 

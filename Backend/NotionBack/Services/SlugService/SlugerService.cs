@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.IdentityModel.Tokens;
 using NotionBack.DAL.Interfaces;
 using NotionBack.Services.RandomService;
 using System.Text.RegularExpressions;
@@ -16,6 +17,11 @@ namespace NotionBack.Services.SlugService
             string slug = baseSlug;
             bool isUnique = false;
 
+            if (slug.IsNullOrEmpty())
+            {
+                slug = _randomService.CreatorSymbolsByCount(10);
+            }
+
             while (!isUnique)
             {
                 try
@@ -25,7 +31,7 @@ namespace NotionBack.Services.SlugService
                     if (page != null)
                         slug = $"{baseSlug}-{_randomService.CreatorSymbolsByCount(6)}";
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     isUnique = true; 
                 }

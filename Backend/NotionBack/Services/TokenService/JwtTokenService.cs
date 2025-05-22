@@ -41,26 +41,29 @@ namespace NotionBack.Services.TokenService
                         tokenInfo.User = await _userConvertService.ToDTO(await _unitOfWork.Users.Get(tokenInfo.UserId));
                         if (tokenInfo != null)
                         {
-                            if ((DateTime)tokenInfo.Exp > DateTime.UtcNow)
-                                return tokenInfo;
-                            else
+                            if (tokenInfo.Exp != null)
                             {
-                                tokenFromDb.DeleteDt = DateTime.UtcNow;
-                                await _unitOfWork.Save();
+                                if ((DateTime)tokenInfo.Exp > DateTime.UtcNow)
+                                    return tokenInfo;
+                                else
+                                {
+                                    tokenFromDb.DeleteDt = DateTime.UtcNow;
+                                    await _unitOfWork.Save();
 
-                                tokenInfo.DeleteDt = tokenFromDb.DeleteDt;
-                                return tokenInfo;
+                                    tokenInfo.DeleteDt = tokenFromDb.DeleteDt;
+                                    return tokenInfo;
+                                }
                             }
                         }
                     }
                     catch (Exception)
                     {
-                        return null;
+                        return new TokenDTO();
                     }
                 }
             }
             catch (Exception) { }
-            return null;
+            return new TokenDTO();
         }
 
         public async Task<string> GenerateToken(TokenDTO tokenModel)
@@ -68,22 +71,26 @@ namespace NotionBack.Services.TokenService
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if (tokenModel.User.Email != null)
             {
-                Subject = new ClaimsIdentity(new[] {
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[] {
                     new Claim("TokenId", tokenModel.Id.ToString()),
                     new Claim(ClaimTypes.NameIdentifier, tokenModel.User.Id.ToString()),
                     new Claim(ClaimTypes.Email, tokenModel.User.Email)
             }),
-                Expires = DateTime.UtcNow.AddHours(vaildHours),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+                    Expires = DateTime.UtcNow.AddHours(vaildHours),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
 
-            await _unitOfWork.Tokens.Create(await _tokenConvertService.FromDTO(tokenModel));
-            await _unitOfWork.Save();
+                await _unitOfWork.Tokens.Create(await _tokenConvertService.FromDTO(tokenModel));
+                await _unitOfWork.Save();
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                return tokenHandler.WriteToken(token);
+            }
+            return new("");
         }
 
     }

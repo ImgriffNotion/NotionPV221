@@ -16,7 +16,6 @@ using NotionBack.Services.ConverterService.TypeGallery;
 using NotionBack.Services.ConverterService.TypeList;
 using NotionBack.Services.ConverterService.TypeTable;
 using NotionBack.Services.ConverterService.Users;
-using NotionBack.Services.EmailAuthorizationService;
 using NotionBack.Services.EmailService;
 using NotionBack.Services.OTPService;
 using NotionBack.Services.PageTypesService;
@@ -73,7 +72,6 @@ namespace NotionBack.Services
             services.AddScoped<ISlugerService, SlugerService>();
             services.AddSingleton<IRandomService, RandomCreatorService>();
             services.AddSingleton<IEmailService, EmailSenderService>();
-            services.AddScoped<IEmailAuthService, EmailAuthService>();
             services.AddHttpClient();
             return services;
         }

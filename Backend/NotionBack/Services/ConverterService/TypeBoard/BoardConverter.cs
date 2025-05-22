@@ -33,7 +33,7 @@ namespace NotionBack.Services.ConverterService.TypeBoard
         public async Task<Board> FromDTO(Board domain, BoardDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new Board();
 
             domain.Title = dto.Title;
 
@@ -75,7 +75,7 @@ namespace NotionBack.Services.ConverterService.TypeBoard
             {
                 Id = model.Id,
                 Title = model.Title,
-                ParentPageId = (Guid)model.ParentPageId,
+                ParentPageId = model.ParentPageId,
                 CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
                 InternalContent = new List<ListDTO>()

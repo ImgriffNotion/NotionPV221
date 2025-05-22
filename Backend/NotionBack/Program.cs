@@ -108,7 +108,7 @@ builder.Services.AddAuthentication(options =>
 
             if (!string.IsNullOrEmpty(picture))
             {
-                context.Identity.AddClaim(new Claim("urn:google:picture", picture));
+                context?.Identity?.AddClaim(new Claim("urn:google:picture", picture));
             }
         };
 
@@ -121,7 +121,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var redisConfig = builder.Configuration.GetConnectionString("Redis");
 
-    var config = ConfigurationOptions.Parse(redisConfig);
+    var config = ConfigurationOptions.Parse(redisConfig ?? "");
     config.Ssl = false;
     config.AbortOnConnectFail = false;
     config.Password = "JqITgntQMmYoyAHFIQuNwSBQncbxxBQK";

@@ -28,7 +28,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             try
             {
@@ -44,7 +43,7 @@ namespace NotionBack.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public IActionResult Post()
         {
             var meta = new RestMetaData()
             {
@@ -54,7 +53,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             var response = new RestResponse<string>(418, "post method is empty", meta);
             return Ok(response);
@@ -71,11 +69,10 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
 
             try
             {
-                var user = await _unitOfWork.Users.GetUserByEmail(userFromRequest.Email);
+                var user = await _unitOfWork.Users.GetUserByEmail(userFromRequest.Email ?? "");
 
                 _unitOfWork.Users.Update(await _userConvertService.FromDTO(userFromRequest));
                 await _unitOfWork.Save();
@@ -84,7 +81,7 @@ namespace NotionBack.Controllers
                 return Ok(response);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 var response = new RestResponse<string>(418, "post method is empty", meta);
                 return Ok(response);
@@ -93,26 +90,8 @@ namespace NotionBack.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete()
+        public IActionResult Delete()
         {
-            //try
-            //{
-            //    var users = await _unitOfWork.Users.GetAll();
-            //    foreach (var user in users)
-            //    {
-            //        await _unitOfWork.Users.Delete(user.Id);
-            //    }
-            //    await _unitOfWork.Save();
-
-            //    var _response = new RestResponse<Object>(200, "delete", meta);
-            //    return Ok(_response);
-            //}
-            //catch (Exception ex)
-            //{
-            //    var _response = new RestResponse<Object>(500, ex.Message, meta);
-            //    return Ok(_response);
-            //}
-
             var meta = new RestMetaData()
             {
                 method = "DELETE",
@@ -121,7 +100,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
-            meta._params["access_token"] = (JwtTokenModel)HttpContext.Items["jwt"];
             var response = new RestResponse<string>(418, "Delete method is empty", meta);
             return Ok(response);
         }

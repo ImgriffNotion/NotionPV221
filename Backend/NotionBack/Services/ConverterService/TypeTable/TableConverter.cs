@@ -35,7 +35,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
         public async Task<Table> FromDTO(Table domain, TableDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new Table();
 
             domain.Title = dto.Title;
             domain.ParentPageId = dto.ParentPageId;
@@ -81,7 +81,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
                 Columns = model.Columns,
                 CreatedAt = model.CreatedAt,
                 DeleteDt = model.DeleteDt,
-                ParentPageId = (Guid)model.ParentPageId,
+                ParentPageId = model.ParentPageId,
                 InternalContent = new List<TableContentDTO>()
             };
 

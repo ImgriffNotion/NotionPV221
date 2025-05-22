@@ -20,39 +20,44 @@ namespace NotionBack.Middleware.Token
 
             try
             {
-                var hasToBeUpdated = (bool)httpContext.Items["hasToBeUpdated"];
-                if (hasToBeUpdated)
+                var hasToBeUpdated = httpContext.Items["hasToBeUpdated"];
+                if (hasToBeUpdated != null)
                 {
-                    var token = (TokenDTO)httpContext.Items["tokenDTO"];
-                    if (token != null)
+                    if ((bool)hasToBeUpdated)
                     {
-                        var tokenDto = new TokenDTO()
+                        var tokenExist = httpContext.Items["tokenDTO"];
+                        if (tokenExist != null)
                         {
-                            Id = Guid.NewGuid(),
-                            UserId = token.UserId,
-                            Iat = DateTime.UtcNow,
-                            Exp = DateTime.UtcNow.AddHours(TokenValidTime.VaildTimeInHours),
-                            User = token.User
-                        };
+                            var token = (TokenDTO)tokenExist;
+                            var tokenDto = new TokenDTO()
+                            {
+                                Id = Guid.NewGuid(),
+                                UserId = token.UserId,
+                                Iat = DateTime.UtcNow,
+                                Exp = DateTime.UtcNow.AddHours(TokenValidTime.VaildTimeInHours),
+                                User = token.User
+                            };
 
-                        var jwt = await tokenService.GenerateToken(tokenDto);
-                        var jwtTokenModel = new JwtTokenModel()
-                        {
-                            Jwt = jwt,
-                            User = token.User
-                        };
+                            var jwt = await tokenService.GenerateToken(tokenDto);
+                            var jwtTokenModel = new JwtTokenModel()
+                            {
+                                Jwt = jwt,
+                                User = token.User
+                            };
 
-                        httpContext.Items.Remove("hasToBeUpdated");
-                        httpContext.Items.Remove("tokenDTO");
-                        httpContext.Items["userId"] = token.UserId;
-                        httpContext.Response.Cookies.Append("token", jwtTokenModel.Jwt, new CookieOptions
-                        {
-                            HttpOnly = true,
-                            Secure = true,
-                            SameSite = SameSiteMode.None,
-                            Expires = DateTimeOffset.UtcNow.AddHours(TokenValidTime.VaildTimeInHours)
-                        });
+                            httpContext.Items.Remove("hasToBeUpdated");
+                            httpContext.Items.Remove("tokenDTO");
+                            httpContext.Items["userId"] = token.UserId;
+                            httpContext.Response.Cookies.Append("token", jwtTokenModel.Jwt, new CookieOptions
+                            {
+                                HttpOnly = true,
+                                Secure = true,
+                                SameSite = SameSiteMode.None,
+                                Expires = DateTimeOffset.UtcNow.AddHours(TokenValidTime.VaildTimeInHours)
+                            });
 
+
+                        }
                     }
                 }
             }

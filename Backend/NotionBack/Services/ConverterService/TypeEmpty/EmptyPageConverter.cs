@@ -22,7 +22,7 @@ namespace NotionBack.Services.ConverterService.TypeEmpty
         public async Task<JustPageContent> FromDTO(JustPageContent domain, EmptyPageContentDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new JustPageContent();
 
             domain.Text = dto.Text;
 
@@ -37,7 +37,7 @@ namespace NotionBack.Services.ConverterService.TypeEmpty
             var emptyContent = new EmptyPageContentDTO()
             {
                 Id = model.Id,
-                ParentPageId = (Guid)model.ParentPageId,
+                ParentPageId = model.ParentPageId,
                 Text = model.Text,
             };
 

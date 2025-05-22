@@ -24,7 +24,7 @@ namespace NotionBack.Services.ConverterService.Users
         public async Task<User> FromDTO(User domain, UserDTO dto)
         {
             if (domain == null || dto == null)
-                return domain;
+                return new User();
 
             domain.Name = dto.Name;
             domain.Lastname = dto.Lastname;
@@ -38,6 +38,7 @@ namespace NotionBack.Services.ConverterService.Users
         {
             if (model == null)
                 return new UserDTO();
+
             var user = new UserDTO()
             {
                 Id = model.Id,

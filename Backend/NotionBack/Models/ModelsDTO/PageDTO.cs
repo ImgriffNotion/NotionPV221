@@ -10,7 +10,7 @@ namespace NotionBack.Models.ModelsDTO
         
         [Required]
         [JsonPropertyName("ownerId")]
-        public Guid OwnerId { get; set; }
+        public Guid? OwnerId { get; set; }
 
         [Required]
         [JsonPropertyName("title")] 
