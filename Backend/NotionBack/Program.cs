@@ -20,21 +20,9 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
-                "http://127.0.0.1:5500",
-                "http://10.0.1.4",
-                "https://10.0.1.4",
-                "http://10.0.2.4",
-                "http://10.0.2.5",
-                "http://10.0.2.5:7115",
-                "https://10.0.2.4",
-                "http://13.79.53.15",
-                "https://13.79.53.15",
-                "http://26.211.160.167",
-                "http://localhost:5000",
-                "http://localhost:3000",
-                "https://localhost:7114",
-                "http://localhost:5157",
-                "http://52.169.26.188"
+               "http://127.0.0.1:5500",
+               "http://localhost:5000",
+               "http://localhost:3000"
             )
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -44,6 +32,19 @@ builder.Services.AddCors(options =>
 });
 
 #region WEB host
+
+//"http://10.0.1.4",
+//"https://10.0.1.4",
+//"http://10.0.2.4",
+//"http://10.0.2.5",
+//"http://10.0.2.5:7115",
+//"https://10.0.2.4",
+//"http://13.79.53.15",
+//"https://13.79.53.15",
+//"http://26.211.160.167",
+//"https://localhost:7114",
+//"http://localhost:5157",
+//"http://52.169.26.188"
 
 //builder.WebHost.UseUrls("http://0.0.0.0:80", "https://0.0.0.0:443");
 builder.WebHost.ConfigureKestrel(options =>
@@ -57,15 +58,6 @@ builder.WebHost.ConfigureKestrel(options =>
 
 
 });
-
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(80); // HTTP
-//    options.ListenAnyIP(443, listenOptions =>
-//    {
-//        listenOptions.UseHttps(); // HTTPS
-//    });
-//});
 
 //builder.Services.AddHttpClient("IgnoreSSL").ConfigurePrimaryHttpMessageHandler(() =>
 //{
@@ -95,29 +87,36 @@ builder.Services.AddAuthentication(options =>
 .AddCookie()
 .AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = "24881042872-ep2a4i7maue9ecm09f0viigeuvperr5t.apps.googleusercontent.com";
-    googleOptions.ClientSecret = "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";
-    googleOptions.SaveTokens = true;
-    googleOptions.Scope.Add("openid");
-    googleOptions.Scope.Add("email");
-    googleOptions.Scope.Add("profile");
+    var googleSection = builder.Configuration.GetSection("GoogleOptions");
+    string? clientId = googleSection["ClientId"];
+    string? clientSecret = googleSection["ClientSecret"];
 
-    googleOptions.ClaimActions.MapJsonKey("picture", "picture");
-
-    googleOptions.Events.OnCreatingTicket = async context =>
+    if (clientId != null && clientSecret != null)
     {
-        var picture = context.User.GetProperty("picture").GetString();
+        googleOptions.ClientId = clientId;
+        googleOptions.ClientSecret = clientSecret;
+        googleOptions.SaveTokens = true;
+        googleOptions.Scope.Add("openid");
+        googleOptions.Scope.Add("email");
+        googleOptions.Scope.Add("profile");
 
-        if (!string.IsNullOrEmpty(picture))
+        googleOptions.ClaimActions.MapJsonKey("picture", "picture");
+
+        googleOptions.Events.OnCreatingTicket = async context =>
         {
-            context.Identity.AddClaim(new Claim("urn:google:picture", picture));
-        }
-    };
+            var picture = context.User.GetProperty("picture").GetString();
 
-    googleOptions.CallbackPath = "/signin-google";
+            if (!string.IsNullOrEmpty(picture))
+            {
+                context.Identity.AddClaim(new Claim("urn:google:picture", picture));
+            }
+        };
+
+        googleOptions.CallbackPath = "/signin-google";
+    }
 });
 
-
+// Redis for OTP
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var redisConfig = builder.Configuration.GetConnectionString("Redis");
@@ -131,6 +130,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
     return ConnectionMultiplexer.Connect(config);
 });
 
+// Jwt secret key
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
 
@@ -142,7 +142,6 @@ string? connectionString = builder.Configuration.GetConnectionString("NotionDbCo
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -173,6 +172,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Register of all services
 builder.Services.RegistatorAllServices();
 
 var app = builder.Build();
