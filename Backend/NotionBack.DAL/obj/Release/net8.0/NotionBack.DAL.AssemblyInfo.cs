@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NotionBack.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cfab543bcff66b7d309df49f6fe4d755f1af23b7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbd47061d6708b4effa921c660fcb45fe3b010e6")]
 [assembly: System.Reflection.AssemblyProductAttribute("NotionBack.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NotionBack.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
