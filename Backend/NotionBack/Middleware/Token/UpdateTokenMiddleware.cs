@@ -15,7 +15,7 @@ namespace NotionBack.Middleware.Token
         public async Task Invoke(HttpContext httpContext, ITokenService<TokenDTO> tokenService)
         {
             var path = httpContext.Request.Path.ToString();
-            _logger.LogInformation($"\n\n\nTokenMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
+            _logger.LogInformation($"TokenMiddleware {DateTime.Now.ToString()} - {path} {httpContext.Request.Method}");
 
             if (path.StartsWith("/imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/imgriff/auth", StringComparison.OrdinalIgnoreCase))
             {
