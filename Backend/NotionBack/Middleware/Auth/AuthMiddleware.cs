@@ -11,10 +11,11 @@ namespace NotionBack.Middleware.Auth
         private readonly RequestDelegate _next = next;
 
 
-        public async Task Invoke(HttpContext httpContext, IServiceProvider serviceProvider)
+        public async Task Invoke(HttpContext httpContext, IServiceProvider serviceProvider, ILogger logger)
         {
             var path = httpContext.Request.Path.ToString();
             Console.WriteLine($"\n\n\nAuthMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
+            logger.LogInformation($"\n\n\nAuthMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
 
             if (path.StartsWith("/imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/imgriff/auth", StringComparison.OrdinalIgnoreCase))
             {
