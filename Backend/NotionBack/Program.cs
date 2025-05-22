@@ -137,8 +137,8 @@ builder.Services.Configure<JwtSettings>(
 // Add services to the container.
 
 builder.Services.AddControllers();
-//string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
-string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
+string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
+//string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
@@ -171,6 +171,13 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole(); // For Azure Log Stream
+builder.Logging.AddDebug();
+// Optional: AddAzureWebAppDiagnostics for file logs
+builder.Logging.AddAzureWebAppDiagnostics();
+builder.Services.AddApplicationInsightsTelemetry();
 
 // Register of all services
 builder.Services.RegistatorAllServices();
