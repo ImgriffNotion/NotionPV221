@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using NotionBack.Models.ModelsDTO;
+﻿using Microsoft.AspNetCore.Mvc;
 using NotionBack.REST;
-using System.IO;
-using System.Net.Http;
 
 namespace NotionBack.Controllers
 {
     [Route("imgriff/testing")]
     [ApiController]
-    public class TESTController(ILogger logger) : ControllerBase
+    public class TESTController(ILogger<TESTController> logger) : ControllerBase
     {
-        private readonly ILogger _logger = logger;
+        private readonly ILogger<TESTController> _logger = logger;
 
         [HttpGet]
         public IActionResult TestMethod()

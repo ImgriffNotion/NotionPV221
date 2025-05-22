@@ -1,18 +1,21 @@
 ﻿using Microsoft.Extensions.Logging;
 using NotionBack.DAL.Models;
+using NotionBack.Middleware.Auth;
 using NotionBack.Models;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.Services.TokenService;
 
 namespace NotionBack.Middleware.Token
 {
-    public class UpdateTokenMiddleware(RequestDelegate next)
+    public class UpdateTokenMiddleware(RequestDelegate next, ILogger<UpdateTokenMiddleware> logger)
     {
         private readonly RequestDelegate _next = next;
-        public async Task Invoke(HttpContext httpContext, ITokenService<TokenDTO> tokenService, ILogger logger)
+        private readonly ILogger<UpdateTokenMiddleware> _logger = logger;
+
+        public async Task Invoke(HttpContext httpContext, ITokenService<TokenDTO> tokenService)
         {
             var path = httpContext.Request.Path.ToString();
-            logger.LogInformation($"\n\n\nTokenMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
+            _logger.LogInformation($"\n\n\nTokenMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
 
             if (path.StartsWith("/imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/imgriff/auth", StringComparison.OrdinalIgnoreCase))
             {

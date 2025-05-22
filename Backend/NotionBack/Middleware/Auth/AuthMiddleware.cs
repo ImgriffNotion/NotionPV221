@@ -6,16 +6,17 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace NotionBack.Middleware.Auth
 {
-    public class AuthMiddleware(RequestDelegate next)
+    public class AuthMiddleware(RequestDelegate next, ILogger<AuthMiddleware> logger)
     {
         private readonly RequestDelegate _next = next;
+        private readonly ILogger<AuthMiddleware> _logger = logger;
 
 
-        public async Task Invoke(HttpContext httpContext, IServiceProvider serviceProvider, ILogger logger)
+        public async Task Invoke(HttpContext httpContext, IServiceProvider serviceProvider)
         {
             var path = httpContext.Request.Path.ToString();
             Console.WriteLine($"\n\n\nAuthMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
-            logger.LogInformation($"\n\n\nAuthMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
+            _logger.LogInformation($"\n\n\nAuthMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
 
             if (path.StartsWith("/imgriff/testing", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/imgriff/auth", StringComparison.OrdinalIgnoreCase))
             {
