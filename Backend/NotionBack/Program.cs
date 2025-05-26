@@ -21,7 +21,6 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                "http://127.0.0.1:5500",
-               "http://localhost:5000",
                "http://localhost:3000"
             )
             .AllowAnyMethod()
@@ -41,23 +40,23 @@ builder.Services.AddCors(options =>
 //"https://10.0.2.4",
 //"http://13.79.53.15",
 //"https://13.79.53.15",
-//"http://26.211.160.167",
-//"https://localhost:7114",
+//,
+//,
 //"http://localhost:5157",
 //"http://52.169.26.188"
 
 //builder.WebHost.UseUrls("http://0.0.0.0:80", "https://0.0.0.0:443");
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(7115);
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(7115);
 
-//    //options.ListenAnyIP(7114, listenOptions =>
-//    //{
-//    //    listenOptions.UseHttps();
-//    //});
+    //options.ListenAnyIP(7114, listenOptions =>
+    //{
+    //    listenOptions.UseHttps();
+    //});
 
 
-//});
+});
 
 //builder.Services.AddHttpClient("IgnoreSSL").ConfigurePrimaryHttpMessageHandler(() =>
 //{
@@ -137,8 +136,8 @@ builder.Services.Configure<JwtSettings>(
 // Add services to the container.
 
 builder.Services.AddControllers();
-string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
-//string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
+//string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
+string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
@@ -185,8 +184,6 @@ builder.Services.RegistatorAllServices();
 var app = builder.Build();
 
 
-app.UseCors("AllowFrontend");
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -196,10 +193,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseSession();
+app.MapControllers();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthMiddleware();
 app.UseUpdateTokenMiddleware();
 app.UseAuthorization();
-app.MapControllers();
+
 
 app.Run();
