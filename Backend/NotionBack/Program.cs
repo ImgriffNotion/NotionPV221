@@ -21,7 +21,6 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                "http://127.0.0.1:5500",
-               "http://localhost:5000",
                "http://localhost:3000"
             )
             .AllowAnyMethod()
@@ -185,7 +184,6 @@ builder.Services.RegistatorAllServices();
 var app = builder.Build();
 
 
-app.UseCors("AllowFrontend");
 
 if (app.Environment.IsDevelopment())
 {
@@ -196,6 +194,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseSession();
+app.UseRouting();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthMiddleware();
 app.UseUpdateTokenMiddleware();
