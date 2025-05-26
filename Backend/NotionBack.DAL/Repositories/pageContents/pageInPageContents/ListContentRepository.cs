@@ -38,6 +38,11 @@ public class ListContentRepository(NotionDbContext context) : IListContentReopsi
         return await _context.ListContents.ToListAsync();
     }
 
+    public async Task<IEnumerable<ListContent>> GetAll(Guid parentId)
+    {
+        return await _context.ListContents.Where(x => x.ListId == parentId).ToListAsync();
+    }
+
     public void Update(ListContent item)
     {
         _context.ListContents.Entry(item).State = EntityState.Modified;

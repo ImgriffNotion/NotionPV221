@@ -38,6 +38,11 @@ public class CalendarContentRepository(NotionDbContext context) : ICalendarConte
         return await _context.CalendarContents.ToListAsync();
     }
 
+    public async Task<IEnumerable<CalendarContent>> GetAll(Guid parentId)
+    {
+        return await _context.CalendarContents.Where(x => x.CalendarId == parentId).ToListAsync();
+    }
+
     public void Update(CalendarContent item)
     {
         _context.CalendarContents.Entry(item).State = EntityState.Modified;
