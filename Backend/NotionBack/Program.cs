@@ -22,10 +22,7 @@ builder.Services.AddCors(options =>
             .WithOrigins(
                "http://127.0.0.1:5500",
                "http://localhost:3000"
-            )
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
+            );
     }
 );
 });
@@ -192,7 +189,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseSession();
 app.UseRouting();
 app.UseCors("AllowFrontend");
