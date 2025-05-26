@@ -38,7 +38,12 @@ public class TableContentRepository(NotionDbContext context) : ITableContentRepo
         return await _context.TableContents.ToListAsync();
     }
 
-    public void Update(TableContent item)
+  public async Task<IEnumerable<TableContent>> GetAll(Guid parentId)
+  {
+    return await _context.TableContents.Where(x => x.TableId == parentId).ToListAsync();
+  }
+
+  public void Update(TableContent item)
     {
         _context.TableContents.Entry(item).State = EntityState.Modified;
     }
