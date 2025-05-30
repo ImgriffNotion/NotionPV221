@@ -114,8 +114,8 @@ builder.Services.Configure<JwtSettings>(
 // Add services to the container.
 
 builder.Services.AddControllers();
-//string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
-string? connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
+string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
+//connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
@@ -161,7 +161,12 @@ builder.Services.RegistatorAllServices();
 
 var app = builder.Build();
 
-
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<NotionDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    await dbContext.TryInitializeDatabaseAsync(logger);
+}
 
 if (app.Environment.IsDevelopment())
 {

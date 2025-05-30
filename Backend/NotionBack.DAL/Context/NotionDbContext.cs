@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NotionBack.DAL.Models;
 using NotionBack.DAL.Models.fileStructure;
 using NotionBack.DAL.Models.pageContents;
@@ -24,7 +25,20 @@ public class NotionDbContext : DbContext
     public DbSet<ListContent> ListContents { get; set; }
 
     public NotionDbContext(DbContextOptions<NotionDbContext> options)
-        : base(options) => Database.EnsureCreated();
+        : base(options) { }
+
+    public async Task TryInitializeDatabaseAsync(ILogger logger)
+    {
+        try
+        {
+            await Database.EnsureCreatedAsync(); // or EnsureCreatedAsync()
+            logger.LogInformation("Database initialized.");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to connect to the database.");
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
