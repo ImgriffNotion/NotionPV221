@@ -12,7 +12,7 @@ namespace NotionBack.Middleware.Auth
         private readonly ILogger<AuthMiddleware> _logger = logger;
 
 
-        public async Task Invoke(HttpContext httpContext, IServiceProvider serviceProvider)
+        public async Task Invoke(HttpContext httpContext, IServiceProvider serviceProvider, AppUserContext userContext)
         {
             var path = httpContext.Request.Path.ToString();
             Console.WriteLine($"\n\n\nAuthMiddleware {DateTime.Now.ToString()} - {path}\n {httpContext.Request.Method} \n\n\n");
@@ -52,6 +52,12 @@ namespace NotionBack.Middleware.Auth
                             SameSite = SameSiteMode.None,
                             Expires = DateTimeOffset.UtcNow.AddHours(TokenValidTime.VaildTimeInHours)
                         });
+                    }
+
+                    if (token.User != null)
+                    {
+                        userContext.userId = token.User.Id.ToString();
+                        userContext.userEmail = token.User.Email ?? "";
                     }
 
                     await _next(httpContext);

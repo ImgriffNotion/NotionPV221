@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Http;
 using NotionBack.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace NotionBack.Controllers
 {
@@ -42,8 +43,6 @@ namespace NotionBack.Controllers
                 locale = "en-US",
                 serverTime = DateTime.UtcNow,
             };
-
-
 
             try
             {

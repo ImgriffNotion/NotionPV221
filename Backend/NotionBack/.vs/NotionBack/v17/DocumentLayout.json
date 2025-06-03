@@ -5,9 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6159AE13-AC69-4879-B4FB-D96C49D712AB}|..\\NotionBack.DAL\\NotionBack.DAL.csproj|d:\\notionpv221\\backend\\notionback.dal\\context\\notiondbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -49,28 +46,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "NotionDbContext.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\Context\\NotionDbContext.cs",
-              "RelativeDocumentMoniker": "..\\NotionBack.DAL\\Context\\NotionDbContext.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\Context\\NotionDbContext.cs",
-              "RelativeToolTip": "..\\NotionBack.DAL\\Context\\NotionDbContext.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAkwBsAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-30T19:46:49.399Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAGAAAAAAAAAAAAAAAHUAAAAAAAAA",
+              "ViewState": "AQIAALMAAAAAAAAAAAAAAMAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-22T19:00:42.689Z",
+              "WhenOpened": "2025-06-03T20:49:29.505Z",
               "EditorCaption": ""
             }
           ]

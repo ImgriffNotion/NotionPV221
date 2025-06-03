@@ -9,6 +9,7 @@ using StackExchange.Redis;
 using NotionBack.Models.Settings;
 using NotionBack.Middleware.Auth;
 using NotionBack.Middleware.Token;
+using NotionBack.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -111,11 +112,14 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
 
+// UserContext 
+builder.Services.AddScoped<AppUserContext>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
 string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
-//connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
+connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
@@ -158,6 +162,7 @@ builder.Services.AddApplicationInsightsTelemetry();
 
 // Register of all services
 builder.Services.RegistatorAllServices();
+
 
 var app = builder.Build();
 
