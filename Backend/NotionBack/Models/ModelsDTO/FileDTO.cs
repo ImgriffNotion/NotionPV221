@@ -1,17 +1,19 @@
-﻿using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace NotionBack.Models.ModelsDTO
 {
     public class FileDTO
     {
+        
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
+        
         [JsonPropertyName("name")] 
         public String? Name { get; set; }
+        
         [JsonPropertyName("fileUrl")] 
         public String? Url { get; set; }
-        [JsonPropertyName("uploadedFile")]
-        public IFormFile? uploadedFile { get; set; }
 
     }
 }

@@ -1,40 +1,31 @@
 ﻿using Humanizer;
+using NotionBack.DAL.Interfaces;
 using NotionBack.Models.ModelsDTO;
 using NotionBack.Services.FilesService;
 
 namespace NotionBack.Services.ConverterService.Files
 {
-    public class FileConverter(IFileStorageService fileStorageService) : IConvertService<FileDTO, DAL.Models.fileStructure.File>
+    public class FileConverter(IFileStorageService fileStorageService, IUnitOfWork unitOfWork) : IConvertService<FileDTO, DAL.Models.fileStructure.File>
     {
         private readonly IFileStorageService _fileStorageService = fileStorageService;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public async Task<DAL.Models.fileStructure.File> FromDTO(FileDTO model)
         {
-
             var file = new DAL.Models.fileStructure.File()
             {
                 Id = model.Id,
+                Name = model.Name,
+                Url = model.Url
             };
-
-            if(model.uploadedFile != null)
-                file.Name = model.uploadedFile.FileName;
-
-            file.Url = await _fileStorageService.UploadFile(model);
 
             return file;
         }
 
         public async Task<DAL.Models.fileStructure.File> FromDTO(DAL.Models.fileStructure.File domain, FileDTO dto)
         {
-            if (dto.uploadedFile != null)
-            {
-                domain.Name = dto.uploadedFile.FileName;
-                domain.Url = await _fileStorageService.UploadFile(dto);
-            }
-            else
-            {
-                domain.Url = await _fileStorageService.GetFileUrl(dto);
-            }
+            domain.Name = dto.Name;
+            domain.Url = dto.Url;
             return domain;
         }
 
@@ -47,6 +38,10 @@ namespace NotionBack.Services.ConverterService.Files
             };
 
             file.Url = await _fileStorageService.GetFileUrl(file);
+            model.Url = file.Url;
+
+            _unitOfWork.Files.Update(model);
+            await _unitOfWork.Save();
 
             return file;
         }

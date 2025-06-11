@@ -240,38 +240,6 @@ namespace NotionBack.Controllers
             }
         }
 
-        [HttpGet("update-token")]
-        public async Task<IActionResult> UpdateToken()
-        {
-            var meta = new RestMetaData()
-            {
-                method = "GET",
-                name = "GetByEmail",
-                uri = $"/imgriff/auth/update-token",
-                locale = "en-US",
-                serverTime = DateTime.UtcNow
-            };
-
-            var encryptedToken = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtToken = tokenHandler.ReadJwtToken(encryptedToken);
-            var tokenId = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "TokenId")?.Value;
-
-            try
-            {
-                if (Guid.TryParse(tokenId, out var parsedTokenId))
-                {
-                    var token = await _unitOfWork.Tokens.Get(new Guid(tokenId));
-
-                }
-            }
-            catch (Exception ex)
-            {
-                return Ok(ex.Message);
-            };
-            return Ok();
-        }
-
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
@@ -286,22 +254,6 @@ namespace NotionBack.Controllers
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/");
-        }
-
-        [HttpDelete]
-        public IActionResult Delete()
-        {
-            var meta = new RestMetaData()
-            {
-                method = "DELETE",
-                name = "Delete",
-                uri = "/imgriff/auth",
-                locale = "en-US",
-                serverTime = DateTime.UtcNow
-            };
-
-            var _response = new RestResponse<string>(418, "Delete method is empty", meta);
-            return Ok(_response);
         }
 
         private UserDTO getUserByResponse(AuthenticateResult authResult)
@@ -359,59 +311,3 @@ namespace NotionBack.Controllers
 
     }
 }
-
-
-/*
-
-gmail
-{
-  "iss": "https://accounts.google.com",
-  "azp": "YOUR_CLIENT_ID",
-  "aud": "YOUR_CLIENT_ID",
-  "sub": "110169484474386276334",
-  "email": "user@example.com",
-  "email_verified": true,
-  "name": "John Doe",
-  "picture": "https://lh3.googleusercontent.com/a-/AOh14GgT.jpg",
-  "given_name": "John",
-  "family_name": "Doe",
-  "iat": 1614324300,
-  "exp": 1614327900
-}
-
- 
-mail.ru
-{
-  "access_token": "abcdef123456...",
-  "expires_in": 86400,
-  "user": {
-    "id": "123456789",
-    "email": "user@mail.ru",
-    "name": "Ivan Ivanov",
-    "first_name": "Ivan",
-    "last_name": "Ivanov",
-    "gender": "male",
-    "birthday": "19854000-20",
-    "photo": "https://avatar.mail.ru/user.jpg"
-  }
-}
-
-Icloud
-{
-  "iss": "https://appleid.apple.com",
-  "sub": "A1234567890abc1234de5678fghijk1234lm5678",
-  "aud": "com.example.app",
-  "exp": 1625134320,
-  "iat": 1625130720,
-  "nonce": "abcd1234xyz5678",
-  "email": "user@example.com",
-  "email_verified": true,
-  "real_user_status": 0,
-  "full_name": {
-    "first_name": "John",
-    "last_name": "Doe"
-  }
-}
- 
- 
- */

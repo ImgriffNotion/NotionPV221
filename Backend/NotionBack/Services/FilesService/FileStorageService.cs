@@ -1,4 +1,5 @@
 ﻿using NotionBack.Models;
+using NotionBack.Models.FormBody;
 using NotionBack.Models.ModelsDTO;
 using System.Text.Json;
 
@@ -33,7 +34,9 @@ namespace NotionBack.Services.FilesService
             return data?["url"];
         }
 
-        public async Task<string> UploadFile(FileDTO file)
+
+
+        public async Task<string> UploadFile(FileFormBody file)
         {
             if(file == null || file.uploadedFile == null)
             {
@@ -46,11 +49,11 @@ namespace NotionBack.Services.FilesService
             var streamContent = new StreamContent(stream);
             streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.uploadedFile.ContentType);
 
-            content.Add(streamContent, "file", file.uploadedFile.FileName);
+            content.Add(streamContent, "formFile", file.uploadedFile.FileName);
             content.Add(new StringContent(_userContext.userId), "userId");
             content.Add(new StringContent(_userContext.userEmail), "userEmail");
 
-            var response = await _httpClient.PostAsync(RedirectionURLs._fileLocalUrl, content);
+            var response = await _httpClient.PostAsync($"{RedirectionURLs._fileLocalUrl}/upload", content);
 
             if (!response.IsSuccessStatusCode)
             {
