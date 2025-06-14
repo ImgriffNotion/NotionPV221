@@ -1,7 +1,10 @@
-using Microsoft.Extensions.Logging;
 using NotionBack.DAL.Interfaces;
+using NotionBack.DAL.Interfaces.Templates;
 using NotionBack.DAL.Repositories.pageContents;
 using NotionBack.DAL.Repositories.pageContents.pageInPageContents;
+using NotionBack.DAL.Repositories.Templates;
+using NotionBack.DAL.Repositories.Templates.pageContents;
+using NotionBack.DAL.Repositories.Templates.pageContents.pageInPageContents;
 
 namespace NotionBack.DAL.Repositories
 {
@@ -9,7 +12,7 @@ namespace NotionBack.DAL.Repositories
     {
         private readonly NotionDbContext context = context;
 
-        #region Repositories Definitions
+        #region Data repositories Definitions
         private TokenRepository? _tokenRepository;
         private UsersRepository? _usersRepository;
         private PageRepository? _pageRepository;
@@ -27,8 +30,22 @@ namespace NotionBack.DAL.Repositories
         private BoardRepository? _boardRepository;
         #endregion
 
+        #region Templates repositories Definitions
+        private TemplateRepository? _templateRepository;
+        private TypePageTemplateRepository? _pageTypeTemplatesRepository;
+        private TableTemplateRepository? _tableTemplateRepository;
+        private TableContentTemplateRepository? _tableContentTemplateRepository;
+        private ListTemplateRepository? _listTemplateRepository;
+        private ListContentTemplateRepository? _listContentTemplateRepository;
+        private JustPageContentTemplateRepository? _justPageContentTemplateRepository;
+        private GalleryTemplateRepository? _galleryTemplateRepository;
+        private GalleryContentTemplateRepository? _galleryContentTemplateRepository;
+        private CalendarTemplateRepository? _calendarTemplateRepository;
+        private CalendarContentTemplateRepository? _calendarContentTemplateRepository;
+        private BoardTemplateRepository? _boardTemplateRepository;
+        #endregion
 
-        #region Repositories Initialization
+        #region Data repositories Initialization
         public ITokenRepository Tokens => _tokenRepository ??= new TokenRepository(context);
         public IUserRepository Users => _usersRepository ??= new UsersRepository(context);
         public IPageRepository Pages => _pageRepository ??= new PageRepository(context);
@@ -44,7 +61,7 @@ namespace NotionBack.DAL.Repositories
             _galleryContentRepository ??= new GalleryContentRepository(context);
         public ITableContentRepository TableContents =>
             _tableContentRepository ??= new TableContentRepository(context);
-        public IListContentReopsitory ListContents =>
+        public IListContentRepository ListContents =>
             _listContentRepository ??= new ListContentRepository(context);
         public ITypePageRepository PageTypes =>
             _pageTypesRepository ??= new TypePageRepository(context);
@@ -53,6 +70,35 @@ namespace NotionBack.DAL.Repositories
         public IGalleryRepository Galleries =>
             _galleryRepository ??= new GalleryRepository(context);
         #endregion
+
+
+        #region Templates repositories Initialization
+        public ITemplateRepository Templates =>
+            _templateRepository ??= new TemplateRepository(context);
+        public IListTemplateRepository ListTemplates =>
+            _listTemplateRepository ??= new ListTemplateRepository(context);
+        public IBoardTemplateRepository BoardTemplates =>
+            _boardTemplateRepository ??= new BoardTemplateRepository(context);
+        public ITableTemplateRepository TableTemplates =>
+            _tableTemplateRepository ??= new TableTemplateRepository(context);
+        public IJustPageContentTemplateRepository JustPageContentTemplates =>
+            _justPageContentTemplateRepository ??= new JustPageContentTemplateRepository(context);
+        public ICalendarContentTemplateRepository CalendarContentTemplates =>
+            _calendarContentTemplateRepository ??= new CalendarContentTemplateRepository(context);
+        public IGalleryContentTemplateRepository GalleryContentTemplates =>
+            _galleryContentTemplateRepository ??= new GalleryContentTemplateRepository(context);
+        public ITableContentTemplateRepository TableContentTemplates =>
+            _tableContentTemplateRepository ??= new TableContentTemplateRepository(context);
+        public IListContentTemplateRepository ListContentTemplates =>
+            _listContentTemplateRepository ??= new ListContentTemplateRepository(context);
+        public ITypePageTemplateRepository PageTypeTemplates =>
+            _pageTypeTemplatesRepository ??= new TypePageTemplateRepository(context);
+        public ICalendarTemplateRepository CalendarTemplates =>
+            _calendarTemplateRepository ??= new CalendarTemplateRepository(context);
+        public IGalleryTemplateRepository GallerieTemplates =>
+            _galleryTemplateRepository ??= new GalleryTemplateRepository(context);
+        #endregion
+
         public async Task Save() => await context.SaveChangesAsync();
     }
 }

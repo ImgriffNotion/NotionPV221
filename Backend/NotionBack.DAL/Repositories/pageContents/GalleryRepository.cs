@@ -11,7 +11,7 @@ public class GalleryRepository(NotionDbContext context) : IGalleryRepository
 
     public async Task Create(Gallery item)
     {
-        await _context.Galleries.AddAsync(item);
+        await _context.Gallerys.AddAsync(item);
     }
 
     public async Task Delete(Guid id)
@@ -30,22 +30,22 @@ public class GalleryRepository(NotionDbContext context) : IGalleryRepository
 
     public async Task<Gallery> Get(Guid id)
     {
-        return await _context.Galleries.FindAsync(id)
+        return await _context.Gallerys.FindAsync(id)
             ?? throw new NullReferenceException($"Gallery with ID: {id} not found");
     }
 
     public async Task<IEnumerable<Gallery>> GetAll()
     {
-        return await _context.Galleries.ToListAsync();
+        return await _context.Gallerys.ToListAsync();
     }
 
     public async Task<IEnumerable<Gallery>> GetAll(Guid parentId)
     {
-        return await _context.Galleries.Where(g => g.ParentPageId == parentId).ToListAsync();
+        return await _context.Gallerys.Where(g => g.ParentPageId == parentId).ToListAsync();
     }
 
     public void Update(Gallery item)
     {
-        _context.Galleries.Entry(item).State = EntityState.Modified;
+        _context.Gallerys.Entry(item).State = EntityState.Modified;
     }
 }

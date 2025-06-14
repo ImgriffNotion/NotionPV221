@@ -5,7 +5,7 @@ using NotionBack.DAL.Models.pageContents.pageInPageContents;
 
 namespace NotionBack.DAL.Repositories.pageContents.pageInPageContents;
 
-public class ListContentRepository(NotionDbContext context) : IListContentReopsitory
+public class ListContentRepository(NotionDbContext context) : IListContentRepository
 {
     private readonly NotionDbContext _context = context;
 
