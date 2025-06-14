@@ -6,7 +6,7 @@ public class CalendarContentTemplate
     public string? Title { get; set; }
     public string? Description { get; set; }
     public DateTime? PlanedDate { get; set; }
-    public string? Untitled { get; set; }
+    public string? Number { get; set; }
     public string? Color { get; set; }
 
     public Guid? CalendarTemplateId { get; set; }

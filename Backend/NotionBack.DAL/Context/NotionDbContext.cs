@@ -201,7 +201,7 @@ public class NotionDbContext : DbContext
         // TypePageTemplate
         modelBuilder
             .Entity<TypePageTemplate>()
-            .ToTable("PageTypes")
+            .ToTable("PageTypesTemplate")
             .HasMany(tp => tp.Templates)
             .WithOne(p => p.TypeTemplate)
             .HasForeignKey(p => p.TypeTemplateId)

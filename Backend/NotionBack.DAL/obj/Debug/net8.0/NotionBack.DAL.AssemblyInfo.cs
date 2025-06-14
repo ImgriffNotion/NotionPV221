@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NotionBack.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+225ed06b3b90c2ae278f277ee939a106a810e716")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+037e4b91a816b33ec7d075be7dad6e72ba15e8df")]
 [assembly: System.Reflection.AssemblyProductAttribute("NotionBack.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NotionBack.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
