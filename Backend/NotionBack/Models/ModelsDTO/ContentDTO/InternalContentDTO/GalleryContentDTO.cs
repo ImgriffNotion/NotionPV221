@@ -15,7 +15,7 @@ namespace NotionBack.Models.ModelsDTO.ContentDTO.InternalContentDTO
         [JsonPropertyName("title")]
         public String? Title { get; set; }
         
-        [JsonPropertyName("img")]
+        [JsonPropertyName("url")]
         public FileDTO? file { get; set; }
         
         [JsonPropertyName("description")]

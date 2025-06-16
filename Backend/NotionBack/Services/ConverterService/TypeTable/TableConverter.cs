@@ -38,7 +38,7 @@ namespace NotionBack.Services.ConverterService.TypeTable
                 return new Table();
 
             domain.Title = dto.Title;
-            domain.ParentPageId = dto.ParentPageId;
+
             if (dto.InternalContent != null && dto.InternalContent.Count != 0)
             {
                 var tmpBuffer = new List<TableContent>();

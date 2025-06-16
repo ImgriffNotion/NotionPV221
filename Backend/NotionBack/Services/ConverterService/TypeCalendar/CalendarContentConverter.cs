@@ -39,7 +39,6 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                             FileId = file.Id,
                             File = await _unitOfWork.Files.Get(file.Id),
                             CalendarContent = calendarContent
-                            
                         });
                 }
 
@@ -119,7 +118,7 @@ namespace NotionBack.Services.ConverterService.TypeCalendar
                 CalendarId = model.CalendarId,
                 Files = new List<FileDTO>(),
             };
-
+            
             if (model.Files != null && model.Files.Count != 0)
             {
                 foreach (var file in model.Files)

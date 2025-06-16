@@ -10,6 +10,7 @@ using NotionBack.Models.Settings;
 using NotionBack.Middleware.Auth;
 using NotionBack.Middleware.Token;
 using NotionBack.Models;
+using NotionBack.Middleware.SlugNavigate;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -186,6 +187,7 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthMiddleware();
 app.UseUpdateTokenMiddleware();
+app.UseSlugNavigate();
 app.UseAuthorization();
 app.MapControllers();
 

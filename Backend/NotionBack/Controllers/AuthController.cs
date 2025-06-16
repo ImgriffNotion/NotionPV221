@@ -21,6 +21,7 @@ using NotionBack.Models.Settings;
 using Microsoft.Extensions.Options;
 using NotionBack.Services.TokenService;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 
 namespace NotionBack.Controllers
 {
@@ -83,12 +84,12 @@ namespace NotionBack.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PasscodeRequest body)
+        public async Task<IActionResult> ApproveUser([FromBody] PasscodeRequest body)
         {
             var meta = new RestMetaData()
             {
                 method = "POST",
-                name = "Post",
+                name = "ApproveUser",
                 uri = "/imgriff/auth",
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
@@ -106,9 +107,8 @@ namespace NotionBack.Controllers
                 if (isSuccessful)
                 {
                     var user = await _userConvertService.ToDTO((await _unitOfWork.Users.GetUserByEmail(body.Email)));
-
                     var token = await GetJwtToken(user);
-                    meta._params["access_token"] = token.Jwt;
+                    SetJwtToCookie(token.Jwt);
                     var response = new RestResponse<Object>(200, token, meta);
                     return Ok(response);
 
@@ -127,7 +127,7 @@ namespace NotionBack.Controllers
                 await _unitOfWork.Save();
                 newUser = await _userConvertService.ToDTO(await _unitOfWork.Users.GetUserByEmail(newUser.Email));
                 var token = await GetJwtToken(newUser);
-
+                SetJwtToCookie(token.Jwt);
                 var _response = new RestResponse<Object>(200, token, meta);
                 return Ok(_response);
             }
@@ -140,7 +140,7 @@ namespace NotionBack.Controllers
         }
 
         [HttpGet("login")]
-        public IActionResult Login()
+        public IActionResult LoginByGoogle()
         {
             try
             {
@@ -210,12 +210,12 @@ namespace NotionBack.Controllers
         }
 
         [HttpGet("user-by-email")]
-        public async Task<IActionResult> GetByEmail(String email)
+        public async Task<IActionResult> GetUserByEmail(String email)
         {
             var meta = new RestMetaData()
             {
                 method = "GET",
-                name = "GetByEmail",
+                name = "GetUserByEmail",
                 uri = $"/imgriff/auth/user-by-email?email={email}",
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
@@ -238,22 +238,6 @@ namespace NotionBack.Controllers
                 var response = new RestResponse<string>(500, ex.Message, meta);
                 return Ok(response);
             }
-        }
-
-        [HttpGet("logout")]
-        public async Task<IActionResult> Logout()
-        {
-            var meta = new RestMetaData()
-            {
-                method = "GET",
-                name = "GetByEmail",
-                uri = $"/imgriff/auth/logout",
-                locale = "en-US",
-                serverTime = DateTime.UtcNow
-            };
-
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect("/");
         }
 
         private UserDTO getUserByResponse(AuthenticateResult authResult)
@@ -307,6 +291,16 @@ namespace NotionBack.Controllers
                 Jwt = token,
                 User = user
             };
+        }
+        private void SetJwtToCookie(string jwt)
+        {
+            HttpContext.Response.Cookies.Append("token", jwt, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTimeOffset.UtcNow.AddHours(TokenValidTime.VaildTimeInHours)
+            });
         }
 
     }

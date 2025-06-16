@@ -40,7 +40,7 @@ public class CalendarContentRepository(NotionDbContext context) : ICalendarConte
 
     public async Task<IEnumerable<CalendarContent>> GetAll(Guid parentId)
     {
-        return await _context.CalendarContents.Where(x => x.CalendarId == parentId).ToListAsync();
+        return await _context.CalendarContents.Where(x => x.CalendarId == parentId).Include(c => c.Files).ToListAsync();
     }
 
     public void Update(CalendarContent item)

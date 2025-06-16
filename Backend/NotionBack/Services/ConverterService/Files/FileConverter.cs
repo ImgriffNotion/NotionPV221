@@ -12,6 +12,9 @@ namespace NotionBack.Services.ConverterService.Files
 
         public async Task<DAL.Models.fileStructure.File> FromDTO(FileDTO model)
         {
+            if(model == null) 
+                return new DAL.Models.fileStructure.File();
+
             var file = new DAL.Models.fileStructure.File()
             {
                 Id = model.Id,
@@ -24,6 +27,11 @@ namespace NotionBack.Services.ConverterService.Files
 
         public async Task<DAL.Models.fileStructure.File> FromDTO(DAL.Models.fileStructure.File domain, FileDTO dto)
         {
+            if (domain == null || dto == null)
+            {
+                return new DAL.Models.fileStructure.File();
+            }
+
             domain.Name = dto.Name;
             domain.Url = dto.Url;
             return domain;
@@ -31,17 +39,27 @@ namespace NotionBack.Services.ConverterService.Files
 
         public async Task<FileDTO> ToDTO(DAL.Models.fileStructure.File model)
         {
+            if(model == null)
+            {
+                return new FileDTO();
+            }
+
             var file = new FileDTO()
             {
                 Id = model.Id,
                 Name = model.Name,
+                Url = model.Url
             };
 
-            file.Url = await _fileStorageService.GetFileUrl(file);
-            model.Url = file.Url;
+            var tmp = await _fileStorageService.GetFileUrl(file);
+            if (!String.IsNullOrEmpty(tmp))
+            {
+                file.Url = tmp;
+                model.Url = file.Url;
+                _unitOfWork.Files.Update(model);
+                await _unitOfWork.Save();
+            }
 
-            _unitOfWork.Files.Update(model);
-            await _unitOfWork.Save();
 
             return file;
         }

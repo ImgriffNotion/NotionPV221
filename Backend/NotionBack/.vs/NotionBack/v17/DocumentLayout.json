@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\NotionPV221\\Backend\\NotionBack\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\services\\converterservice\\typecalendar\\calendarcontentconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:services\\converterservice\\typecalendar\\calendarcontentconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\services\\converterservice\\typecalendar\\calendarconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:services\\converterservice\\typecalendar\\calendarconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -47,32 +38,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CalendarConverter.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\TypeCalendar\\CalendarConverter.cs",
-              "RelativeDocumentMoniker": "Services\\ConverterService\\TypeCalendar\\CalendarConverter.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\TypeCalendar\\CalendarConverter.cs",
-              "RelativeToolTip": "Services\\ConverterService\\TypeCalendar\\CalendarConverter.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:08:41.636Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CalendarContentConverter.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\TypeCalendar\\CalendarContentConverter.cs",
-              "RelativeDocumentMoniker": "Services\\ConverterService\\TypeCalendar\\CalendarContentConverter.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\ConverterService\\TypeCalendar\\CalendarContentConverter.cs",
-              "RelativeToolTip": "Services\\ConverterService\\TypeCalendar\\CalendarContentConverter.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAgwCgAAAA9AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T13:00:58.132Z",
-              "EditorCaption": ""
             }
           ]
         }

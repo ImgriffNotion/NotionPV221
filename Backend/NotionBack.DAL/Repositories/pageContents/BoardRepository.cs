@@ -41,7 +41,8 @@ public class BoardRepository(NotionDbContext context) : IBoardRepository
 
     public async Task<IEnumerable<Board>> GetAll(Guid parentId)
     {
-        return await _context.Boards.Where(x => x.ParentPageId == parentId).ToListAsync();
+        return await _context.Boards.Where(x => x.ParentPageId == parentId)
+            .Include(b=>b.Lists).ToListAsync();
     }
 
     public void Update(Board item)

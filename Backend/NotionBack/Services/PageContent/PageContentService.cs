@@ -20,38 +20,44 @@ namespace NotionBack.Services.PageContent
                 {
                     case PageType.Empty:
                         {
-                            await _unitOfWork.JustPageContents.GetAll();
+                            await _unitOfWork.JustPageContents.GetAll(page.Id);
                             break;
                         }
                     case PageType.Board:
                         {
-                            var tmp = await _unitOfWork.Boards.GetAll();
-                            await _unitOfWork.Lists.GetAll();
-                            await _unitOfWork.ListContents.GetAll();
+                            var board = (await _unitOfWork.Boards.GetAll(page.Id)).First();
+                            try
+                            {
+                                foreach (var list in board.Lists)
+                                {
+                                    await _unitOfWork.ListContents.GetAll(list.Id);
+                                }
+                            }
+                            catch (Exception ex) { Console.WriteLine($"\n\n\n WARNING !!!\n\n{ex.Message}\n\n\n"); }
                             break;
                         }
                     case PageType.List:
                         {
-                            await _unitOfWork.Lists.GetAll();
-                            await _unitOfWork.ListContents.GetAll();
+                            var list = (await _unitOfWork.Lists.GetAll(page.Id)).First();
+                            await _unitOfWork.ListContents.GetAll(list.Id);
                             break;
                         }
                     case PageType.Calendar:
                         {
-                            await _unitOfWork.Calendars.GetAll(page.Id);
-                            await _unitOfWork.CalendarContents.GetAll();
+                            var calendar = (await _unitOfWork.Calendars.GetAll(page.Id)).First();
+                            var contents = await _unitOfWork.CalendarContents.GetAll(calendar.Id);
                             break;
                         }
                     case PageType.Gallery:
                         {
-                            await _unitOfWork.Galleries.GetAll();
-                            await _unitOfWork.GalleryContents.GetAll();
+                            var gallery = (await _unitOfWork.Galleries.GetAll(page.Id)).First();
+                            await _unitOfWork.GalleryContents.GetAll(gallery.Id);
                             break;
                         }
                     case PageType.Table:
                         {
-                            await _unitOfWork.Tables.GetAll();
-                            await _unitOfWork.TableContents.GetAll();
+                            var table = (await _unitOfWork.Tables.GetAll(page.Id)).First();
+                            await _unitOfWork.TableContents.GetAll(table.Id);
                             break;
                         }
                 };
