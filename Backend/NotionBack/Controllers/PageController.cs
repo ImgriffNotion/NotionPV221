@@ -146,7 +146,6 @@ namespace NotionBack.Controllers
                 return userUnauthorized(meta);
             }
 
-
             try
             {
                 if (page.Type != null)

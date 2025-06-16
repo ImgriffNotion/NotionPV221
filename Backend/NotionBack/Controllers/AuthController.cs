@@ -225,6 +225,7 @@ namespace NotionBack.Controllers
             {
                 var user = await _unitOfWork.Users.GetUserByEmail(email);
                 var token = await GetJwtToken(await _userConvertService.ToDTO(user));
+                SetJwtToCookie(token.Jwt);
                 var response = new RestResponse<Object>(200, token, meta);
                 return Ok(response);
             }
