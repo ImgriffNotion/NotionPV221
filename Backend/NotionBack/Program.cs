@@ -114,8 +114,8 @@ builder.Services.Configure<JwtSettings>(
 // Add services to the container.
 
 builder.Services.AddControllers();
-//string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
 string? connectionString = builder.Configuration.GetConnectionString("NotionDbConnect");
+//connectionString = builder.Configuration.GetConnectionString("LocalDbConnect");
 builder.Services.AddNotionContext(connectionString!);
 builder.Services.AddUnitOfWorkService();
 
