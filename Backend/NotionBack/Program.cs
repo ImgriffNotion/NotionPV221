@@ -9,6 +9,7 @@ using StackExchange.Redis;
 using NotionBack.Models.Settings;
 using NotionBack.Middleware.Auth;
 using NotionBack.Middleware.Token;
+using NotionBack.Middleware.PageTypes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,10 +38,10 @@ builder.Services.AddCors(options =>
 //{
 //    options.ListenAnyIP(7115);
 
-//    //options.ListenAnyIP(7114, listenOptions =>
-//    //{
-//    //    listenOptions.UseHttps();
-//    //});
+//    options.ListenAnyIP(7114, listenOptions =>
+//    {
+//        listenOptions.UseHttps();
+//    });
 
 
 //});
@@ -175,6 +176,7 @@ app.UseSession();
 app.UseRouting();
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
+app.UsePageTypeCreator();
 app.UseAuthMiddleware();
 app.UseUpdateTokenMiddleware();
 app.UseAuthorization();
