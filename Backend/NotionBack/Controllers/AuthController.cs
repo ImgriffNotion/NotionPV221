@@ -21,6 +21,7 @@ using NotionBack.Models.Settings;
 using Microsoft.Extensions.Options;
 using NotionBack.Services.TokenService;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 
 namespace NotionBack.Controllers
 {
@@ -83,12 +84,12 @@ namespace NotionBack.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PasscodeRequest body)
+        public async Task<IActionResult> ApproveUser([FromBody] PasscodeRequest body)
         {
             var meta = new RestMetaData()
             {
                 method = "POST",
-                name = "Post",
+                name = "ApproveUser",
                 uri = "/imgriff/auth",
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
@@ -106,9 +107,8 @@ namespace NotionBack.Controllers
                 if (isSuccessful)
                 {
                     var user = await _userConvertService.ToDTO((await _unitOfWork.Users.GetUserByEmail(body.Email)));
-
                     var token = await GetJwtToken(user);
-                    meta._params["access_token"] = token.Jwt;
+                    SetJwtToCookie(token.Jwt);
                     var response = new RestResponse<Object>(200, token, meta);
                     return Ok(response);
 
@@ -127,7 +127,7 @@ namespace NotionBack.Controllers
                 await _unitOfWork.Save();
                 newUser = await _userConvertService.ToDTO(await _unitOfWork.Users.GetUserByEmail(newUser.Email));
                 var token = await GetJwtToken(newUser);
-
+                SetJwtToCookie(token.Jwt);
                 var _response = new RestResponse<Object>(200, token, meta);
                 return Ok(_response);
             }
@@ -140,7 +140,7 @@ namespace NotionBack.Controllers
         }
 
         [HttpGet("login")]
-        public IActionResult Login()
+        public IActionResult LoginByGoogle()
         {
             try
             {
@@ -210,12 +210,12 @@ namespace NotionBack.Controllers
         }
 
         [HttpGet("user-by-email")]
-        public async Task<IActionResult> GetByEmail(String email)
+        public async Task<IActionResult> GetUserByEmail(String email)
         {
             var meta = new RestMetaData()
             {
                 method = "GET",
-                name = "GetByEmail",
+                name = "GetUserByEmail",
                 uri = $"/imgriff/auth/user-by-email?email={email}",
                 locale = "en-US",
                 serverTime = DateTime.UtcNow
@@ -225,6 +225,7 @@ namespace NotionBack.Controllers
             {
                 var user = await _unitOfWork.Users.GetUserByEmail(email);
                 var token = await GetJwtToken(await _userConvertService.ToDTO(user));
+                SetJwtToCookie(token.Jwt);
                 var response = new RestResponse<Object>(200, token, meta);
                 return Ok(response);
             }
@@ -238,70 +239,6 @@ namespace NotionBack.Controllers
                 var response = new RestResponse<string>(500, ex.Message, meta);
                 return Ok(response);
             }
-        }
-
-        [HttpGet("update-token")]
-        public async Task<IActionResult> UpdateToken()
-        {
-            var meta = new RestMetaData()
-            {
-                method = "GET",
-                name = "GetByEmail",
-                uri = $"/imgriff/auth/update-token",
-                locale = "en-US",
-                serverTime = DateTime.UtcNow
-            };
-
-            var encryptedToken = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtToken = tokenHandler.ReadJwtToken(encryptedToken);
-            var tokenId = jwtToken?.Claims?.FirstOrDefault(c => c.Type == "TokenId")?.Value;
-
-            try
-            {
-                if (Guid.TryParse(tokenId, out var parsedTokenId))
-                {
-                    var token = await _unitOfWork.Tokens.Get(new Guid(tokenId));
-
-                }
-            }
-            catch (Exception ex)
-            {
-                return Ok(ex.Message);
-            };
-            return Ok();
-        }
-
-        [HttpGet("logout")]
-        public async Task<IActionResult> Logout()
-        {
-            var meta = new RestMetaData()
-            {
-                method = "GET",
-                name = "GetByEmail",
-                uri = $"/imgriff/auth/logout",
-                locale = "en-US",
-                serverTime = DateTime.UtcNow
-            };
-
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect("/");
-        }
-
-        [HttpDelete]
-        public IActionResult Delete()
-        {
-            var meta = new RestMetaData()
-            {
-                method = "DELETE",
-                name = "Delete",
-                uri = "/imgriff/auth",
-                locale = "en-US",
-                serverTime = DateTime.UtcNow
-            };
-
-            var _response = new RestResponse<string>(418, "Delete method is empty", meta);
-            return Ok(_response);
         }
 
         private UserDTO getUserByResponse(AuthenticateResult authResult)
@@ -356,62 +293,16 @@ namespace NotionBack.Controllers
                 User = user
             };
         }
+        private void SetJwtToCookie(string jwt)
+        {
+            HttpContext.Response.Cookies.Append("token", jwt, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTimeOffset.UtcNow.AddHours(TokenValidTime.VaildTimeInHours)
+            });
+        }
 
     }
 }
-
-
-/*
-
-gmail
-{
-  "iss": "https://accounts.google.com",
-  "azp": "YOUR_CLIENT_ID",
-  "aud": "YOUR_CLIENT_ID",
-  "sub": "110169484474386276334",
-  "email": "user@example.com",
-  "email_verified": true,
-  "name": "John Doe",
-  "picture": "https://lh3.googleusercontent.com/a-/AOh14GgT.jpg",
-  "given_name": "John",
-  "family_name": "Doe",
-  "iat": 1614324300,
-  "exp": 1614327900
-}
-
- 
-mail.ru
-{
-  "access_token": "abcdef123456...",
-  "expires_in": 86400,
-  "user": {
-    "id": "123456789",
-    "email": "user@mail.ru",
-    "name": "Ivan Ivanov",
-    "first_name": "Ivan",
-    "last_name": "Ivanov",
-    "gender": "male",
-    "birthday": "19854000-20",
-    "photo": "https://avatar.mail.ru/user.jpg"
-  }
-}
-
-Icloud
-{
-  "iss": "https://appleid.apple.com",
-  "sub": "A1234567890abc1234de5678fghijk1234lm5678",
-  "aud": "com.example.app",
-  "exp": 1625134320,
-  "iat": 1625130720,
-  "nonce": "abcd1234xyz5678",
-  "email": "user@example.com",
-  "email_verified": true,
-  "real_user_status": 0,
-  "full_name": {
-    "first_name": "John",
-    "last_name": "Doe"
-  }
-}
- 
- 
- */

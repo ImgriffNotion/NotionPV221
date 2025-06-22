@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Http;
 using NotionBack.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using NotionBack.Services.PageContent;
 
 namespace NotionBack.Controllers
 {
@@ -23,13 +25,15 @@ namespace NotionBack.Controllers
         IConvertService<PageDTO, Page> pageConvertService,
         IConvertService<PageTypeDTO, TypePage> pagetypeConvertService,
         IPageTypeService pageTypeService,
-        ISlugerService slugerService) : ControllerBase
+        ISlugerService slugerService,
+        IPageContentService pageContentService) : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IConvertService<PageDTO, Page> _pageConvertService = pageConvertService;
         private readonly IConvertService<PageTypeDTO, TypePage> _pagetypeConvertService = pagetypeConvertService;
         private readonly IPageTypeService _pageTypeService = pageTypeService;
         private readonly ISlugerService _slugerService = slugerService;
+        private readonly IPageContentService _pageContentService = pageContentService;
 
         [HttpGet]
         public async Task<IActionResult> Get(String slug)
@@ -43,14 +47,12 @@ namespace NotionBack.Controllers
                 serverTime = DateTime.UtcNow,
             };
 
-
-
             try
             {
                 var page = await _unitOfWork.Pages.GetPageBySlug(slug);
                 if (page.TypeId != null)
                     page.Type = await _unitOfWork.PageTypes.Get((Guid)page.TypeId);
-                await GetContent(page);
+                await _pageContentService.GetContent(page);
 
 
                 var _response = new RestResponse<PageDTO>(200, await _pageConvertService.ToDTO(page), meta);
@@ -144,7 +146,6 @@ namespace NotionBack.Controllers
                 return userUnauthorized(meta);
             }
 
-
             try
             {
                 if (page.Type != null)
@@ -201,7 +202,7 @@ namespace NotionBack.Controllers
                 {
                     var pageForUpdate = await _unitOfWork.Pages.GetPageBySlug(page.Slug);
                     pageForUpdate.Type = await _unitOfWork.PageTypes.GetTypePageByCode(_pageTypeService.GetCodeOfPageType(page.Type));
-                    await GetContent(pageForUpdate);
+                    await _pageContentService.GetContent(pageForUpdate);
                     await _pageConvertService.FromDTO(pageForUpdate, page);
                     _unitOfWork.Pages.Update(pageForUpdate);
                     await _unitOfWork.Save();
@@ -313,57 +314,6 @@ namespace NotionBack.Controllers
                 var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
-        }
-
-        private async Task<Page> GetContent(Page page)
-        {
-            if (page == null)
-                return new Page();
-
-            if (page.Type != null)
-            {
-
-                switch ((PageType)page.Type.TypeCode)
-                {
-                    case PageType.Empty:
-                        {
-                            await _unitOfWork.JustPageContents.GetAll();
-                            break;
-                        }
-                    case PageType.Board:
-                        {
-                            var tmp = await _unitOfWork.Boards.GetAll();
-                            await _unitOfWork.Lists.GetAll();
-                            await _unitOfWork.ListContents.GetAll();
-                            break;
-                        }
-                    case PageType.List:
-                        {
-                            await _unitOfWork.Lists.GetAll();
-                            await _unitOfWork.ListContents.GetAll();
-                            break;
-                        }
-                    case PageType.Calendar:
-                        {
-                            await _unitOfWork.Calendars.GetAll(page.Id);
-                            await _unitOfWork.CalendarContents.GetAll();
-                            break;
-                        }
-                    case PageType.Gallery:
-                        {
-                            await _unitOfWork.Galleries.GetAll();
-                            await _unitOfWork.GalleryContents.GetAll();
-                            break;
-                        }
-                    case PageType.Table:
-                        {
-                            await _unitOfWork.Tables.GetAll();
-                            await _unitOfWork.TableContents.GetAll();
-                            break;
-                        }
-                };
-            }
-            return page;
         }
 
         private IActionResult userUnauthorized(RestMetaData meta)

@@ -17,7 +17,9 @@ using NotionBack.Services.ConverterService.TypeList;
 using NotionBack.Services.ConverterService.TypeTable;
 using NotionBack.Services.ConverterService.Users;
 using NotionBack.Services.EmailService;
+using NotionBack.Services.FilesService;
 using NotionBack.Services.OTPService;
+using NotionBack.Services.PageContent;
 using NotionBack.Services.PageTypesService;
 using NotionBack.Services.RandomService;
 using NotionBack.Services.SlugService;
@@ -66,10 +68,12 @@ namespace NotionBack.Services
 
             #endregion
 
+            services.AddScoped<IFileStorageService, FileStorageService>();
             services.AddScoped<ITokenService<TokenDTO>, JwtTokenService>();
             services.AddScoped<IPageTypeService, PageTypeService>();
             services.AddScoped<IOtpService, OtpService>();
             services.AddScoped<ISlugerService, SlugerService>();
+            services.AddScoped<IPageContentService, PageContentService>();
             services.AddSingleton<IRandomService, RandomCreatorService>();
             services.AddSingleton<IEmailService, EmailSenderService>();
             services.AddHttpClient();

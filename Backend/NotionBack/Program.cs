@@ -10,6 +10,8 @@ using NotionBack.Models.Settings;
 using NotionBack.Middleware.Auth;
 using NotionBack.Middleware.Token;
 using NotionBack.Middleware.PageTypes;
+using NotionBack.Models;
+using NotionBack.Middleware.SlugNavigate;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,18 +35,6 @@ builder.Services.AddCors(options =>
 });
 
 #region WEB host
-
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenAnyIP(7115);
-
-//    options.ListenAnyIP(7114, listenOptions =>
-//    {
-//        listenOptions.UseHttps();
-//    });
-
-
-//});
 
 #endregion
 
@@ -113,6 +103,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
 
+// UserContext 
+builder.Services.AddScoped<AppUserContext>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -161,9 +154,15 @@ builder.Services.AddApplicationInsightsTelemetry();
 // Register of all services
 builder.Services.RegistatorAllServices();
 
+
 var app = builder.Build();
 
-
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<NotionDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    await dbContext.TryInitializeDatabaseAsync(logger);
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -179,6 +178,7 @@ app.UseAuthentication();
 app.UsePageTypeCreator();
 app.UseAuthMiddleware();
 app.UseUpdateTokenMiddleware();
+app.UseSlugNavigate();
 app.UseAuthorization();
 app.MapControllers();
 

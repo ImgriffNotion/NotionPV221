@@ -40,7 +40,7 @@ public class ListContentRepository(NotionDbContext context) : IListContentReposi
 
     public async Task<IEnumerable<ListContent>> GetAll(Guid parentId)
     {
-        return await _context.ListContents.Where(x => x.ListId == parentId).ToListAsync();
+        return await _context.ListContents.Where(x => x.ListId == parentId).Include(c => c.Files).ToListAsync();
     }
 
     public void Update(ListContent item)
