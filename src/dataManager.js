@@ -64,7 +64,7 @@ export const getPageBySlug = async (slug) => {
             credentials: 'include'
         });
         const data = await response.json();
- 
+
         return data;
 
     } catch {
@@ -252,7 +252,7 @@ export async function sendEmail(email) {
 
     }
 }
-``
+
 
 
 const list = {
