@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
             .WithOrigins(
                "http://127.0.0.1:5500",
                "http://localhost:3000",
-               "https://green-field-0f96be703.2.azurestaticapps.net/"
+               "https://green-field-0f96be703.2.azurestaticapps.net"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
