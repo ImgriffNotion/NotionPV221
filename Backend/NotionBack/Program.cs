@@ -35,7 +35,17 @@ builder.Services.AddCors(options =>
 });
 
 #region WEB host
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(7115);
 
+    options.ListenAnyIP(7114, listenOptions =>
+    {
+        listenOptions.UseHttps();
+    });
+
+
+});
 #endregion
 
 builder.Services.AddDistributedMemoryCache();

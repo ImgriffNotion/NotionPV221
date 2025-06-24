@@ -20,6 +20,8 @@ namespace NotionBack.Services.EmailService
 
         public async Task SendEmail(string toEmail, string verificationCode)
         {
+
+            Console.WriteLine($"\n\n\n{verificationCode}\n\n\n");
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("Imgriff Security", _emailFrom));
             emailMessage.To.Add(new MailboxAddress("", toEmail));
