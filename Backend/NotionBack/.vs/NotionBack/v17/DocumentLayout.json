@@ -1,23 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\NotionPV221\\Backend\\NotionBack\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\services\\emailservice\\emailsenderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:services\\emailservice\\emailsenderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6159AE13-AC69-4879-B4FB-D96C49D712AB}|..\\NotionBack.DAL\\NotionBack.DAL.csproj|d:\\notionpv221\\backend\\notionback.dal\\repositories\\pagecontents\\pageinpagecontents\\calendarcontentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|d:\\notionpv221\\backend\\notionback\\controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4723CD42-7D40-4B0F-B705-F0780F16028A}|NotionBack.csproj|solutionrelative:controllers\\pagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -25,48 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 156,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PageController.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PageController.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Controllers\\PageController.cs",
-              "RelativeToolTip": "Controllers\\PageController.cs",
-              "ViewState": "AQIAAEwAAAAAAAAAAAAQwLYAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T17:33:36.384Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EmailSenderService.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\EmailService\\EmailSenderService.cs",
-              "RelativeDocumentMoniker": "Services\\EmailService\\EmailSenderService.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Services\\EmailService\\EmailSenderService.cs",
-              "RelativeToolTip": "Services\\EmailService\\EmailSenderService.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAwBcAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T18:33:15.354Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CalendarContentRepository.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\Repositories\\pageContents\\pageInPageContents\\CalendarContentRepository.cs",
-              "RelativeDocumentMoniker": "..\\NotionBack.DAL\\Repositories\\pageContents\\pageInPageContents\\CalendarContentRepository.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack.DAL\\Repositories\\pageContents\\pageInPageContents\\CalendarContentRepository.cs",
-              "RelativeToolTip": "..\\NotionBack.DAL\\Repositories\\pageContents\\pageInPageContents\\CalendarContentRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T18:28:18.196Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -94,19 +38,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\NotionPV221\\Backend\\NotionBack\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAAHoAAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T17:43:54.622Z",
-              "EditorCaption": ""
             }
           ]
         }
