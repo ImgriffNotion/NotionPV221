@@ -53,4 +53,4 @@ jobs:
           app-name: 'notion-back'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_646A0F66CEFD47489810CC8755AC4FCC }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D4448442371D42AF8249D6886305B2F2 }}
