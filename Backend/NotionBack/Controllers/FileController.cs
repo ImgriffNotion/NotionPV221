@@ -45,6 +45,11 @@ namespace NotionBack.Controllers
             file.Id = Guid.NewGuid();
             file.Name = body.uploadedFile.FileName;
             file.Url = await _fileStorageService.UploadFile(body);
+            if (file.Url == null)
+            {
+                var response = new RestResponse<String>(400, "The file was corrupted", meta);
+                return Ok(response);
+            }
             await _unitOfWork.Files.Create(await _fileConverter.FromDTO(file));
             await _unitOfWork.Save();
 
@@ -53,31 +58,5 @@ namespace NotionBack.Controllers
             var _response = new RestResponse<FileDTO>(200, file, meta);
             return Ok(_response);
         }
-
-        [HttpPost("gallery-images")]
-        public async Task<IActionResult> GalleryImages([FromForm] FileFormBody body)
-        {
-            var meta = new RestMetaData()
-            {
-                method = "POST",
-                name = "GalleryImages",
-                uri = $"/imgriff/files/user-files",
-                locale = "en-US",
-                serverTime = DateTime.UtcNow
-            };
-
-            if (body == null || body.uploadedFile == null || String.IsNullOrEmpty(body.slug))
-            {
-                var response = new RestResponse<string>(400, "Model is invalid", meta);
-                return Ok(response);
-            }
-
-            var imageUrl = await _fileStorageService.UploadFile(body);
-
-
-            return Ok(imageUrl);
-        }
-
-
     }
 }

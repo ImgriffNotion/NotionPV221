@@ -224,6 +224,35 @@ namespace NotionBack.Controllers
 
         }
 
+        [HttpPut("restore")]
+        public async Task<IActionResult> Restore(String slug)
+        {
+            var meta = new RestMetaData()
+            {
+                method = "PUT",
+                name = "Restore",
+                uri = $"/imgriff/pages/restore?slug={slug}",
+                locale = "en-US",
+                serverTime = DateTime.UtcNow
+            };
+
+
+            try
+            {
+                var pages = await _unitOfWork.Pages.GetPageBySlug(slug);
+                pages.DeleteDt = null;
+                await _unitOfWork.Save();
+
+                var _response = new RestResponse<Object>(200, await _pageConvertService.ToDTO(pages), meta);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
+                return Ok(_response);
+            }
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(String slug)
         {
@@ -248,7 +277,7 @@ namespace NotionBack.Controllers
             }
             catch (Exception ex)
             {
-                var _response = new RestResponse<Object>(200, ex.Message, meta);
+                var _response = new RestResponse<Object>(500, ex.Message, meta);
                 return Ok(_response);
             }
         }
