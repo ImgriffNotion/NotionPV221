@@ -22,7 +22,7 @@ namespace NotionBack.Services.FilesService
             content.Add(new StringContent(_userContext.userId), "userId");
             content.Add(new StringContent(_userContext.userEmail), "userEmail");
 
-            var response = await _httpClient.GetAsync($"{RedirectionURLs._fileLocalUrl}?userId={_userContext.userId}&userEmail={_userContext.userEmail}&fileName={file.Name}");
+            var response = await _httpClient.GetAsync($"{RedirectionURLs._fileProdactionUrl}?userId={_userContext.userId}&userEmail={_userContext.userEmail}&fileName={file.Name}");
             if (!response.IsSuccessStatusCode)
             {
                 return null;
@@ -53,7 +53,7 @@ namespace NotionBack.Services.FilesService
             content.Add(new StringContent(_userContext.userId), "userId");
             content.Add(new StringContent(_userContext.userEmail), "userEmail");
 
-            var response = await _httpClient.PostAsync($"{RedirectionURLs._fileLocalUrl}/upload", content);
+            var response = await _httpClient.PostAsync($"{RedirectionURLs._fileProdactionUrl}/upload", content);
 
             if (!response.IsSuccessStatusCode)
             {
