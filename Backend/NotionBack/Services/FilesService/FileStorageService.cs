@@ -40,7 +40,7 @@ namespace NotionBack.Services.FilesService
         {
             if(file == null || file.uploadedFile == null)
             {
-                return null;
+                throw new Exception("Something went wrong");
             }
 
             using var content = new MultipartFormDataContent();
@@ -57,7 +57,7 @@ namespace NotionBack.Services.FilesService
 
             if (!response.IsSuccessStatusCode)
             {
-                return null;
+                throw new Exception("Is not success");
             }
 
             var json = await response.Content.ReadAsStringAsync();

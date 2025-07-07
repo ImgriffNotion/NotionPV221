@@ -8,32 +8,31 @@ namespace NotionBack.Services.OTPService
     {
         private readonly IDatabase _database = redis.GetDatabase();
         private readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-        
+
+        public async Task RemoveOtp(string email)
+        {
+            var key = $"otp:{email}";
+            await _database.KeyDeleteAsync(key);
+        }
+
         public async Task SaveOtp(string email, string otp, int ttlMinutes = 10)
         {
-            try
+            var key = $"otp:{email}";
+            var enty = new OTPModel
             {
-                var key = $"otp:{email}";
-                var enty = new OTPModel
-                {
-                    otp = otp,
-                    exp = DateTime.UtcNow.AddMinutes(ttlMinutes)
-                };
+                otp = otp,
+                exp = DateTime.UtcNow.AddMinutes(ttlMinutes)
+            };
 
-                string json = JsonSerializer.Serialize(enty, _serializerOptions);
-                await _database.StringSetAsync(key, json, TimeSpan.FromMinutes(ttlMinutes));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
+            string json = JsonSerializer.Serialize(enty, _serializerOptions);
+            await _database.StringSetAsync(key, json, TimeSpan.FromMinutes(ttlMinutes));
         }
 
         public async Task<bool> VerifyOtp(string email, string otp)
         {
             var key = $"otp:{email}";
             string? json = await _database.StringGetAsync(key);
-            if(string.IsNullOrEmpty(json)) return false;
+            if (string.IsNullOrEmpty(json)) return false;
 
             var entry = JsonSerializer.Deserialize<OTPModel>(json, _serializerOptions);
             if (entry == null || entry.exp < DateTime.UtcNow)

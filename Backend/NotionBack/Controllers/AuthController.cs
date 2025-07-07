@@ -106,6 +106,7 @@ namespace NotionBack.Controllers
                 var isSuccessful = await _otpService.VerifyOtp(body.Email, body.Passcode);
                 if (isSuccessful)
                 {
+                    await _otpService.RemoveOtp(body.Email);
                     var user = await _userConvertService.ToDTO((await _unitOfWork.Users.GetUserByEmail(body.Email)));
                     var token = await GetJwtToken(user);
                     SetJwtToCookie(token.Jwt);

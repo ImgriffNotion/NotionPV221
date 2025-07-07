@@ -44,10 +44,18 @@ namespace NotionBack.Controllers
             var file = new FileDTO();
             file.Id = Guid.NewGuid();
             file.Name = body.uploadedFile.FileName;
-            file.Url = await _fileStorageService.UploadFile(body);
-            if (file.Url == null)
+            try
             {
-                var response = new RestResponse<String>(400, "The file was corrupted", meta);
+                file.Url = await _fileStorageService.UploadFile(body);
+                if (file.Url == null)
+                {
+                    var response = new RestResponse<String>(400, $"The file: {file.Name} was corrupted", meta);
+                    return Ok(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                var response = new RestResponse<String>(500, $"The file: {file.Name} was corrupted; \n{ex.Message}", meta);
                 return Ok(response);
             }
             await _unitOfWork.Files.Create(await _fileConverter.FromDTO(file));
