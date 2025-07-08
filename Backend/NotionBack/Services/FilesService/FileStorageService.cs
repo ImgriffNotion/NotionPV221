@@ -57,7 +57,7 @@ namespace NotionBack.Services.FilesService
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Is not success");
+                throw new Exception($"Is not success | Status: {response.StatusCode} | Content: {(response.Content != null? await response.Content.ReadAsStringAsync() : "")}");
             }
 
             var json = await response.Content.ReadAsStringAsync();
