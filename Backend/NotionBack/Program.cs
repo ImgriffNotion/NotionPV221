@@ -26,7 +26,8 @@ builder.Services.AddCors(options =>
                "http://127.0.0.1:5500",
                "http://localhost:3000",
                "https://green-field-0f96be703.2.azurestaticapps.net",
-               "https://calm-plant-09b5e9303.2.azurestaticapps.net"
+               "https://calm-plant-09b5e9303.2.azurestaticapps.net",
+               "https://mango-beach-01f870603.1.azurestaticapps.net"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
