@@ -41,13 +41,7 @@ namespace NotionBack.Services.ConverterService.Page
                 Icon = model.Icon,
                 OwnerId = model.OwnerId,
                 Title = model.Title,
-                Slug = model.Slug,
-                Boards = new List<Board>(),
-                Lists = new List<List>(),
-                Tables = new List<Table>(),
-                Calendars = new List<Calendar>(),
-                Galleries = new List<Gallery>(),
-                JustPageContents = new List<JustPageContent>()
+                Slug = model.Slug
             };
 
             if (model.Content != null && model.Type != null)
@@ -57,6 +51,7 @@ namespace NotionBack.Services.ConverterService.Page
                 {
                     case PageType.Empty:
                         {
+                            page.JustPageContents = new List<JustPageContent>();
                             model.Content = JsonSerializer.Deserialize<EmptyPageContentDTO>(contentElement.GetRawText());
                             if (model.Content != null)
                                 page.JustPageContents.Add(await _emptyConvertService.FromDTO((EmptyPageContentDTO)model.Content));
@@ -64,6 +59,7 @@ namespace NotionBack.Services.ConverterService.Page
                         }
                     case PageType.Board:
                         {
+                            page.Boards = new List<Board>();
                             model.Content = JsonSerializer.Deserialize<BoardDTO>(contentElement.GetRawText());
                             if (model.Content != null)
                                 page.Boards.Add(await _boardConvertService.FromDTO((BoardDTO)model.Content));
@@ -71,6 +67,7 @@ namespace NotionBack.Services.ConverterService.Page
                         }
                     case PageType.List:
                         {
+                            page.Lists = new List<List>();
                             model.Content = JsonSerializer.Deserialize<ListDTO>(contentElement.GetRawText());
                             if (model.Content != null)
                                 page.Lists.Add(await _listConvertService.FromDTO((ListDTO)model.Content));
@@ -78,6 +75,7 @@ namespace NotionBack.Services.ConverterService.Page
                         }
                     case PageType.Calendar:
                         {
+                            page.Calendars = new List<Calendar>();
                             model.Content = JsonSerializer.Deserialize<CalendarDTO>(contentElement.GetRawText());
                             if (model.Content != null)
                                 page.Calendars.Add(await _calendarConvertService.FromDTO((CalendarDTO)model.Content));
@@ -85,6 +83,7 @@ namespace NotionBack.Services.ConverterService.Page
                         }
                     case PageType.Gallery:
                         {
+                            page.Galleries = new List<Gallery>();
                             model.Content = JsonSerializer.Deserialize<GalleryDTO>(contentElement.GetRawText());
                             if (model.Content != null)
                                 page.Galleries.Add(await _galleryConvertService.FromDTO((GalleryDTO)model.Content));
@@ -92,6 +91,7 @@ namespace NotionBack.Services.ConverterService.Page
                         }
                     case PageType.Table:
                         {
+                            page.Tables = new List<Table>();
                             model.Content = JsonSerializer.Deserialize<TableDTO>(contentElement.GetRawText());
                             if (model.Content != null)
                                 page.Tables.Add(await _tableConvertService.FromDTO((TableDTO)model.Content));
